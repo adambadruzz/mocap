@@ -1,11 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/viewmodel/drawer_viewmodel.dart';
 
-class DrawerView extends StatelessWidget {
+class DrawerView extends StatefulWidget {
   final DrawerViewModel viewModel;
 
   DrawerView({required this.viewModel});
+
+  @override
+  _DrawerViewState createState() => _DrawerViewState();
+}
+
+class _DrawerViewState extends State<DrawerView> {
+  String _namaPanjang = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchNamaPanjang();
+  }
+
+  Future<void> _fetchNamaPanjang() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.email)
+        .get();
+    final data = snapshot.data() as Map<String, dynamic>;
+    setState(() {
+      _namaPanjang = data['name'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +39,7 @@ class DrawerView extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          
-           DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
@@ -24,26 +49,14 @@ class DrawerView extends StatelessWidget {
                   radius: 40,
                   backgroundImage: AssetImage('assets/images/google.png'),
                 ),
-                SizedBox(height: 10),
-                Column(
-                  children: [
-                   Text(
-                    '${FirebaseAuth.instance.currentUser!.email}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+                SizedBox(height: 25),
+                Text(
+                      _namaPanjang,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    '${FirebaseAuth.instance.currentUser!.email}',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                  ],
-                ),
               ],
             ),
           ),
@@ -56,7 +69,7 @@ class DrawerView extends StatelessWidget {
               ],
             ),
             onTap: () {
-              viewModel.navigateToHomes();
+              widget.viewModel.navigateToHomes();
             },
           ),
           ListTile(
@@ -68,7 +81,7 @@ class DrawerView extends StatelessWidget {
               ],
             ),
             onTap: () {
-              viewModel.navigateToProfile();
+              widget.viewModel.navigateToProfile();
             },
           ),
           ListTile(
@@ -80,7 +93,7 @@ class DrawerView extends StatelessWidget {
               ],
             ),
             onTap: () {
-              viewModel.navigateToMembers();
+              widget.viewModel.navigateToMembers();
             },
           ),
           ListTile(
@@ -92,7 +105,7 @@ class DrawerView extends StatelessWidget {
               ],
             ),
             onTap: () {
-              viewModel.navigateToCourses();
+              widget.viewModel.navigateToCourses();
             },
           ),
           ListTile(
@@ -104,7 +117,7 @@ class DrawerView extends StatelessWidget {
               ],
             ),
             onTap: () {
-              viewModel.navigateToSettings();
+              widget.viewModel.navigateToSettings();
             },
           ),
           ListTile(
@@ -116,7 +129,7 @@ class DrawerView extends StatelessWidget {
               ],
             ),
             onTap: () {
-              viewModel.navigateToUpdates();
+              widget.viewModel.navigateToUpdates();
             },
           ),
           SizedBox(height: 10,),
@@ -131,10 +144,10 @@ class DrawerView extends StatelessWidget {
             ),
 
             onTap: () {
-              viewModel.logout();
+              widget.viewModel.logout();
             },
           ),
-        ],      
+        ],
       ),
     );
   }

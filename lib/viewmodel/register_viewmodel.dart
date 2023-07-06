@@ -40,7 +40,7 @@ class RegisterViewModel {
           phone: phoneController,
           dob: selectedDate,
           photourl: '11111',
-          role: 'member',
+          role: 'Member',
           email: email,
         );
         Navigator.pop(context);

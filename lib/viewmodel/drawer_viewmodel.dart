@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mocap/services/auth_service.dart';
 import 'package:mocap/view/home_view.dart';
 import 'package:mocap/view/login_view.dart';
+import 'package:mocap/view/member_view.dart';
 import 'package:mocap/view/profile_view.dart';
 import 'package:mocap/viewmodel/profile_viewmodel.dart';
 
@@ -32,7 +33,10 @@ class DrawerViewModel {
   }
 
   void navigateToMembers() {
-      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MemberView()),
+      );
   }
 
   void navigateToSettings() {

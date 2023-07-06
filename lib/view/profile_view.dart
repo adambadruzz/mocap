@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../services/auth_service.dart';
 import '../viewmodel/drawer_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
@@ -42,14 +44,48 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Name: ${_userDetails['name'] ?? 'Loading...'}'),
-            Text('Email: ${_userDetails['email'] ?? 'Loading...'}'),
-            Text('Date of Birth: ${_userDetails['dob'] ?? 'Loading...'}'),
-            Text('Phone: ${_userDetails['phone'] ?? 'Loading...'}'),
-            Text('Role: ${_userDetails['role'] ?? 'Loading...'}'),
+            Card(
+              child: ListTile(
+                title: Text('Name'),
+                subtitle: Text(_userDetails['name'] ?? 'Loading...'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Email'),
+                subtitle: Text(_userDetails['email'] ?? 'Loading...'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Date of Birth'),
+                subtitle: Text(_formatDateOfBirth(_userDetails['dob']) ?? 'Loading...'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Phone'),
+                subtitle: Text(_userDetails['phone'] ?? 'Loading...'),
+              ),
+            ),
+            Card(
+              child: ListTile(
+                title: Text('Role'),
+                subtitle: Text(_userDetails['role'] ?? 'Loading...'),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  String? _formatDateOfBirth(Timestamp? timestamp) {
+    if (timestamp != null) {
+      final dateTime = timestamp.toDate();
+      final formatter = DateFormat('dd MMM yyyy');
+      return formatter.format(dateTime);
+    }
+    return null;
   }
 }
