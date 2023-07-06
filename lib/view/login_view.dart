@@ -114,7 +114,7 @@ class LoginView extends StatelessWidget {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        viewModel.signInWithGoogle();
+                      //  viewModel.signInWithGoogle();
                       },
                       child: Image.asset(
                         'assets/images/google.png',
