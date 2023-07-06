@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "940417655277",
+    "project_id": "mocap-app-2328a",
+    "storage_bucket": "mocap-app-2328a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940417655277:android:42382f2fd604bc757807e4",
+        "android_client_info": {
+          "package_name": "com.example.mocap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940417655277-gbaus8jeonsgk4eji8qi6a6cuo8g6ncs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDInaiOKPm3ETblZGhm_Rd2Ksbdi275qTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "940417655277-gbaus8jeonsgk4eji8qi6a6cuo8g6ncs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "940417655277-1pdho3aavthlu8d9ossn3gu0s0cciesk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mocap"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
