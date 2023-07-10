@@ -4,6 +4,7 @@ class UserModel {
   final DateTime dob;
   final String phone;
   final String role;
+  final String access;
 
   UserModel({
     required this.name,
@@ -11,5 +12,6 @@ class UserModel {
     required this.dob,
     required this.phone,
     required this.role,
+    required this.access,
   });
 }

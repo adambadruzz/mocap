@@ -87,6 +87,18 @@ class _DrawerViewState extends State<DrawerView> {
           ListTile(
             title: Row(
               children: [
+                Icon(Icons.event),
+                SizedBox(width: 10),
+                Text('Event'),
+              ],
+            ),
+            onTap: () {
+              widget.viewModel.navigateToEvent();
+            },
+          ),
+          ListTile(
+            title: Row(
+              children: [
                 Icon(Icons.people),
                 SizedBox(width: 10),
                 Text('Member'),
@@ -120,6 +132,9 @@ class _DrawerViewState extends State<DrawerView> {
               widget.viewModel.navigateToSettings();
             },
           ),
+          SizedBox(height: 10,),
+          Divider(thickness: 2,),
+          
           ListTile(
             title: Row(
               children: [
@@ -132,8 +147,6 @@ class _DrawerViewState extends State<DrawerView> {
               widget.viewModel.navigateToUpdates();
             },
           ),
-          SizedBox(height: 10,),
-          Divider(thickness: 2,),
           ListTile(
             title: Row(
               children: [

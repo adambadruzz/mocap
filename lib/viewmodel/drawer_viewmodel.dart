@@ -28,6 +28,10 @@ class DrawerViewModel {
       );
   }
 
+  void navigateToEvent() {
+      
+  }
+
   void navigateToCourses() {
       
   }

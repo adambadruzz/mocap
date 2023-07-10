@@ -43,6 +43,7 @@ class AuthService {
     required DateTime dob,
     required String photourl,
     required String role,
+    required String access,
     required String email
   }
 ) async {
@@ -53,6 +54,7 @@ class AuthService {
       'role': role,
       'phone': phone,
       'dob': dob,
+      'access': access,
       'photourl': photourl,
     }
   );

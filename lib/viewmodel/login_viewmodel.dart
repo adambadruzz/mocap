@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/services/auth_service.dart';
+import 'package:mocap/view/auth_view.dart';
 import 'package:mocap/view/home_view.dart';
 import 'package:mocap/view/login_view.dart';
 
@@ -29,7 +30,7 @@ class LoginViewModel {
       Navigator.pop(context);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),);
+        MaterialPageRoute(builder: (context) => AuthPage()),);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(context, e.code);
