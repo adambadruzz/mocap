@@ -5,6 +5,9 @@ import '../services/auth_service.dart';
 import '../viewmodel/drawer_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import 'drawer_view.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -15,6 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final ProfileViewModel _profileViewModel = ProfileViewModel();
   Map<String, dynamic> _userDetails = {};
 
+
   @override
   void initState() {
     super.initState();
@@ -22,11 +26,12 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _fetchCurrentUser() async {
-    final userDetails = await _profileViewModel.getCurrentUser();
-    setState(() {
-      _userDetails = userDetails;
-    });
-  }
+  final userDetails = await _profileViewModel.getCurrentUser();
+  setState(() {
+    _userDetails = userDetails;
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +49,18 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Center(
+        child: CircleAvatar(
+          radius: 50,
+          backgroundImage: _userDetails['photourl'] != null
+              ? CachedNetworkImageProvider(_userDetails['photourl']!)
+              : null,
+          child: _userDetails['photourl'] == null
+              ? Icon(Icons.person, size: 50)
+              : null,
+        ),
+      ),
+      SizedBox(height: 16),
             Card(
               child: ListTile(
                 title: Text('Name'),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mocap/view/login_view.dart';
 import 'package:mocap/viewmodel/register_viewmodel.dart';
@@ -5,6 +7,8 @@ import 'package:mocap/viewmodel/register_viewmodel.dart';
 import '../services/auth_service.dart';
 import '../viewmodel/login_viewmodel.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class RegisterView extends StatefulWidget {
@@ -28,6 +32,31 @@ class _RegisterViewState extends State<RegisterView> {
   final phoneController = TextEditingController();
 
   late DateTime selectedDate;
+
+  File? _selectedImage;
+
+Future<void> _selectImage() async {
+  final ImagePicker _picker = ImagePicker();
+  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  if (image != null) {
+    setState(() {
+      _selectedImage = File(image.path);
+    });
+  }
+}
+
+Future<String> _uploadImageToFirebase() async {
+  if (_selectedImage == null) {
+    return '';
+  }
+
+  final Reference storageRef =
+      FirebaseStorage.instance.ref().child('profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+  final UploadTask uploadTask = storageRef.putFile(_selectedImage!);
+  final TaskSnapshot storageSnapshot = await uploadTask;
+  final String downloadUrl = await storageSnapshot.ref.getDownloadURL();
+  return downloadUrl;
+}
 
   @override
     void initState() {
@@ -62,6 +91,31 @@ class _RegisterViewState extends State<RegisterView> {
             Text("Let's create an account for you!",
                 style: TextStyle(fontSize: 20)),
             SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                _selectImage();
+              },
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                  image: _selectedImage != null
+                      ? DecorationImage(
+                          image: FileImage(_selectedImage!),
+                          fit: BoxFit.cover,
+                        )
+                      : null,
+                ),
+                child: _selectedImage == null
+                    ? Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                      )
+                    : null,
+              ),
+            ),
             Padding(
               padding: EdgeInsets.all(10),
               child: TextField(
@@ -156,6 +210,7 @@ class _RegisterViewState extends State<RegisterView> {
                     nameController: nameController.text,
                     phoneController: phoneController.text,
                     selectedDate: selectedDate,
+                    profileImage: _selectedImage,
                     context: context,
                   );
                 },

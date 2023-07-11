@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WaitingView extends StatelessWidget {
 
-  
-
-final Uri _url = Uri.parse('https://flutter.dev');
+final Uri _url = Uri.parse('http://wa.me/6287884273699?text=HaloKak');
 
   Future<void> _openWhatsAppChat() async {
   if (!await launchUrl(_url)) {
@@ -23,7 +22,9 @@ final Uri _url = Uri.parse('https://flutter.dev');
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () {
-              Navigator.pop(context);
+                  Navigator.pop(context);
+            // Memberhentikan aplikasi
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
             },
           ),
         ],

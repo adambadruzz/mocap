@@ -5,6 +5,7 @@ class MemberModel {
   final DateTime dob;
   final String phone;
   final String role;
+  final String photourl;
 
   MemberModel({
     required this.id,
@@ -13,5 +14,6 @@ class MemberModel {
     required this.dob,
     required this.phone,
     required this.role,
+    required this.photourl,
   });
 }

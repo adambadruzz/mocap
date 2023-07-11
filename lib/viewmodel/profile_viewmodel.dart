@@ -11,7 +11,7 @@ class ProfileViewModel {
       if (user != null) {
         final DocumentSnapshot snapshot = await _firestore
             .collection('users')
-            .doc(user.email)
+            .doc(user.uid)
             .get();
         return snapshot.data() as Map<String, dynamic>;
       }

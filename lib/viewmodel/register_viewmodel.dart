@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/services/auth_service.dart';
 import 'package:mocap/view/auth_view.dart';
+import 'package:mocap/view/waiting_view.dart';
 
 import '../view/home_view.dart';
 
@@ -18,7 +21,7 @@ class RegisterViewModel {
     required String nameController,
     required String phoneController,
     required DateTime selectedDate,
-    
+    required File? profileImage,
     required BuildContext context,
   }) async {
     showDialog(
@@ -35,21 +38,27 @@ class RegisterViewModel {
           password: password,
         );
 
+        String profileImageUrl = '';
+      if (profileImage != null) {
+        profileImageUrl = await authService.uploadImageToFirebase(profileImage);
+      }
+
         //add user detail
         await authService.adduserdetail(
+          access: 'Denied',
           name: nameController,
           phone: phoneController,
           dob: selectedDate,
-          photourl: '11111',
+          photourl: profileImageUrl,
           role: 'Member',
-          access: 'Denied',
           email: email,
+          
         );
-        Navigator.pop(context);
         Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => AuthPage()),
       );
+        
 
       } else {
         Navigator.pop(context);

@@ -25,6 +25,7 @@ class MemberViewModel {
         dob: dob,
         phone: data['phone'],
         role: data['role'],
+        photourl: data['photourl'],
       );
     }).toList();
 

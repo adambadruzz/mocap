@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/viewmodel/drawer_viewmodel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 
 class DrawerView extends StatefulWidget {
   final DrawerViewModel viewModel;
@@ -21,17 +24,22 @@ class _DrawerViewState extends State<DrawerView> {
     _fetchNamaPanjang();
   }
 
-  Future<void> _fetchNamaPanjang() async {
-    final user = FirebaseAuth.instance.currentUser;
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.email)
-        .get();
-    final data = snapshot.data() as Map<String, dynamic>;
-    setState(() {
-      _namaPanjang = data['name'];
-    });
-  }
+  String _profilePhotoUrl = '';
+
+Future<void> _fetchNamaPanjang() async {
+  final user = FirebaseAuth.instance.currentUser;
+  final snapshot = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(user!.uid)
+      .get();
+  final data = snapshot.data() as Map<String, dynamic>;
+  final profilePhotoUrl = data['photourl'] as String?;
+  setState(() {
+    _namaPanjang = data['name'];
+    _profilePhotoUrl = profilePhotoUrl ?? '';
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,26 +48,32 @@ class _DrawerViewState extends State<DrawerView> {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Column(
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/images/google.png'),
-                ),
-                SizedBox(height: 25),
-                Text(
-                      _namaPanjang,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-              ],
-            ),
-          ),
+  decoration: BoxDecoration(
+    color: Colors.blue,
+  ),
+  child: Column(
+    children: [
+      CircleAvatar(
+        radius: 40,
+        backgroundImage: _profilePhotoUrl.isNotEmpty
+            ? CachedNetworkImageProvider(_profilePhotoUrl) as ImageProvider<Object>?
+            : null,
+        child: _profilePhotoUrl.isEmpty
+            ? Icon(Icons.person, size: 40)
+            : null,
+      ),
+      SizedBox(height: 25),
+      Text(
+        _namaPanjang,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+      ),
+    ],
+  ),
+),
+
           ListTile(
             title: Row(
               children: [

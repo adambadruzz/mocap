@@ -25,15 +25,16 @@ class AuthPage extends StatelessWidget {
               return StreamBuilder<DocumentSnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('users')
-                    .doc(user.email)
+                    .doc(user.uid)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data != null) {
+                  if (snapshot.hasData && snapshot.data != null && snapshot.data!.exists) {
                     final access = snapshot.data!['access'] as String;
-                    if (access == 'Granted') {
-                      return HomePage();
-                    } else {
+                    if (access == 'Denied' || access == 'Granted' || access == 'Pending' || access == 'OK') {
                       return WaitingView();
+                      
+                    } else {
+                      return HomePage();
                     }
                   } else {
                     return WaitingView();
