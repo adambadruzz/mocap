@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class RegisterView extends StatefulWidget {
   final RegisterViewModel viewModel;
 
@@ -22,50 +21,53 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
-
   final confirmpasswordController = TextEditingController();
-
   final nameController = TextEditingController();
-
   final phoneController = TextEditingController();
-
+  final asalController = TextEditingController();
+  final instagramController = TextEditingController();
+  final whatsappController = TextEditingController();
+  final githubController = TextEditingController();
+  final linkedinController = TextEditingController();
   late DateTime selectedDate;
-
+  late String selectedYear;
   File? _selectedImage;
 
-Future<void> _selectImage() async {
-  final ImagePicker _picker = ImagePicker();
-  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-  if (image != null) {
-    setState(() {
-      _selectedImage = File(image.path);
-    });
-  }
-}
-
-Future<String> _uploadImageToFirebase() async {
-  if (_selectedImage == null) {
-    return '';
+  Future<void> _selectImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
   }
 
-  final Reference storageRef =
-      FirebaseStorage.instance.ref().child('profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
-  final UploadTask uploadTask = storageRef.putFile(_selectedImage!);
-  final TaskSnapshot storageSnapshot = await uploadTask;
-  final String downloadUrl = await storageSnapshot.ref.getDownloadURL();
-  return downloadUrl;
-}
-
-  @override
-    void initState() {
-      super.initState();
-      selectedDate = DateTime.now();
+  Future<String> _uploadImageToFirebase() async {
+    if (_selectedImage == null) {
+      return '';
     }
 
+    final Reference storageRef = FirebaseStorage.instance
+        .ref()
+        .child('profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+    final UploadTask uploadTask = storageRef.putFile(_selectedImage!);
+    final TaskSnapshot storageSnapshot = await uploadTask;
+    final String downloadUrl = await storageSnapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = DateTime.now();
+    selectedYear = DateTime.now().year.toString();
+  }
+
   Future<void> _selectDate(BuildContext context) async {
-      final DateTime? pickedDate = await showDatePicker(
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
@@ -78,6 +80,62 @@ Future<String> _uploadImageToFirebase() async {
     }
   }
 
+  bool validateInputs() {
+  if (_selectedImage == null) {
+    widget.viewModel.showErrorMessage(context, 'Please select an image');
+    return false;
+  }
+
+  if (emailController.text.isEmpty) {
+    widget.viewModel.showErrorMessage(context, 'Please enter an email');
+    return false;
+  }
+
+  if (passwordController.text.isEmpty) {
+    widget.viewModel.showErrorMessage(context, 'Please enter a password');
+    return false;
+  }
+
+  if (confirmpasswordController.text.isEmpty) {
+    widget.viewModel.showErrorMessage(context, 'Please enter a confirm password');
+    return false;
+  }
+
+  if (passwordController.text != confirmpasswordController.text) {
+    widget.viewModel.showErrorMessage(context, 'Password and Confirm Password must be the same');
+    return false;
+  }
+
+  if (nameController.text.isEmpty) {
+    widget.viewModel.showErrorMessage(context, 'Please enter your fullname');
+    return false;
+  }
+
+  if (phoneController.text.isEmpty) {
+    widget.viewModel.showErrorMessage(context, 'Please enter a phone number');
+    return false;
+  }
+
+  if (!phoneController.text.startsWith('62')) {
+    widget.viewModel.showErrorMessage(context, 'Phone number must start with 62');
+    return false;
+  }
+
+  if (selectedYear.isEmpty) {
+    widget.viewModel.showErrorMessage(context, 'Please select the year of entry');
+    return false;
+  }
+
+  if (asalController.text.isEmpty) {
+    widget.viewModel.showErrorMessage(context, 'Please enter your origin');
+    return false;
+  }
+
+  return true;
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +144,6 @@ Future<String> _uploadImageToFirebase() async {
           child: Column(children: [
             SizedBox(height: 20),
             Text('Welcome', style: TextStyle(fontSize: 20)),
-
             SizedBox(height: 20),
             Text("Let's create an account for you!",
                 style: TextStyle(fontSize: 20)),
@@ -137,7 +194,6 @@ Future<String> _uploadImageToFirebase() async {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.all(10),
               child: TextField(
@@ -149,7 +205,6 @@ Future<String> _uploadImageToFirebase() async {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.all(10),
               child: TextField(
@@ -160,98 +215,146 @@ Future<String> _uploadImageToFirebase() async {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.all(10),
               child: TextField(
                 controller: phoneController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'No. Handphone',
+                  labelText: 'Gunakan Format (628)',
                 ),
               ),
             ),
-            
-           Padding(
-                padding: EdgeInsets.all(10),
-                child: InkWell(
-                  onTap: () {
-                    _selectDate(context);
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: DropdownButtonFormField<String>(
+                value: selectedYear,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Angkatan',
+                ),
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      selectedYear = newValue;
+                    });
+                  }
+                },
+                items: List<DropdownMenuItem<String>>.generate(
+                  10, // Jumlah tahun yang ingin ditampilkan
+                  (int index) {
+                    final year = DateTime.now().year - index;
+                    return DropdownMenuItem<String>(
+                      value: year.toString(),
+                      child: Text(year.toString()),
+                    );
                   },
-                  child: InputDecorator(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Birthdate',
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          DateFormat('dd MMM yyyy').format(selectedDate),
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: TextField(
+                controller: asalController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Asal',
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: InkWell(
+                onTap: () {
+                  _selectDate(context);
+                },
+                child: InputDecorator(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Birthdate',
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        DateFormat('dd MMM yyyy').format(selectedDate),
+                        style: TextStyle(
+                          fontSize: 16,
                         ),
-                        Icon(Icons.calendar_today),
-                      ],
-                    ),
+                      ),
+                      Icon(Icons.calendar_today),
+                    ],
                   ),
                 ),
               ),
-
+            ),
             SizedBox(height: 20),
-
             GestureDetector(
-                onTap: () {
+              onTap: () {
+                if (validateInputs()) {
                   widget.viewModel.signUp(
                     email: emailController.text,
                     password: passwordController.text,
                     confirmpassword: confirmpasswordController.text,
                     nameController: nameController.text,
                     phoneController: phoneController.text,
+                    angkatan: selectedYear,
+                    asal: asalController.text,
+                    instagram: instagramController.text.isEmpty
+                        ? 'Not Available'
+                        : instagramController.text,
+                    github: githubController.text.isEmpty 
+                        ? 'Not Available' 
+                        : githubController.text,
+                    linkedin: linkedinController.text.isEmpty
+                        ? 'Not Available'
+                        : linkedinController.text,
                     selectedDate: selectedDate,
                     profileImage: _selectedImage,
                     context: context,
                   );
-                },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.black,
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.black,
+                ),
+                child: Center(
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                  child: Center(
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
-                )),
+                ),
+              ),
+            ),
             SizedBox(height: 20),
-            //register
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Expanded(child: Divider(color: Colors.black)),
-                Text('Already have an account?',
-                    style: TextStyle(fontSize: 15)),
-                //register with text button color blue
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(child: Divider(color: Colors.black)),
+                  Text('Already have an account?',
+                      style: TextStyle(fontSize: 15)),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LoginView(
-                                viewModel: LoginViewModel(
-                                    authService: AuthService()))));
-                  },
-                  child: Text('Login', style: TextStyle(color: Colors.blue)),
-                ),
-                Expanded(child: Divider(color: Colors.black)),
-              ]),
+                          builder: (context) => LoginView(
+                            viewModel: LoginViewModel(authService: AuthService()),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text('Login', style: TextStyle(color: Colors.blue)),
+                  ),
+                  Expanded(child: Divider(color: Colors.black)),
+                ],
+              ),
             ),
           ]),
         ),

@@ -1,23 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../services/auth_service.dart';
-import '../viewmodel/drawer_viewmodel.dart';
+import '../viewmodel/login_viewmodel.dart';
+import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
-import 'drawer_view.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'login_view.dart';
+import 'navbar_view.dart';
 
-
-class ProfilePage extends StatefulWidget {
+class ProfileView extends StatefulWidget {
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfileViewState createState() => _ProfileViewState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfileViewState extends State<ProfileView> {
   final ProfileViewModel _profileViewModel = ProfileViewModel();
-  Map<String, dynamic> _userDetails = {};
+  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
+  Map<String, dynamic> _userDetails = {};
 
   @override
   void initState() {
@@ -26,83 +28,114 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _fetchCurrentUser() async {
-  final userDetails = await _profileViewModel.getCurrentUser();
-  setState(() {
-    _userDetails = userDetails;
-  });
-}
+    final userDetails = await _profileViewModel.getCurrentUser();
+    setState(() {
+      _userDetails = userDetails;
+    });
+  }
 
-
-  @override
-  Widget build(BuildContext context) {
-    final drawerViewModel = DrawerViewModel(
-      authService: AuthService(),
-      context: context,
-    );
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
-      drawer: DrawerView(viewModel: drawerViewModel),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-        child: CircleAvatar(
-          radius: 50,
-          backgroundImage: _userDetails['photourl'] != null
-              ? CachedNetworkImageProvider(_userDetails['photourl']!)
-              : null,
-          child: _userDetails['photourl'] == null
-              ? Icon(Icons.person, size: 50)
-              : null,
-        ),
-      ),
-      SizedBox(height: 16),
-            Card(
-              child: ListTile(
-                title: Text('Name'),
-                subtitle: Text(_userDetails['name'] ?? 'Loading...'),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                title: Text('Email'),
-                subtitle: Text(_userDetails['email'] ?? 'Loading...'),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                title: Text('Date of Birth'),
-                subtitle: Text(_formatDateOfBirth(_userDetails['dob']) ?? 'Loading...'),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                title: Text('Phone'),
-                subtitle: Text(_userDetails['phone'] ?? 'Loading...'),
-              ),
-            ),
-            Card(
-              child: ListTile(
-                title: Text('Role'),
-                subtitle: Text(_userDetails['role'] ?? 'Loading...'),
-              ),
-            ),
-          ],
+  void _logout() {
+    _profileViewModel.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginView(
+          viewModel: LoginViewModel(authService: AuthService()),
         ),
       ),
     );
   }
 
-  String? _formatDateOfBirth(Timestamp? timestamp) {
-    if (timestamp != null) {
-      final dateTime = timestamp.toDate();
-      final formatter = DateFormat('dd MMM yyyy');
-      return formatter.format(dateTime);
-    }
-    return null;
+  void _updateProfile() {
+    // Add your logic here for updating the profile
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile'),
+        
+      ),
+      body: DefaultTabController(
+        length: 3, // Update the length to 3 for the additional tab
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey.shade300),
+                ),
+              ),
+              child: TabBar(
+                labelColor: Colors.black,
+                indicatorColor: Colors.green.shade700,
+                tabs: [
+                  Tab(text: 'Information'),
+                  Tab(text: 'Social Media'),
+                  Tab(text: 'Settings'), // Add the new tab for settings
+                ],
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  // Existing code for 'Information' tab
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Existing code for 'Information' tab
+                          // ...
+                        ],
+                      ),
+                    ),
+                  ),
+                  // Existing code for 'Social Media' tab
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Existing code for 'Social Media' tab
+                          // ...
+                        ],
+                      ),
+                    ),
+                  ),
+                  // New code for 'Settings' tab
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+                            leading: Icon(Icons.logout),
+                            title: Text('Logout'),
+                            onTap: _logout,
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.update),
+                            title: Text('Update'),
+                            onTap: _updateProfile,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: NavBarView(
+        viewModel: _navBarViewModel,
+      ),
+    );
   }
 }

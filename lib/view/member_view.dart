@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/member_model.dart';
 import '../services/auth_service.dart';
-import '../viewmodel/drawer_viewmodel.dart';
 import '../viewmodel/member_viewmodel.dart';
+import '../viewmodel/navbar_viewmodel.dart';
 import 'detailmember_view.dart';
-import 'drawer_view.dart';
+import 'navbar_view.dart';
 
 class MemberView extends StatefulWidget {
   const MemberView({Key? key}) : super(key: key);
@@ -16,6 +16,8 @@ class MemberView extends StatefulWidget {
 
 class _MemberViewState extends State<MemberView> {
   final MemberViewModel _memberViewModel = MemberViewModel();
+      final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
+
   List<MemberModel> _leaders = [];
   List<MemberModel> _coleaders = [];
   List<MemberModel> _secretary = [];
@@ -60,15 +62,11 @@ class _MemberViewState extends State<MemberView> {
 
   @override
   Widget build(BuildContext context) {
-    final drawerViewModel = DrawerViewModel(
-      authService: AuthService(),
-      context: context,
-    );
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Member List'),
       ),
-      drawer: DrawerView(viewModel: drawerViewModel),
       body: ListView(
         children: [
           if (_leaders.isNotEmpty)
@@ -387,6 +385,9 @@ class _MemberViewState extends State<MemberView> {
           ),
           Divider(thickness: 3),
         ],
+      ),
+      bottomNavigationBar: NavBarView(
+        viewModel: _navBarViewModel,
       ),
     );
   }

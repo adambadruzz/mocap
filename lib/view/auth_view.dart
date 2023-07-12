@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/view/login_view.dart';
+import 'package:mocap/view/navbar_view.dart';
 import '../services/auth_service.dart';
+import '../viewmodel/home_viemodel.dart';
 import 'home_view.dart';
 import '../viewmodel/login_viewmodel.dart';
 import 'waiting_view.dart'; // Import waiting_view.dart
@@ -34,7 +36,7 @@ class AuthPage extends StatelessWidget {
                       return WaitingView();
                       
                     } else {
-                      return HomePage();
+                      return HomeView(viewModel: HomeViewModel(context: context)); // Navigate to home view if access is not denied
                     }
                   } else {
                     return WaitingView();

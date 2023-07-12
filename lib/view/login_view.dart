@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mocap/view/register_view.dart';
 import 'package:mocap/view/resetpass_view.dart';
-
 import '../services/auth_service.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/register_viewmodel.dart';
@@ -14,8 +13,6 @@ class LoginView extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -114,11 +111,11 @@ class LoginView extends StatelessWidget {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                      //  viewModel.signInWithGoogle();
+                        viewModel.signInWithGoogle();
                       },
                       child: Image.asset(
                         'assets/images/google.png',
-                        width: 30,
+                        width: 50,
                       ),
                     ),
                   ),

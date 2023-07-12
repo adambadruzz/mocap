@@ -26,6 +26,11 @@ class MemberViewModel {
         phone: data['phone'],
         role: data['role'],
         photourl: data['photourl'],
+        asal: data['asal'],
+        angkatan: data['angkatan'],
+        instagram: data['instagram'],
+        github: data['github'],
+        linkedin: data['linkedin'],
       );
     }).toList();
 

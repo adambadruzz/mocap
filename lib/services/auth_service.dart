@@ -57,17 +57,22 @@ class AuthService {
   }
 }
 
-
   Future<void> adduserdetail(
   {
-    required String name,
-    required String phone,
-    required DateTime dob,
-    required String photourl,
-    required String role,
     required String access,
-    required String email
+  required String name,
+  required String email,
+  required DateTime dob,
+  required String asal,
+  required String phone,
+  required String role,
+  required String angkatan,
+  required String photourl,
+  required String instagram,
+  required String github,
+  required String linkedin,
   }
+
 ) async {
   await _firebasefirestore.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).set(
     {
@@ -78,6 +83,11 @@ class AuthService {
       'phone': phone,
       'dob': dob,
       'photourl': photourl,
+      'asal': asal,
+      'angkatan': angkatan,
+      'instagram': instagram,
+      'github': github,
+      'linkedin': linkedin,
     }
   );
 }

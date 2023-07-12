@@ -13,13 +13,17 @@ class RegisterViewModel {
 
   RegisterViewModel({required this.authService});
 
-  
   void signUp({
     required String email,
     required String password,
     required String confirmpassword,
     required String nameController,
     required String phoneController,
+    required String angkatan,
+    required String asal,
+    required String instagram,
+    required String github,
+    required String linkedin,
     required DateTime selectedDate,
     required File? profileImage,
     required BuildContext context,
@@ -39,9 +43,10 @@ class RegisterViewModel {
         );
 
         String profileImageUrl = '';
-      if (profileImage != null) {
-        profileImageUrl = await authService.uploadImageToFirebase(profileImage);
-      }
+        if (profileImage != null) {
+          profileImageUrl =
+              await authService.uploadImageToFirebase(profileImage);
+        }
 
         //add user detail
         await authService.adduserdetail(
@@ -52,25 +57,26 @@ class RegisterViewModel {
           photourl: profileImageUrl,
           role: 'Member',
           email: email,
-          
+          angkatan: angkatan,
+          asal: asal,
+          instagram: instagram,
+          github: github,
+          linkedin: linkedin,
         );
-        Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => AuthPage()),
-      );
-        
 
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => AuthPage()),
+        );
       } else {
         Navigator.pop(context);
         showErrorMessage(context, 'Password and Confirm Password must be same');
-      
       }
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(context, e.code);
     }
   }
-
 
   void showErrorMessage(BuildContext context, String message) {
     showDialog(
