@@ -2,13 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import '../services/auth_service.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import 'login_view.dart';
 import 'navbar_view.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -20,6 +24,42 @@ class _ProfileViewState extends State<ProfileView> {
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   Map<String, dynamic> _userDetails = {};
+
+  Future<void> _checkForUpdate() async {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+
+    try {
+      await remoteConfig.fetchAndActivate();
+
+      final updateUrl = remoteConfig.getString('github_update_url');
+
+      final appDocDir = await getExternalStorageDirectory();
+      final downloadDir = '${appDocDir!.path}/Download'; // Folder Download bawaan di Android
+
+      final taskId = await FlutterDownloader.enqueue(
+        url: updateUrl,
+        savedDir: downloadDir,
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+
+      FlutterDownloader.registerCallback((id, status, progress) async {
+        if (taskId == id && status == DownloadTaskStatus.complete) {
+          final filePath = '$downloadDir/MOCAP.apk'; // Ganti 'apkFileName' dengan nama APK Anda
+
+          try {
+            if (taskId != null) {
+              await FlutterDownloader.open(taskId: taskId);
+            }
+          } on PlatformException catch (e) {
+            print('Error opening file: $e');
+          }
+        }
+      });
+    } catch (e) {
+      print('Error checking for update: $e');
+    }
+  }
 
   @override
   void initState() {
@@ -44,21 +84,20 @@ class _ProfileViewState extends State<ProfileView> {
         ),
       ),
     );
+    // Add your logic here to navigate to the login or home page
   }
 
-  void _updateProfile() {
-    // Add your logic here for updating the profile
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
-        
+       
       ),
       body: DefaultTabController(
-        length: 3, // Update the length to 3 for the additional tab
+        length: 3, // Updated to include the new "Settings" tab
         child: Column(
           children: [
             Container(
@@ -73,55 +112,190 @@ class _ProfileViewState extends State<ProfileView> {
                 tabs: [
                   Tab(text: 'Information'),
                   Tab(text: 'Social Media'),
-                  Tab(text: 'Settings'), // Add the new tab for settings
+                  Tab(text: 'Settings'), // New "Settings" tab
                 ],
               ),
             ),
             Expanded(
               child: TabBarView(
                 children: [
-                  // Existing code for 'Information' tab
                   SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Existing code for 'Information' tab
-                          // ...
+                          Center(
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage: _userDetails['photourl'] != null
+                                  ? CachedNetworkImageProvider(
+                                      _userDetails['photourl']!,
+                                    )
+                                  : null,
+                              child: _userDetails['photourl'] == null
+                                  ? Icon(Icons.person, size: 50)
+                                  : null,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Card(
+                            child: ListTile(
+                              title: Text('Name'),
+                              subtitle: Text(
+                                _userDetails['name'] ?? 'Loading...',
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              title: Text('Email'),
+                              subtitle: Text(
+                                _userDetails['email'] ?? 'Loading...',
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              title: Text('Date of Birth'),
+                              subtitle: Text(
+                                _formatDateOfBirth(_userDetails['dob']) ??
+                                    'Loading...',
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              title: Text('Phone'),
+                              subtitle: Text(
+                                _userDetails['phone'] ?? 'Loading...',
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              title: Text('Role'),
+                              subtitle: Text(
+                                _userDetails['role'] ?? 'Loading...',
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              title: Text('Asal'),
+                              subtitle: Text(
+                                _userDetails['asal'] ?? 'Loading...',
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: ListTile(
+                              title: Text('Angkatan'),
+                              subtitle: Text(
+                                _userDetails['angkatan'] ?? 'Loading...',
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  // Existing code for 'Social Media' tab
                   SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Existing code for 'Social Media' tab
-                          // ...
+                          Center(
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage: _userDetails['photourl'] != null
+                                  ? CachedNetworkImageProvider(
+                                      _userDetails['photourl']!,
+                                    )
+                                  : null,
+                              child: _userDetails['photourl'] == null
+                                  ? Icon(Icons.person, size: 50)
+                                  : null,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          ListTile(
+                            leading: Image.asset(
+                              'assets/images/whatsapp.png',
+                              width: 30,
+                            ),
+                            title: Text('Whatsapp'),
+                            subtitle: Text(
+                              _userDetails['phone'] ?? 'Not Available',
+                            ),
+                            onTap: () {
+                              // Add your logic here to open Whatsapp profile
+                            },
+                          ),
+                          SizedBox(height: 16),
+                          ListTile(
+                            leading: Image.asset(
+                              'assets/images/instagram.png',
+                              width: 30,
+                            ),
+                            title: Text('Instagram'),
+                            subtitle: Text(
+                              _userDetails['instagram'] ?? 'Not Available',
+                            ),
+                            onTap: () {
+                              // Add your logic here to open Instagram profile
+                            },
+                          ),
+                          SizedBox(height: 16),
+                          ListTile(
+                            leading: Image.asset(
+                              'assets/images/linkedin.png',
+                              width: 30,
+                            ),
+                            title: Text('Linkedin'),
+                            subtitle: Text(
+                              _userDetails['linkedin'] ?? 'Not Available',
+                            ),
+                            onTap: () {
+                              // Add your logic here to open Linkedin profile
+                            },
+                          ),
+                          SizedBox(height: 16),
+                          ListTile(
+                            leading: Image.asset(
+                              'assets/images/github.png',
+                              width: 30,
+                            ),
+                            title: Text('Github'),
+                            subtitle: Text(
+                              _userDetails['github'] ?? 'Not Available',
+                            ),
+                            onTap: () {
+                              _checkForUpdate();
+                            },
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  // New code for 'Settings' tab
                   SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(height: 16),
                           ListTile(
                             leading: Icon(Icons.logout),
                             title: Text('Logout'),
                             onTap: _logout,
                           ),
+                          SizedBox(height: 16),
                           ListTile(
                             leading: Icon(Icons.update),
                             title: Text('Update'),
-                            onTap: _updateProfile,
+                            onTap: _checkForUpdate,
                           ),
                         ],
                       ),
@@ -137,5 +311,14 @@ class _ProfileViewState extends State<ProfileView> {
         viewModel: _navBarViewModel,
       ),
     );
+  }
+
+  String? _formatDateOfBirth(Timestamp? timestamp) {
+    if (timestamp != null) {
+      final dateTime = timestamp.toDate();
+      final formatter = DateFormat('dd MMM yyyy');
+      return formatter.format(dateTime);
+    }
+    return null;
   }
 }

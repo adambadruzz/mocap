@@ -131,7 +131,19 @@
 -keep class android.app.Application { <init>(); }
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
 -keep class androidx.profileinstaller.ProfileInstallReceiver { <init>(); }
+-keep class androidx.room.MultiInstanceInvalidationService { <init>(); }
 -keep class androidx.startup.InitializationProvider { <init>(); }
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy { <init>(); }
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy { <init>(); }
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy { <init>(); }
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy { <init>(); }
+-keep class androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver { <init>(); }
+-keep class androidx.work.impl.background.systemalarm.RescheduleReceiver { <init>(); }
+-keep class androidx.work.impl.background.systemalarm.SystemAlarmService { <init>(); }
+-keep class androidx.work.impl.background.systemjob.SystemJobService { <init>(); }
+-keep class androidx.work.impl.diagnostics.DiagnosticsReceiver { <init>(); }
+-keep class androidx.work.impl.foreground.SystemForegroundService { <init>(); }
+-keep class androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver { <init>(); }
 -keep class com.example.mocap.MainActivity { <init>(); }
 -keep class com.google.android.gms.auth.api.signin.RevocationBoundService { <init>(); }
 -keep class com.google.android.gms.auth.api.signin.internal.SignInHubActivity { <init>(); }
@@ -379,6 +391,17 @@
 
 
 # End of content from C:\Users\Adam\.gradle\caches\transforms-3\f5aeeb70e4aa208ac830e747eaf33ddc\transformed\jetified-play-services-basement-18.2.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\Adam\.gradle\caches\transforms-3\c8e25f60706e198163525ec7d2d7c16e\transformed\work-runtime-2.7.1\proguard.txt
+-keep class * extends androidx.work.Worker
+-keep class * extends androidx.work.InputMerger
+# Keep all constructors on ListenableWorker, Worker (also marked with @Keep)
+-keep public class * extends androidx.work.ListenableWorker {
+    public <init>(...);
+}
+# We need to keep WorkerParameters for the ListenableWorker constructor
+-keep class androidx.work.WorkerParameters
+
+# End of content from C:\Users\Adam\.gradle\caches\transforms-3\c8e25f60706e198163525ec7d2d7c16e\transformed\work-runtime-2.7.1\proguard.txt
 # The proguard configuration file for the following section is C:\Users\Adam\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\proguard.txt
 # Copyright (C) 2020 The Android Open Source Project
 #
@@ -537,6 +560,11 @@
 -assumenosideeffects class androidx.startup.StartupLogger { public static <methods>; }
 
 # End of content from C:\Users\Adam\.gradle\caches\transforms-3\d2a7f03e118140f639e8945afb58cddb\transformed\jetified-startup-runtime-1.1.1\proguard.txt
+# The proguard configuration file for the following section is C:\Users\Adam\.gradle\caches\transforms-3\b4be91b71dbb8833b028ca23c612f59e\transformed\room-runtime-2.2.5\proguard.txt
+-keep class * extends androidx.room.RoomDatabase
+-dontwarn androidx.room.paging.**
+
+# End of content from C:\Users\Adam\.gradle\caches\transforms-3\b4be91b71dbb8833b028ca23c612f59e\transformed\room-runtime-2.2.5\proguard.txt
 # The proguard configuration file for the following section is C:\Users\Adam\.gradle\caches\transforms-3\47ecd4e588b99ef3b772f04d5aa6c9b7\transformed\versionedparcelable-1.1.1\proguard.txt
 -keep class * implements androidx.versionedparcelable.VersionedParcelable
 -keep public class android.support.**Parcelizer { *; }

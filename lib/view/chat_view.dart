@@ -10,7 +10,7 @@ class ChatView extends StatelessWidget {
         title: Text('Chat'),
       ),
       body: Center(
-        child: Text('Chat Page'),
+        child: Text('Chat UPDATE Page'),
       ),
     );
   }

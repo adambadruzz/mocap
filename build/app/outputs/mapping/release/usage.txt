@@ -21,10 +21,19 @@ android.support.customtabs.trusted.ITrustedWebActivityService$Stub$Proxy
 android.support.customtabs.trusted.ITrustedWebActivityService$Stub
 android.support.customtabs.trusted.ITrustedWebActivityService
 android.support.v4.app.INotificationSideChannel$Default
-android.support.v4.app.INotificationSideChannel$Stub$Proxy
-android.support.v4.app.INotificationSideChannel$Stub
-android.support.v4.app.INotificationSideChannel$_Parcel
-android.support.v4.app.INotificationSideChannel
+android.support.v4.app.INotificationSideChannel$Stub$Proxy:
+    public java.lang.String getInterfaceDescriptor()
+android.support.v4.app.INotificationSideChannel$Stub:
+    static final int TRANSACTION_cancel
+    static final int TRANSACTION_cancelAll
+    static final int TRANSACTION_notify
+    public void <init>()
+    public android.os.IBinder asBinder()
+    public boolean onTransact(int,android.os.Parcel,android.os.Parcel,int)
+android.support.v4.app.INotificationSideChannel$_Parcel:
+    public void <init>()
+    static synthetic java.lang.Object access$000(android.os.Parcel,android.os.Parcelable$Creator)
+    private static java.lang.Object readTypedObject(android.os.Parcel,android.os.Parcelable$Creator)
 android.support.v4.os.IResultReceiver$Default
 android.support.v4.os.IResultReceiver$Stub$Proxy
 android.support.v4.os.IResultReceiver$Stub
@@ -282,7 +291,6 @@ androidx.annotation.experimental.R
 androidx.annotation.experimental.UseExperimental
 androidx.arch.core.R
 androidx.arch.core.executor.ArchTaskExecutor:
-    public static java.util.concurrent.Executor getIOThreadExecutor()
     public static java.util.concurrent.Executor getMainThreadExecutor()
     public void setDelegate(androidx.arch.core.executor.TaskExecutor)
 androidx.arch.core.executor.DefaultTaskExecutor$1:
@@ -291,7 +299,8 @@ androidx.arch.core.executor.DefaultTaskExecutor$Api28Impl:
     private void <init>()
 androidx.arch.core.executor.TaskExecutor:
     public void executeOnMainThread(java.lang.Runnable)
-androidx.arch.core.util.Function
+androidx.arch.core.util.Function:
+    public abstract java.lang.Object apply(java.lang.Object)
 androidx.browser.R$color
 androidx.browser.R$dimen:
     private void <init>()
@@ -830,9 +839,6 @@ androidx.core.app.NotificationCompat$Builder:
     public androidx.core.app.NotificationCompat$Builder setLocusId(androidx.core.content.LocusIdCompat)
     public androidx.core.app.NotificationCompat$Builder setNotificationSilent()
     public androidx.core.app.NotificationCompat$Builder setNumber(int)
-    public androidx.core.app.NotificationCompat$Builder setOngoing(boolean)
-    public androidx.core.app.NotificationCompat$Builder setOnlyAlertOnce(boolean)
-    public androidx.core.app.NotificationCompat$Builder setProgress(int,int,boolean)
     public androidx.core.app.NotificationCompat$Builder setPublicVersion(android.app.Notification)
     public androidx.core.app.NotificationCompat$Builder setRemoteInputHistory(java.lang.CharSequence[])
     public androidx.core.app.NotificationCompat$Builder setSettingsText(java.lang.CharSequence)
@@ -1120,15 +1126,17 @@ androidx.core.app.NotificationCompatSideChannelService$NotificationSideChannelSt
 androidx.core.app.NotificationCompatSideChannelService
 androidx.core.app.NotificationManagerCompat$Api24Impl:
     private void <init>()
-androidx.core.app.NotificationManagerCompat$Api26Impl
+androidx.core.app.NotificationManagerCompat$Api26Impl:
+    private void <init>()
 androidx.core.app.NotificationManagerCompat$Api28Impl
 androidx.core.app.NotificationManagerCompat$Api30Impl
-androidx.core.app.NotificationManagerCompat$CancelTask
-androidx.core.app.NotificationManagerCompat$NotifyTask
-androidx.core.app.NotificationManagerCompat$ServiceConnectedEvent
-androidx.core.app.NotificationManagerCompat$SideChannelManager$ListenerRecord
-androidx.core.app.NotificationManagerCompat$SideChannelManager
-androidx.core.app.NotificationManagerCompat$Task
+androidx.core.app.NotificationManagerCompat$CancelTask:
+    void <init>(java.lang.String)
+androidx.core.app.NotificationManagerCompat$SideChannelManager:
+    private static final int MSG_QUEUE_TASK
+    private static final int MSG_RETRY_LISTENER_QUEUE
+    private static final int MSG_SERVICE_CONNECTED
+    private static final int MSG_SERVICE_DISCONNECTED
 androidx.core.app.NotificationManagerCompat:
     public static final java.lang.String ACTION_BIND_SIDE_CHANNEL
     private static final java.lang.String CHECK_OP_NO_THROW
@@ -1146,12 +1154,7 @@ androidx.core.app.NotificationManagerCompat:
     private static final int SIDE_CHANNEL_RETRY_BASE_INTERVAL_MS
     private static final int SIDE_CHANNEL_RETRY_MAX_COUNT
     private static final java.lang.String TAG
-    private static java.lang.String sEnabledNotificationListeners
-    private static androidx.core.app.NotificationManagerCompat$SideChannelManager sSideChannelManager
-    public void cancel(int)
-    public void cancel(java.lang.String,int)
     public void cancelAll()
-    public void createNotificationChannel(android.app.NotificationChannel)
     public void createNotificationChannel(androidx.core.app.NotificationChannelCompat)
     public void createNotificationChannelGroup(android.app.NotificationChannelGroup)
     public void createNotificationChannelGroup(androidx.core.app.NotificationChannelGroupCompat)
@@ -1162,7 +1165,6 @@ androidx.core.app.NotificationManagerCompat:
     public void deleteNotificationChannel(java.lang.String)
     public void deleteNotificationChannelGroup(java.lang.String)
     public void deleteUnlistedNotificationChannels(java.util.Collection)
-    public static java.util.Set getEnabledListenerPackages(android.content.Context)
     public int getImportance()
     public android.app.NotificationChannel getNotificationChannel(java.lang.String)
     public android.app.NotificationChannel getNotificationChannel(java.lang.String,java.lang.String)
@@ -1174,10 +1176,6 @@ androidx.core.app.NotificationManagerCompat:
     public java.util.List getNotificationChannelGroupsCompat()
     public java.util.List getNotificationChannels()
     public java.util.List getNotificationChannelsCompat()
-    public void notify(int,android.app.Notification)
-    public void notify(java.lang.String,int,android.app.Notification)
-    private void pushSideChannelQueue(androidx.core.app.NotificationManagerCompat$Task)
-    private static boolean useSideChannelForNotification(android.app.Notification)
 androidx.core.app.OnMultiWindowModeChangedProvider
 androidx.core.app.OnNewIntentProvider
 androidx.core.app.OnPictureInPictureModeChangedProvider
@@ -1304,7 +1302,8 @@ androidx.core.content.ContextCompat$Api21Impl
 androidx.core.content.ContextCompat$Api23Impl
 androidx.core.content.ContextCompat$Api24Impl:
     private void <init>()
-androidx.core.content.ContextCompat$Api26Impl
+androidx.core.content.ContextCompat$Api26Impl:
+    private void <init>()
 androidx.core.content.ContextCompat$Api28Impl:
     private void <init>()
 androidx.core.content.ContextCompat$Api30Impl
@@ -1331,12 +1330,10 @@ androidx.core.content.ContextCompat:
     public static java.lang.Object getSystemService(android.content.Context,java.lang.Class)
     public static java.lang.String getSystemServiceName(android.content.Context,java.lang.Class)
     public static boolean isDeviceProtectedStorage(android.content.Context)
-    static java.lang.String obtainAndCheckReceiverPermission(android.content.Context)
     public static android.content.Intent registerReceiver(android.content.Context,android.content.BroadcastReceiver,android.content.IntentFilter,int)
     public static android.content.Intent registerReceiver(android.content.Context,android.content.BroadcastReceiver,android.content.IntentFilter,java.lang.String,android.os.Handler,int)
     public static boolean startActivities(android.content.Context,android.content.Intent[])
     public static boolean startActivities(android.content.Context,android.content.Intent[],android.os.Bundle)
-    public static void startForegroundService(android.content.Context,android.content.Intent)
 androidx.core.content.ContextKt
 androidx.core.content.FileProvider$Api21Impl:
     private void <init>()
@@ -1659,10 +1656,17 @@ androidx.core.location.LocationRequestCompat$Builder
 androidx.core.location.LocationRequestCompat$Quality
 androidx.core.location.LocationRequestCompat
 androidx.core.math.MathUtils
-androidx.core.net.ConnectivityManagerCompat$Api16Impl
+androidx.core.net.ConnectivityManagerCompat$Api16Impl:
+    private void <init>()
 androidx.core.net.ConnectivityManagerCompat$Api24Impl
 androidx.core.net.ConnectivityManagerCompat$RestrictBackgroundStatus
-androidx.core.net.ConnectivityManagerCompat
+androidx.core.net.ConnectivityManagerCompat:
+    public static final int RESTRICT_BACKGROUND_STATUS_DISABLED
+    public static final int RESTRICT_BACKGROUND_STATUS_ENABLED
+    public static final int RESTRICT_BACKGROUND_STATUS_WHITELISTED
+    private void <init>()
+    public static android.net.NetworkInfo getNetworkInfoFromBroadcast(android.net.ConnectivityManager,android.content.Intent)
+    public static int getRestrictBackgroundStatus(android.net.ConnectivityManager)
 androidx.core.net.DatagramSocketWrapper$DatagramSocketImplWrapper
 androidx.core.net.DatagramSocketWrapper
 androidx.core.net.MailTo
@@ -1683,7 +1687,6 @@ androidx.core.os.BuildCompat:
     public static boolean isAtLeastP()
     public static boolean isAtLeastQ()
     public static boolean isAtLeastR()
-    public static boolean isAtLeastS()
     public static boolean isAtLeastSv2()
     public static boolean isAtLeastU()
 androidx.core.os.BundleCompat$Api33Impl
@@ -1703,9 +1706,17 @@ androidx.core.os.EnvironmentCompat$Api21Impl
 androidx.core.os.EnvironmentCompat
 androidx.core.os.ExecutorCompat:
     private void <init>()
-androidx.core.os.HandlerCompat$Api28Impl
+androidx.core.os.HandlerCompat$Api28Impl:
+    private void <init>()
+    public static android.os.Handler createAsync(android.os.Looper,android.os.Handler$Callback)
+    public static boolean postDelayed(android.os.Handler,java.lang.Runnable,java.lang.Object,long)
 androidx.core.os.HandlerCompat$Api29Impl
-androidx.core.os.HandlerCompat
+androidx.core.os.HandlerCompat:
+    private static final java.lang.String TAG
+    private void <init>()
+    public static android.os.Handler createAsync(android.os.Looper,android.os.Handler$Callback)
+    public static boolean hasCallbacks(android.os.Handler,java.lang.Runnable)
+    public static boolean postDelayed(android.os.Handler,java.lang.Runnable,java.lang.Object,long)
 androidx.core.os.HandlerKt$postAtTime$runnable$1
 androidx.core.os.HandlerKt$postDelayed$runnable$1
 androidx.core.os.HandlerKt
@@ -3406,6 +3417,7 @@ androidx.fragment.app.FragmentTransition:
 androidx.fragment.app.ListFragment$1
 androidx.fragment.app.ListFragment$2
 androidx.fragment.app.ListFragment
+androidx.inspection.work.runtime.ProguardDetection
 androidx.interpolator.R
 androidx.interpolator.view.animation.FastOutLinearInInterpolator
 androidx.interpolator.view.animation.FastOutSlowInInterpolator
@@ -3526,6 +3538,8 @@ androidx.lifecycle.SavedStateHandlesProvider:
     public final android.os.Bundle consumeRestoredStateForKey(java.lang.String)
 androidx.lifecycle.SavedStateViewModelFactory
 androidx.lifecycle.SavedStateViewModelFactoryKt
+androidx.lifecycle.ServiceLifecycleDispatcher$DispatchRunnable:
+    public final androidx.lifecycle.Lifecycle$Event getEvent()
 androidx.lifecycle.Transformations$distinctUntilChanged$1
 androidx.lifecycle.Transformations$map$1
 androidx.lifecycle.Transformations$map$2
@@ -3587,6 +3601,7 @@ androidx.lifecycle.livedata.core.R
 androidx.lifecycle.runtime.R$id:
     private void <init>()
 androidx.lifecycle.runtime.R
+androidx.lifecycle.service.R
 androidx.lifecycle.viewmodel.CreationExtras$Empty:
     public java.lang.Object get(androidx.lifecycle.viewmodel.CreationExtras$Key)
 androidx.lifecycle.viewmodel.CreationExtras:
@@ -3785,6 +3800,176 @@ androidx.profileinstaller.ProfileVersion:
     public static final int MIN_SUPPORTED_SDK
     private void <init>()
 androidx.profileinstaller.R
+androidx.room.ColumnInfo$Collate
+androidx.room.ColumnInfo$SQLiteTypeAffinity
+androidx.room.ColumnInfo
+androidx.room.Dao
+androidx.room.Database
+androidx.room.DatabaseConfiguration:
+    public void <init>(android.content.Context,java.lang.String,androidx.sqlite.db.SupportSQLiteOpenHelper$Factory,androidx.room.RoomDatabase$MigrationContainer,java.util.List,boolean,androidx.room.RoomDatabase$JournalMode,java.util.concurrent.Executor,java.util.concurrent.Executor,boolean,boolean,boolean,java.util.Set)
+    public void <init>(android.content.Context,java.lang.String,androidx.sqlite.db.SupportSQLiteOpenHelper$Factory,androidx.room.RoomDatabase$MigrationContainer,java.util.List,boolean,androidx.room.RoomDatabase$JournalMode,java.util.concurrent.Executor,boolean,java.util.Set)
+    public boolean isMigrationRequiredFrom(int)
+androidx.room.DatabaseView
+androidx.room.Delete
+androidx.room.Embedded
+androidx.room.Entity
+androidx.room.EntityDeletionOrUpdateAdapter
+androidx.room.EntityInsertionAdapter:
+    public final void insert(java.lang.Iterable)
+    public final void insert(java.lang.Object[])
+    public final long insertAndReturnId(java.lang.Object)
+    public final long[] insertAndReturnIdsArray(java.util.Collection)
+    public final long[] insertAndReturnIdsArray(java.lang.Object[])
+    public final java.lang.Long[] insertAndReturnIdsArrayBox(java.util.Collection)
+    public final java.lang.Long[] insertAndReturnIdsArrayBox(java.lang.Object[])
+    public final java.util.List insertAndReturnIdsList(java.util.Collection)
+    public final java.util.List insertAndReturnIdsList(java.lang.Object[])
+androidx.room.ForeignKey$Action
+androidx.room.ForeignKey
+androidx.room.Fts3
+androidx.room.Fts4
+androidx.room.FtsOptions$MatchInfo
+androidx.room.FtsOptions$Order
+androidx.room.FtsOptions
+androidx.room.IMultiInstanceInvalidationCallback$Stub$Proxy:
+    public java.lang.String getInterfaceDescriptor()
+androidx.room.IMultiInstanceInvalidationCallback$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_onInvalidation
+androidx.room.IMultiInstanceInvalidationService$Stub$Proxy:
+    public java.lang.String getInterfaceDescriptor()
+androidx.room.IMultiInstanceInvalidationService$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_broadcastInvalidation
+    static final int TRANSACTION_registerCallback
+    static final int TRANSACTION_unregisterCallback
+androidx.room.Ignore
+androidx.room.Index
+androidx.room.Insert
+androidx.room.InvalidationLiveDataContainer:
+    androidx.lifecycle.LiveData create(java.lang.String[],boolean,java.util.concurrent.Callable)
+    void onActive(androidx.lifecycle.LiveData)
+    void onInactive(androidx.lifecycle.LiveData)
+androidx.room.InvalidationTracker$ObservedTableTracker:
+    static final int ADD
+    static final int NO_OP
+    static final int REMOVE
+androidx.room.InvalidationTracker$Observer:
+    protected varargs void <init>(java.lang.String,java.lang.String[])
+androidx.room.InvalidationTracker$WeakObserver
+androidx.room.InvalidationTracker:
+    private static final java.lang.String CREATE_TRACKING_TABLE_SQL
+    private static final java.lang.String INVALIDATED_COLUMN_NAME
+    static final java.lang.String RESET_UPDATED_TABLES_SQL
+    static final java.lang.String SELECT_UPDATED_TABLES_SQL
+    private static final java.lang.String TABLE_ID_COLUMN_NAME
+    private static final java.lang.String UPDATE_TABLE_NAME
+    public varargs void <init>(androidx.room.RoomDatabase,java.lang.String[])
+    public void addWeakObserver(androidx.room.InvalidationTracker$Observer)
+    public androidx.lifecycle.LiveData createLiveData(java.lang.String[],java.util.concurrent.Callable)
+    public androidx.lifecycle.LiveData createLiveData(java.lang.String[],boolean,java.util.concurrent.Callable)
+    public void refreshVersionsSync()
+    void stopMultiInstanceInvalidation()
+    private java.lang.String[] validateAndResolveTableNames(java.lang.String[])
+androidx.room.Junction
+androidx.room.MultiInstanceInvalidationClient:
+    void stop()
+androidx.room.OnConflictStrategy
+androidx.room.PrimaryKey
+androidx.room.Query
+androidx.room.R
+androidx.room.RawQuery
+androidx.room.Relation
+androidx.room.Room:
+    private static final java.lang.String CURSOR_CONV_SUFFIX
+    static final java.lang.String LOG_TAG
+    public static final java.lang.String MASTER_TABLE_NAME
+    public void <init>()
+androidx.room.RoomDatabase$Builder:
+    public androidx.room.RoomDatabase$Builder createFromAsset(java.lang.String)
+    public androidx.room.RoomDatabase$Builder createFromFile(java.io.File)
+    public androidx.room.RoomDatabase$Builder enableMultiInstanceInvalidation()
+    public varargs androidx.room.RoomDatabase$Builder fallbackToDestructiveMigrationFrom(int[])
+    public androidx.room.RoomDatabase$Builder fallbackToDestructiveMigrationOnDowngrade()
+    public androidx.room.RoomDatabase$Builder setJournalMode(androidx.room.RoomDatabase$JournalMode)
+    public androidx.room.RoomDatabase$Builder setTransactionExecutor(java.util.concurrent.Executor)
+androidx.room.RoomDatabase:
+    private static final java.lang.String DB_IMPL_SUFFIX
+    public static final int MAX_BIND_PARAMETER_CNT
+    public abstract void clearAllTables()
+    public void close()
+    java.util.Map getBackingFieldMap()
+    public androidx.room.InvalidationTracker getInvalidationTracker()
+    java.lang.ThreadLocal getSuspendingTransactionId()
+    public java.util.concurrent.Executor getTransactionExecutor()
+    public android.database.Cursor query(java.lang.String,java.lang.Object[])
+    public java.lang.Object runInTransaction(java.util.concurrent.Callable)
+    public void runInTransaction(java.lang.Runnable)
+androidx.room.RoomMasterTable:
+    private static final java.lang.String COLUMN_ID
+    private static final java.lang.String COLUMN_IDENTITY_HASH
+    public static final java.lang.String CREATE_QUERY
+    public static final java.lang.String DEFAULT_ID
+    public static final java.lang.String NAME
+    public static final java.lang.String READ_QUERY
+    public static final java.lang.String TABLE_NAME
+    private void <init>()
+androidx.room.RoomOpenHelper$Delegate:
+    protected void validateMigration(androidx.sqlite.db.SupportSQLiteDatabase)
+androidx.room.RoomOpenHelper:
+    public void <init>(androidx.room.DatabaseConfiguration,androidx.room.RoomOpenHelper$Delegate,java.lang.String)
+androidx.room.RoomSQLiteQuery$1
+androidx.room.RoomSQLiteQuery:
+    private static final int BLOB
+    static final int DESIRED_POOL_SIZE
+    private static final int DOUBLE
+    private static final int LONG
+    private static final int NULL
+    static final int POOL_LIMIT
+    private static final int STRING
+    public void clearBindings()
+    public void copyArgumentsFrom(androidx.room.RoomSQLiteQuery)
+    public static androidx.room.RoomSQLiteQuery copyFrom(androidx.sqlite.db.SupportSQLiteQuery)
+    public int getArgCount()
+androidx.room.RoomTrackingLiveData$1
+androidx.room.RoomTrackingLiveData$2
+androidx.room.RoomTrackingLiveData$3
+androidx.room.RoomTrackingLiveData
+androidx.room.RoomWarnings
+androidx.room.SQLiteCopyOpenHelper:
+    public synchronized androidx.sqlite.db.SupportSQLiteDatabase getReadableDatabase()
+androidx.room.SkipQueryVerification
+androidx.room.Transaction
+androidx.room.TypeConverter
+androidx.room.TypeConverters
+androidx.room.Update
+androidx.room.paging.LimitOffsetDataSource$1
+androidx.room.paging.LimitOffsetDataSource
+androidx.room.util.CursorUtil:
+    private void <init>()
+    public static int getColumnIndex(android.database.Cursor,java.lang.String)
+androidx.room.util.DBUtil:
+    private void <init>()
+    public static android.os.CancellationSignal createCancellationSignal()
+    public static android.database.Cursor query(androidx.room.RoomDatabase,androidx.sqlite.db.SupportSQLiteQuery,boolean)
+androidx.room.util.FileUtil:
+    private void <init>()
+androidx.room.util.FtsTableInfo
+androidx.room.util.SneakyThrow
+androidx.room.util.StringUtil:
+    private void <init>()
+    public static java.lang.String joinIntoString(java.util.List)
+    public static java.util.List splitToIntList(java.lang.String)
+androidx.room.util.TableInfo$Column:
+    public void <init>(java.lang.String,java.lang.String,boolean,int)
+androidx.room.util.TableInfo$Index:
+    public static final java.lang.String DEFAULT_PREFIX
+androidx.room.util.TableInfo:
+    public static final int CREATED_FROM_DATABASE
+    public static final int CREATED_FROM_ENTITY
+    public static final int CREATED_FROM_UNKNOWN
+    public void <init>(java.lang.String,java.util.Map,java.util.Set)
+androidx.room.util.ViewInfo
 androidx.savedstate.R$id:
     private void <init>()
 androidx.savedstate.R
@@ -3801,6 +3986,88 @@ androidx.savedstate.ViewTreeSavedStateRegistryOwner$findViewTreeSavedStateRegist
 androidx.savedstate.ViewTreeSavedStateRegistryOwner$findViewTreeSavedStateRegistryOwner$2
 androidx.savedstate.ViewTreeSavedStateRegistryOwner:
     public static final androidx.savedstate.SavedStateRegistryOwner get(android.view.View)
+androidx.sqlite.db.R
+androidx.sqlite.db.SimpleSQLiteQuery:
+    public int getArgCount()
+androidx.sqlite.db.SupportSQLiteDatabase:
+    public abstract void beginTransactionNonExclusive()
+    public abstract void beginTransactionWithListener(android.database.sqlite.SQLiteTransactionListener)
+    public abstract void beginTransactionWithListenerNonExclusive(android.database.sqlite.SQLiteTransactionListener)
+    public abstract int delete(java.lang.String,java.lang.String,java.lang.Object[])
+    public abstract void disableWriteAheadLogging()
+    public abstract boolean enableWriteAheadLogging()
+    public abstract long getMaximumSize()
+    public abstract long getPageSize()
+    public abstract int getVersion()
+    public abstract long insert(java.lang.String,int,android.content.ContentValues)
+    public abstract boolean isDatabaseIntegrityOk()
+    public abstract boolean isDbLockedByCurrentThread()
+    public abstract boolean isReadOnly()
+    public abstract boolean isWriteAheadLoggingEnabled()
+    public abstract boolean needUpgrade(int)
+    public abstract android.database.Cursor query(java.lang.String,java.lang.Object[])
+    public abstract void setForeignKeyConstraintsEnabled(boolean)
+    public abstract void setLocale(java.util.Locale)
+    public abstract void setMaxSqlCacheSize(int)
+    public abstract long setMaximumSize(long)
+    public abstract void setPageSize(long)
+    public abstract void setVersion(int)
+    public abstract int update(java.lang.String,int,android.content.ContentValues,java.lang.String,java.lang.Object[])
+    public abstract boolean yieldIfContendedSafely()
+    public abstract boolean yieldIfContendedSafely(long)
+androidx.sqlite.db.SupportSQLiteOpenHelper$Callback:
+    private static final java.lang.String TAG
+androidx.sqlite.db.SupportSQLiteOpenHelper$Configuration:
+    void <init>(android.content.Context,java.lang.String,androidx.sqlite.db.SupportSQLiteOpenHelper$Callback)
+androidx.sqlite.db.SupportSQLiteOpenHelper:
+    public abstract androidx.sqlite.db.SupportSQLiteDatabase getReadableDatabase()
+androidx.sqlite.db.SupportSQLiteProgram:
+    public abstract void clearBindings()
+androidx.sqlite.db.SupportSQLiteQuery:
+    public abstract int getArgCount()
+androidx.sqlite.db.SupportSQLiteQueryBuilder
+androidx.sqlite.db.SupportSQLiteStatement:
+    public abstract void execute()
+    public abstract long simpleQueryForLong()
+    public abstract java.lang.String simpleQueryForString()
+androidx.sqlite.db.framework.FrameworkSQLiteDatabase:
+    public void beginTransactionNonExclusive()
+    public void beginTransactionWithListener(android.database.sqlite.SQLiteTransactionListener)
+    public void beginTransactionWithListenerNonExclusive(android.database.sqlite.SQLiteTransactionListener)
+    public int delete(java.lang.String,java.lang.String,java.lang.Object[])
+    public void disableWriteAheadLogging()
+    public boolean enableWriteAheadLogging()
+    public long getMaximumSize()
+    public long getPageSize()
+    public int getVersion()
+    public long insert(java.lang.String,int,android.content.ContentValues)
+    public boolean isDatabaseIntegrityOk()
+    public boolean isDbLockedByCurrentThread()
+    public boolean isReadOnly()
+    public boolean isWriteAheadLoggingEnabled()
+    public boolean needUpgrade(int)
+    public android.database.Cursor query(java.lang.String,java.lang.Object[])
+    public void setForeignKeyConstraintsEnabled(boolean)
+    public void setLocale(java.util.Locale)
+    public void setMaxSqlCacheSize(int)
+    public long setMaximumSize(long)
+    public void setPageSize(long)
+    public void setVersion(int)
+    public int update(java.lang.String,int,android.content.ContentValues,java.lang.String,java.lang.Object[])
+    public boolean yieldIfContendedSafely()
+    public boolean yieldIfContendedSafely(long)
+androidx.sqlite.db.framework.FrameworkSQLiteOpenHelper$OpenHelper:
+    synchronized androidx.sqlite.db.SupportSQLiteDatabase getReadableSupportDatabase()
+androidx.sqlite.db.framework.FrameworkSQLiteOpenHelper:
+    void <init>(android.content.Context,java.lang.String,androidx.sqlite.db.SupportSQLiteOpenHelper$Callback)
+    public androidx.sqlite.db.SupportSQLiteDatabase getReadableDatabase()
+androidx.sqlite.db.framework.FrameworkSQLiteProgram:
+    public void clearBindings()
+androidx.sqlite.db.framework.FrameworkSQLiteStatement:
+    public void execute()
+    public long simpleQueryForLong()
+    public java.lang.String simpleQueryForString()
+androidx.sqlite.db.framework.R
 androidx.startup.AppInitializer:
     private static final java.lang.String SECTION_NAME
     java.lang.Object doInitialize(java.lang.Class)
@@ -3991,8 +4258,472 @@ androidx.viewpager.widget.ViewPager$SavedState
 androidx.viewpager.widget.ViewPager$SimpleOnPageChangeListener
 androidx.viewpager.widget.ViewPager$ViewPositionComparator
 androidx.viewpager.widget.ViewPager
+androidx.work.Configuration$Builder:
+    public void <init>(androidx.work.Configuration)
+    public androidx.work.Configuration$Builder setDefaultProcessName(java.lang.String)
+    public androidx.work.Configuration$Builder setExecutor(java.util.concurrent.Executor)
+    public androidx.work.Configuration$Builder setInitializationExceptionHandler(androidx.work.InitializationExceptionHandler)
+    public androidx.work.Configuration$Builder setInputMergerFactory(androidx.work.InputMergerFactory)
+    public androidx.work.Configuration$Builder setJobSchedulerJobIdRange(int,int)
+    public androidx.work.Configuration$Builder setMaxSchedulerLimit(int)
+    public androidx.work.Configuration$Builder setMinimumLoggingLevel(int)
+    public androidx.work.Configuration$Builder setRunnableScheduler(androidx.work.RunnableScheduler)
+    public androidx.work.Configuration$Builder setTaskExecutor(java.util.concurrent.Executor)
+    public androidx.work.Configuration$Builder setWorkerFactory(androidx.work.WorkerFactory)
+androidx.work.Configuration:
+    public static final int MIN_SCHEDULER_LIMIT
+    public boolean isUsingDefaultTaskExecutor()
+androidx.work.Constraints$Builder:
+    public void <init>(androidx.work.Constraints)
+    public androidx.work.Constraints$Builder addContentUriTrigger(android.net.Uri,boolean)
+    public androidx.work.Constraints$Builder setRequiresBatteryNotLow(boolean)
+    public androidx.work.Constraints$Builder setRequiresCharging(boolean)
+    public androidx.work.Constraints$Builder setRequiresDeviceIdle(boolean)
+    public androidx.work.Constraints$Builder setTriggerContentMaxDelay(long,java.util.concurrent.TimeUnit)
+    public androidx.work.Constraints$Builder setTriggerContentMaxDelay(java.time.Duration)
+    public androidx.work.Constraints$Builder setTriggerContentUpdateDelay(long,java.util.concurrent.TimeUnit)
+    public androidx.work.Constraints$Builder setTriggerContentUpdateDelay(java.time.Duration)
+androidx.work.Data$Builder:
+    public androidx.work.Data$Builder putBooleanArray(java.lang.String,boolean[])
+    public androidx.work.Data$Builder putByte(java.lang.String,byte)
+    public androidx.work.Data$Builder putByteArray(java.lang.String,byte[])
+    public androidx.work.Data$Builder putDouble(java.lang.String,double)
+    public androidx.work.Data$Builder putDoubleArray(java.lang.String,double[])
+    public androidx.work.Data$Builder putFloat(java.lang.String,float)
+    public androidx.work.Data$Builder putFloatArray(java.lang.String,float[])
+    public androidx.work.Data$Builder putIntArray(java.lang.String,int[])
+    public androidx.work.Data$Builder putLongArray(java.lang.String,long[])
+    public androidx.work.Data$Builder putStringArray(java.lang.String,java.lang.String[])
+androidx.work.Data:
+    public static final int MAX_DATA_BYTES
+    public static byte[] convertToPrimitiveArray(java.lang.Byte[])
+    public static double[] convertToPrimitiveArray(java.lang.Double[])
+    public static float[] convertToPrimitiveArray(java.lang.Float[])
+    public static int[] convertToPrimitiveArray(java.lang.Integer[])
+    public static long[] convertToPrimitiveArray(java.lang.Long[])
+    public static boolean[] convertToPrimitiveArray(java.lang.Boolean[])
+    public boolean[] getBooleanArray(java.lang.String)
+    public byte getByte(java.lang.String,byte)
+    public byte[] getByteArray(java.lang.String)
+    public double getDouble(java.lang.String,double)
+    public double[] getDoubleArray(java.lang.String)
+    public float getFloat(java.lang.String,float)
+    public float[] getFloatArray(java.lang.String)
+    public int[] getIntArray(java.lang.String)
+    public long[] getLongArray(java.lang.String)
+    public java.lang.String[] getStringArray(java.lang.String)
+    public boolean hasKeyWithValueOfType(java.lang.String,java.lang.Class)
+    public byte[] toByteArray()
+androidx.work.DelegatingWorkerFactory
+androidx.work.ExistingPeriodicWorkPolicy
+androidx.work.ForegroundInfo:
+    public void <init>(int,android.app.Notification)
+androidx.work.ListenableWorker$Result$Retry:
+    public androidx.work.Data getOutputData()
+androidx.work.ListenableWorker$Result:
+    public static androidx.work.ListenableWorker$Result failure(androidx.work.Data)
+    public abstract androidx.work.Data getOutputData()
+androidx.work.ListenableWorker:
+    public final android.net.Network getNetwork()
+    public final int getRunAttemptCount()
+    public final java.util.Set getTags()
+    public androidx.work.impl.utils.taskexecutor.TaskExecutor getTaskExecutor()
+    public final java.util.List getTriggeredContentAuthorities()
+    public final java.util.List getTriggeredContentUris()
+    public final com.google.common.util.concurrent.ListenableFuture setForegroundAsync(androidx.work.ForegroundInfo)
+    public com.google.common.util.concurrent.ListenableFuture setProgressAsync(androidx.work.Data)
+androidx.work.Logger:
+    private static final int MAX_TAG_LENGTH
+    private static final java.lang.String TAG_PREFIX
+androidx.work.OneTimeWorkRequest$Builder:
+    public androidx.work.OneTimeWorkRequest$Builder setInputMerger(java.lang.Class)
+androidx.work.OneTimeWorkRequest:
+    public static java.util.List from(java.util.List)
+androidx.work.Operation:
+    public abstract com.google.common.util.concurrent.ListenableFuture getResult()
+    public abstract androidx.lifecycle.LiveData getState()
+androidx.work.PeriodicWorkRequest$Builder
+androidx.work.PeriodicWorkRequest
+androidx.work.ProgressUpdater:
+    public abstract com.google.common.util.concurrent.ListenableFuture updateProgress(android.content.Context,java.util.UUID,androidx.work.Data)
+androidx.work.R$bool:
+    public static final int enable_system_alarm_service_default
+    public static final int enable_system_foreground_service_default
+    public static final int enable_system_job_service_default
+    private void <init>()
+androidx.work.R
+androidx.work.WorkContinuation:
+    public static androidx.work.WorkContinuation combine(java.util.List)
+    protected abstract androidx.work.WorkContinuation combineInternal(java.util.List)
+    public abstract androidx.work.Operation enqueue()
+    public abstract com.google.common.util.concurrent.ListenableFuture getWorkInfos()
+    public abstract androidx.lifecycle.LiveData getWorkInfosLiveData()
+    public final androidx.work.WorkContinuation then(androidx.work.OneTimeWorkRequest)
+    public abstract androidx.work.WorkContinuation then(java.util.List)
+androidx.work.WorkInfo
+androidx.work.WorkManager:
+    public final androidx.work.WorkContinuation beginUniqueWork(java.lang.String,androidx.work.ExistingWorkPolicy,androidx.work.OneTimeWorkRequest)
+    public abstract androidx.work.WorkContinuation beginUniqueWork(java.lang.String,androidx.work.ExistingWorkPolicy,java.util.List)
+    public final androidx.work.WorkContinuation beginWith(androidx.work.OneTimeWorkRequest)
+    public abstract androidx.work.WorkContinuation beginWith(java.util.List)
+    public abstract androidx.work.Operation cancelAllWork()
+    public abstract androidx.work.Operation cancelUniqueWork(java.lang.String)
+    public abstract android.app.PendingIntent createCancelPendingIntent(java.util.UUID)
+    public abstract androidx.work.Operation enqueueUniquePeriodicWork(java.lang.String,androidx.work.ExistingPeriodicWorkPolicy,androidx.work.PeriodicWorkRequest)
+    public androidx.work.Operation enqueueUniqueWork(java.lang.String,androidx.work.ExistingWorkPolicy,androidx.work.OneTimeWorkRequest)
+    public abstract androidx.work.Operation enqueueUniqueWork(java.lang.String,androidx.work.ExistingWorkPolicy,java.util.List)
+    public static androidx.work.WorkManager getInstance()
+    public abstract com.google.common.util.concurrent.ListenableFuture getLastCancelAllTimeMillis()
+    public abstract androidx.lifecycle.LiveData getLastCancelAllTimeMillisLiveData()
+    public abstract com.google.common.util.concurrent.ListenableFuture getWorkInfoById(java.util.UUID)
+    public abstract androidx.lifecycle.LiveData getWorkInfoByIdLiveData(java.util.UUID)
+    public abstract com.google.common.util.concurrent.ListenableFuture getWorkInfos(androidx.work.WorkQuery)
+    public abstract com.google.common.util.concurrent.ListenableFuture getWorkInfosByTag(java.lang.String)
+    public abstract androidx.lifecycle.LiveData getWorkInfosByTagLiveData(java.lang.String)
+    public abstract com.google.common.util.concurrent.ListenableFuture getWorkInfosForUniqueWork(java.lang.String)
+    public abstract androidx.lifecycle.LiveData getWorkInfosForUniqueWorkLiveData(java.lang.String)
+    public abstract androidx.lifecycle.LiveData getWorkInfosLiveData(androidx.work.WorkQuery)
+    public abstract androidx.work.Operation pruneWork()
+androidx.work.WorkQuery$Builder
+androidx.work.WorkQuery
+androidx.work.WorkRequest$Builder:
+    public final androidx.work.WorkRequest$Builder keepResultsForAtLeast(long,java.util.concurrent.TimeUnit)
+    public final androidx.work.WorkRequest$Builder keepResultsForAtLeast(java.time.Duration)
+    public final androidx.work.WorkRequest$Builder setBackoffCriteria(androidx.work.BackoffPolicy,java.time.Duration)
+    public androidx.work.WorkRequest$Builder setExpedited(androidx.work.OutOfQuotaPolicy)
+    public androidx.work.WorkRequest$Builder setInitialDelay(long,java.util.concurrent.TimeUnit)
+    public androidx.work.WorkRequest$Builder setInitialDelay(java.time.Duration)
+    public final androidx.work.WorkRequest$Builder setInitialRunAttemptCount(int)
+    public final androidx.work.WorkRequest$Builder setInitialState(androidx.work.WorkInfo$State)
+    public final androidx.work.WorkRequest$Builder setPeriodStartTime(long,java.util.concurrent.TimeUnit)
+    public final androidx.work.WorkRequest$Builder setScheduleRequestedAt(long,java.util.concurrent.TimeUnit)
+androidx.work.WorkRequest:
+    public static final long DEFAULT_BACKOFF_DELAY_MILLIS
+    public static final long MAX_BACKOFF_MILLIS
+    public static final long MIN_BACKOFF_MILLIS
+androidx.work.WorkerParameters:
+    public android.net.Network getNetwork()
+    public androidx.work.ProgressUpdater getProgressUpdater()
+    public int getRunAttemptCount()
+    public androidx.work.WorkerParameters$RuntimeExtras getRuntimeExtras()
+    public java.util.Set getTags()
+    public androidx.work.impl.utils.taskexecutor.TaskExecutor getTaskExecutor()
+    public java.util.List getTriggeredContentAuthorities()
+    public java.util.List getTriggeredContentUris()
+androidx.work.impl.DefaultRunnableScheduler:
+    public void <init>(android.os.Handler)
+    public android.os.Handler getHandler()
+androidx.work.impl.OperationImpl:
+    public com.google.common.util.concurrent.ListenableFuture getResult()
+    public androidx.lifecycle.LiveData getState()
+androidx.work.impl.Processor:
+    private static final java.lang.String FOREGROUND_WAKELOCK_TAG
+    public boolean hasWork()
+androidx.work.impl.Scheduler:
+    public static final int MAX_GREEDY_SCHEDULER_LIMIT
+    public static final int MAX_SCHEDULER_LIMIT
+androidx.work.impl.Schedulers:
+    public static final java.lang.String GCM_SCHEDULER
+    private void <init>()
+androidx.work.impl.WorkContinuationImpl:
+    public void <init>(androidx.work.impl.WorkManagerImpl,java.lang.String,androidx.work.ExistingWorkPolicy,java.util.List)
+    protected androidx.work.WorkContinuation combineInternal(java.util.List)
+    public java.util.List getAllIds()
+    public com.google.common.util.concurrent.ListenableFuture getWorkInfos()
+    public androidx.lifecycle.LiveData getWorkInfosLiveData()
+    public androidx.work.WorkContinuation then(java.util.List)
+androidx.work.impl.WorkDatabase:
+    private static final java.lang.String PRUNE_SQL_FORMAT_PREFIX
+    private static final java.lang.String PRUNE_SQL_FORMAT_SUFFIX
+    public abstract androidx.work.impl.model.RawWorkInfoDao rawWorkInfoDao()
+androidx.work.impl.WorkDatabaseMigrations:
+    private static final java.lang.String CREATE_INDEX_PERIOD_START_TIME
+    private static final java.lang.String CREATE_OUT_OF_QUOTA_POLICY
+    private static final java.lang.String CREATE_PREFERENCE
+    private static final java.lang.String CREATE_RUN_IN_FOREGROUND
+    private static final java.lang.String CREATE_SYSTEM_ID_INFO
+    private static final java.lang.String CREATE_WORK_PROGRESS
+    public static final java.lang.String INSERT_PREFERENCE
+    private static final java.lang.String MIGRATE_ALARM_INFO_TO_SYSTEM_ID_INFO
+    private static final java.lang.String PERIODIC_WORK_SET_SCHEDULE_REQUESTED_AT
+    private static final java.lang.String REMOVE_ALARM_INFO
+    public static final int VERSION_1
+    public static final int VERSION_10
+    public static final int VERSION_11
+    public static final int VERSION_12
+    public static final int VERSION_2
+    public static final int VERSION_3
+    public static final int VERSION_4
+    public static final int VERSION_5
+    public static final int VERSION_6
+    public static final int VERSION_7
+    public static final int VERSION_8
+    public static final int VERSION_9
+    private static final java.lang.String WORKSPEC_ADD_TRIGGER_MAX_CONTENT_DELAY
+    private static final java.lang.String WORKSPEC_ADD_TRIGGER_UPDATE_DELAY
+    private void <init>()
+androidx.work.impl.WorkDatabasePathHelper:
+    private static final java.lang.String WORK_DATABASE_NAME
+    private void <init>()
+androidx.work.impl.WorkDatabase_Impl:
+    private volatile androidx.work.impl.model.RawWorkInfoDao _rawWorkInfoDao
+    public void clearAllTables()
+    public androidx.work.impl.model.RawWorkInfoDao rawWorkInfoDao()
+androidx.work.impl.WorkManagerImpl$1
+androidx.work.impl.WorkManagerImpl$2
+androidx.work.impl.WorkManagerImpl:
+    public static final int MAX_PRE_JOB_SCHEDULER_API_LEVEL
+    public static final int MIN_JOB_SCHEDULER_API_LEVEL
+    public static final java.lang.String REMOTE_WORK_MANAGER_CLIENT
+    private volatile androidx.work.multiprocess.RemoteWorkManager mRemoteWorkManager
+    public void <init>(android.content.Context,androidx.work.Configuration,androidx.work.impl.utils.taskexecutor.TaskExecutor,androidx.work.impl.WorkDatabase,java.util.List,androidx.work.impl.Processor)
+    public androidx.work.WorkContinuation beginUniqueWork(java.lang.String,androidx.work.ExistingWorkPolicy,java.util.List)
+    public androidx.work.WorkContinuation beginWith(java.util.List)
+    public androidx.work.Operation cancelAllWork()
+    public androidx.work.Operation cancelUniqueWork(java.lang.String)
+    public android.app.PendingIntent createCancelPendingIntent(java.util.UUID)
+    public androidx.work.impl.WorkContinuationImpl createWorkContinuationForUniquePeriodicWork(java.lang.String,androidx.work.ExistingPeriodicWorkPolicy,androidx.work.PeriodicWorkRequest)
+    public androidx.work.Operation enqueueUniquePeriodicWork(java.lang.String,androidx.work.ExistingPeriodicWorkPolicy,androidx.work.PeriodicWorkRequest)
+    public androidx.work.Operation enqueueUniqueWork(java.lang.String,androidx.work.ExistingWorkPolicy,java.util.List)
+    public com.google.common.util.concurrent.ListenableFuture getLastCancelAllTimeMillis()
+    public androidx.lifecycle.LiveData getLastCancelAllTimeMillisLiveData()
+    public androidx.work.multiprocess.RemoteWorkManager getRemoteWorkManager()
+    public com.google.common.util.concurrent.ListenableFuture getWorkInfoById(java.util.UUID)
+    public androidx.lifecycle.LiveData getWorkInfoByIdLiveData(java.util.UUID)
+    public com.google.common.util.concurrent.ListenableFuture getWorkInfos(androidx.work.WorkQuery)
+    androidx.lifecycle.LiveData getWorkInfosById(java.util.List)
+    public com.google.common.util.concurrent.ListenableFuture getWorkInfosByTag(java.lang.String)
+    public androidx.lifecycle.LiveData getWorkInfosByTagLiveData(java.lang.String)
+    public com.google.common.util.concurrent.ListenableFuture getWorkInfosForUniqueWork(java.lang.String)
+    public androidx.lifecycle.LiveData getWorkInfosForUniqueWorkLiveData(java.lang.String)
+    public androidx.lifecycle.LiveData getWorkInfosLiveData(androidx.work.WorkQuery)
+    public androidx.work.Operation pruneWork()
+    public static void setDelegate(androidx.work.impl.WorkManagerImpl)
+    private void tryInitializeMultiProcessSupport()
+androidx.work.impl.WorkRequestHolder
+androidx.work.impl.WorkerWrapper$Builder:
+    public androidx.work.impl.WorkerWrapper$Builder withWorker(androidx.work.ListenableWorker)
+androidx.work.impl.background.greedy.GreedyScheduler:
+    public void <init>(android.content.Context,androidx.work.impl.WorkManagerImpl,androidx.work.impl.constraints.WorkConstraintsTracker)
+    public void setDelayedWorkTracker(androidx.work.impl.background.greedy.DelayedWorkTracker)
+androidx.work.impl.background.package-info
+androidx.work.impl.background.systemalarm.Alarms:
+    private void <init>()
+androidx.work.impl.background.systemalarm.CommandHandler:
+    static final java.lang.String ACTION_CONSTRAINTS_CHANGED
+    static final java.lang.String ACTION_DELAY_MET
+    static final java.lang.String ACTION_EXECUTION_COMPLETED
+    static final java.lang.String ACTION_RESCHEDULE
+    static final java.lang.String ACTION_SCHEDULE_WORK
+    static final java.lang.String ACTION_STOP_WORK
+    private static final java.lang.String KEY_NEEDS_RESCHEDULE
+    private static final java.lang.String KEY_WORKSPEC_ID
+    static final long WORK_PROCESSING_TIME_IN_MS
+androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver:
+    static final java.lang.String ACTION
+    static final java.lang.String KEY_BATTERY_CHARGING_PROXY_ENABLED
+    static final java.lang.String KEY_BATTERY_NOT_LOW_PROXY_ENABLED
+    static final java.lang.String KEY_NETWORK_STATE_PROXY_ENABLED
+    static final java.lang.String KEY_STORAGE_NOT_LOW_PROXY_ENABLED
+androidx.work.impl.background.systemalarm.DelayMetCommandHandler:
+    private static final int STATE_INITIAL
+    private static final int STATE_START_REQUESTED
+    private static final int STATE_STOP_REQUESTED
+androidx.work.impl.background.systemalarm.SystemAlarmDispatcher:
+    private static final int DEFAULT_START_ID
+    private static final java.lang.String KEY_START_ID
+    private static final java.lang.String PROCESS_COMMAND_TAG
+androidx.work.impl.background.systemalarm.package-info
+androidx.work.impl.background.systemjob.SystemJobInfoConverter:
+    static final java.lang.String EXTRA_IS_PERIODIC
+    static final java.lang.String EXTRA_WORK_SPEC_ID
+androidx.work.impl.background.systemjob.package-info
+androidx.work.impl.constraints.WorkConstraintsTracker:
+    void <init>(androidx.work.impl.constraints.WorkConstraintsCallback,androidx.work.impl.constraints.controllers.ConstraintController[])
+androidx.work.impl.constraints.controllers.package-info
+androidx.work.impl.constraints.package-info
+androidx.work.impl.constraints.trackers.BatteryNotLowTracker:
+    static final float BATTERY_LOW_THRESHOLD
+androidx.work.impl.constraints.trackers.Trackers:
+    public static synchronized void setInstance(androidx.work.impl.constraints.trackers.Trackers)
+androidx.work.impl.constraints.trackers.package-info
+androidx.work.impl.foreground.SystemForegroundDispatcher:
+    private static final java.lang.String ACTION_CANCEL_WORK
+    private static final java.lang.String ACTION_NOTIFY
+    private static final java.lang.String ACTION_START_FOREGROUND
+    private static final java.lang.String ACTION_STOP_FOREGROUND
+    private static final java.lang.String KEY_FOREGROUND_SERVICE_TYPE
+    private static final java.lang.String KEY_NOTIFICATION
+    private static final java.lang.String KEY_NOTIFICATION_ID
+    private static final java.lang.String KEY_WORKSPEC_ID
+    void <init>(android.content.Context,androidx.work.impl.WorkManagerImpl,androidx.work.impl.constraints.WorkConstraintsTracker)
+    public static android.content.Intent createCancelWorkIntent(android.content.Context,java.lang.String)
+    androidx.work.impl.WorkManagerImpl getWorkManager()
+androidx.work.impl.foreground.SystemForegroundService:
+    public static androidx.work.impl.foreground.SystemForegroundService getInstance()
+androidx.work.impl.model.DependencyDao:
+    public abstract java.util.List getPrerequisites(java.lang.String)
+androidx.work.impl.model.DependencyDao_Impl:
+    public java.util.List getPrerequisites(java.lang.String)
+androidx.work.impl.model.PreferenceDao:
+    public abstract androidx.lifecycle.LiveData getObservableLongValue(java.lang.String)
+androidx.work.impl.model.PreferenceDao_Impl$2
+androidx.work.impl.model.PreferenceDao_Impl:
+    static synthetic androidx.room.RoomDatabase access$000(androidx.work.impl.model.PreferenceDao_Impl)
+    public androidx.lifecycle.LiveData getObservableLongValue(java.lang.String)
+androidx.work.impl.model.RawWorkInfoDao
+androidx.work.impl.model.RawWorkInfoDao_Impl$1
+androidx.work.impl.model.RawWorkInfoDao_Impl
+androidx.work.impl.model.WorkNameDao:
+    public abstract java.util.List getWorkSpecIdsWithName(java.lang.String)
+androidx.work.impl.model.WorkNameDao_Impl:
+    public java.util.List getWorkSpecIdsWithName(java.lang.String)
+androidx.work.impl.model.WorkProgress:
+    public void <init>(java.lang.String,androidx.work.Data)
+androidx.work.impl.model.WorkProgressDao:
+    public abstract androidx.work.Data getProgressForWorkSpecId(java.lang.String)
+    public abstract java.util.List getProgressForWorkSpecIds(java.util.List)
+    public abstract void insert(androidx.work.impl.model.WorkProgress)
+androidx.work.impl.model.WorkProgressDao_Impl:
+    public androidx.work.Data getProgressForWorkSpecId(java.lang.String)
+    public java.util.List getProgressForWorkSpecIds(java.util.List)
+    public void insert(androidx.work.impl.model.WorkProgress)
+androidx.work.impl.model.WorkSpec$1:
+    public synthetic bridge java.lang.Object apply(java.lang.Object)
+    public java.util.List apply(java.util.List)
+androidx.work.impl.model.WorkSpec$WorkInfoPojo
+androidx.work.impl.model.WorkSpec:
+    public static final long SCHEDULE_NOT_REQUESTED_YET
+    public void setPeriodic(long)
+    public void setPeriodic(long,long)
+androidx.work.impl.model.WorkSpecDao:
+    public abstract java.util.List getAllUnfinishedWork()
+    public abstract java.util.List getAllWorkSpecIds()
+    public abstract androidx.lifecycle.LiveData getAllWorkSpecIdsLiveData()
+    public abstract androidx.lifecycle.LiveData getScheduleRequestedAtLiveData(java.lang.String)
+    public abstract androidx.work.impl.model.WorkSpec[] getWorkSpecs(java.util.List)
+    public abstract androidx.work.impl.model.WorkSpec$WorkInfoPojo getWorkStatusPojoForId(java.lang.String)
+    public abstract java.util.List getWorkStatusPojoForIds(java.util.List)
+    public abstract java.util.List getWorkStatusPojoForName(java.lang.String)
+    public abstract java.util.List getWorkStatusPojoForTag(java.lang.String)
+    public abstract androidx.lifecycle.LiveData getWorkStatusPojoLiveDataForIds(java.util.List)
+    public abstract androidx.lifecycle.LiveData getWorkStatusPojoLiveDataForName(java.lang.String)
+    public abstract androidx.lifecycle.LiveData getWorkStatusPojoLiveDataForTag(java.lang.String)
+    public abstract void pruneFinishedWorkWithZeroDependentsIgnoringKeepForAtLeast()
+androidx.work.impl.model.WorkSpecDao_Impl$10
+androidx.work.impl.model.WorkSpecDao_Impl$11
+androidx.work.impl.model.WorkSpecDao_Impl$12
+androidx.work.impl.model.WorkSpecDao_Impl$13
+androidx.work.impl.model.WorkSpecDao_Impl$14
+androidx.work.impl.model.WorkSpecDao_Impl:
+    private void __fetchRelationshipWorkProgressAsandroidxWorkData(androidx.collection.ArrayMap)
+    private void __fetchRelationshipWorkTagAsjavaLangString(androidx.collection.ArrayMap)
+    static synthetic androidx.room.RoomDatabase access$000(androidx.work.impl.model.WorkSpecDao_Impl)
+    static synthetic void access$100(androidx.work.impl.model.WorkSpecDao_Impl,androidx.collection.ArrayMap)
+    static synthetic void access$200(androidx.work.impl.model.WorkSpecDao_Impl,androidx.collection.ArrayMap)
+    public java.util.List getAllUnfinishedWork()
+    public java.util.List getAllWorkSpecIds()
+    public androidx.lifecycle.LiveData getAllWorkSpecIdsLiveData()
+    public androidx.lifecycle.LiveData getScheduleRequestedAtLiveData(java.lang.String)
+    public androidx.work.impl.model.WorkSpec[] getWorkSpecs(java.util.List)
+    public androidx.work.impl.model.WorkSpec$WorkInfoPojo getWorkStatusPojoForId(java.lang.String)
+    public java.util.List getWorkStatusPojoForIds(java.util.List)
+    public java.util.List getWorkStatusPojoForName(java.lang.String)
+    public java.util.List getWorkStatusPojoForTag(java.lang.String)
+    public androidx.lifecycle.LiveData getWorkStatusPojoLiveDataForIds(java.util.List)
+    public androidx.lifecycle.LiveData getWorkStatusPojoLiveDataForName(java.lang.String)
+    public androidx.lifecycle.LiveData getWorkStatusPojoLiveDataForTag(java.lang.String)
+    public void pruneFinishedWorkWithZeroDependentsIgnoringKeepForAtLeast()
+androidx.work.impl.model.WorkTagDao:
+    public abstract java.util.List getWorkSpecIdsWithTag(java.lang.String)
+androidx.work.impl.model.WorkTagDao_Impl:
+    public java.util.List getWorkSpecIdsWithTag(java.lang.String)
+androidx.work.impl.model.WorkTypeConverters$BackoffPolicyIds
+androidx.work.impl.model.WorkTypeConverters$NetworkTypeIds
+androidx.work.impl.model.WorkTypeConverters$OutOfPolicyIds
+androidx.work.impl.model.WorkTypeConverters$StateIds
+androidx.work.impl.model.WorkTypeConverters:
+    private void <init>()
+androidx.work.impl.model.package-info
+androidx.work.impl.utils.CancelWorkRunnable$4
+androidx.work.impl.utils.CancelWorkRunnable:
+    public static androidx.work.impl.utils.CancelWorkRunnable forAll(androidx.work.impl.WorkManagerImpl)
+androidx.work.impl.utils.ForceStopRunnable:
+    static final java.lang.String ACTION_FORCE_STOP_RESCHEDULE
+    private static final int ALARM_ID
+    private static final long BACKOFF_DURATION_MS
+    static final int MAX_ATTEMPTS
+androidx.work.impl.utils.IdGenerator:
+    public static final int INITIAL_ID
+    public static final java.lang.String NEXT_ALARM_MANAGER_ID_KEY
+    public static final java.lang.String NEXT_JOB_SCHEDULER_ID_KEY
+    public static final java.lang.String PREFERENCE_FILE_KEY
+androidx.work.impl.utils.LiveDataUtils$1$1
+androidx.work.impl.utils.LiveDataUtils$1
+androidx.work.impl.utils.LiveDataUtils
+androidx.work.impl.utils.PackageManagerHelper:
+    private void <init>()
+    public static boolean isComponentExplicitlyEnabled(android.content.Context,java.lang.Class)
+    public static boolean isComponentExplicitlyEnabled(android.content.Context,java.lang.String)
+androidx.work.impl.utils.PreferenceUtils$1
+androidx.work.impl.utils.PreferenceUtils:
+    public static final java.lang.String KEY_LAST_CANCEL_ALL_TIME_MS
+    public static final java.lang.String KEY_RESCHEDULE_NEEDED
+    public static final java.lang.String PREFERENCES_FILE_NAME
+    public long getLastCancelAllTimeMillis()
+    public androidx.lifecycle.LiveData getLastCancelAllTimeMillisLiveData()
+    public void setLastCancelAllTimeMillis(long)
+androidx.work.impl.utils.PruneWorkRunnable
+androidx.work.impl.utils.RawQueries
+androidx.work.impl.utils.SerialExecutor:
+    public java.util.concurrent.Executor getDelegatedExecutor()
+androidx.work.impl.utils.StatusRunnable$1
+androidx.work.impl.utils.StatusRunnable$2
+androidx.work.impl.utils.StatusRunnable$3
+androidx.work.impl.utils.StatusRunnable$4
+androidx.work.impl.utils.StatusRunnable$5
+androidx.work.impl.utils.StatusRunnable
+androidx.work.impl.utils.SynchronousExecutor
+androidx.work.impl.utils.WakeLocks:
+    private void <init>()
+androidx.work.impl.utils.WorkProgressUpdater$1
+androidx.work.impl.utils.WorkProgressUpdater:
+    public com.google.common.util.concurrent.ListenableFuture updateProgress(android.content.Context,java.util.UUID,androidx.work.Data)
+androidx.work.impl.utils.WorkTimer$WorkTimerRunnable:
+    static final java.lang.String TAG
+androidx.work.impl.utils.WorkTimer:
+    public java.util.concurrent.ScheduledExecutorService getExecutorService()
+    public synchronized java.util.Map getListeners()
+    public synchronized java.util.Map getTimerMap()
+androidx.work.impl.utils.futures.AbstractFuture:
+    private static final long SPIN_THRESHOLD_NANOS
+    final void maybePropagateCancellationTo(java.util.concurrent.Future)
+    protected final boolean wasInterrupted()
+androidx.work.impl.utils.futures.package-info
+androidx.work.impl.utils.package-info
+androidx.work.impl.utils.taskexecutor.TaskExecutor:
+    public abstract void postToMainThread(java.lang.Runnable)
+androidx.work.impl.utils.taskexecutor.package-info
+androidx.work.impl.workers.ConstraintTrackingWorker:
+    public static final java.lang.String ARGUMENT_CLASS_NAME
+    public androidx.work.ListenableWorker getDelegate()
+androidx.work.multiprocess.IListenableWorkerImpl$Default
+androidx.work.multiprocess.IListenableWorkerImpl$Stub$Proxy
+androidx.work.multiprocess.IListenableWorkerImpl$Stub
+androidx.work.multiprocess.IListenableWorkerImpl
+androidx.work.multiprocess.IWorkManagerImpl$Default
+androidx.work.multiprocess.IWorkManagerImpl$Stub$Proxy
+androidx.work.multiprocess.IWorkManagerImpl$Stub
+androidx.work.multiprocess.IWorkManagerImpl
+androidx.work.multiprocess.IWorkManagerImplCallback$Default
+androidx.work.multiprocess.IWorkManagerImplCallback$Stub$Proxy
+androidx.work.multiprocess.IWorkManagerImplCallback$Stub
+androidx.work.multiprocess.IWorkManagerImplCallback
+androidx.work.multiprocess.RemoteWorkContinuation
+androidx.work.multiprocess.RemoteWorkManager
 com.example.mocap.BuildConfig
 com.example.mocap.R$attr
+com.example.mocap.R$bool
 com.example.mocap.R$color
 com.example.mocap.R$dimen
 com.example.mocap.R$drawable
@@ -16801,10 +17532,7 @@ io.flutter.embedding.engine.FlutterEngine:
     private static final java.lang.String TAG
     public void <init>(android.content.Context)
     public void <init>(android.content.Context,io.flutter.embedding.engine.loader.FlutterLoader,io.flutter.embedding.engine.FlutterJNI)
-    public void <init>(android.content.Context,io.flutter.embedding.engine.loader.FlutterLoader,io.flutter.embedding.engine.FlutterJNI,io.flutter.plugin.platform.PlatformViewsController,java.lang.String[],boolean)
-    public void <init>(android.content.Context,io.flutter.embedding.engine.loader.FlutterLoader,io.flutter.embedding.engine.FlutterJNI,java.lang.String[],boolean)
     public void <init>(android.content.Context,java.lang.String[])
-    public void <init>(android.content.Context,java.lang.String[],boolean)
     public void <init>(android.content.Context,java.lang.String[],boolean,boolean)
     public io.flutter.embedding.engine.plugins.broadcastreceiver.BroadcastReceiverControlSurface getBroadcastReceiverControlSurface()
     public io.flutter.embedding.engine.plugins.contentprovider.ContentProviderControlSurface getContentProviderControlSurface()
@@ -16914,7 +17642,6 @@ io.flutter.embedding.engine.FlutterShellArgs:
     public void <init>(java.lang.String[])
     public void add(java.lang.String)
     public void remove(java.lang.String)
-io.flutter.embedding.engine.dart.DartExecutor$DartCallback
 io.flutter.embedding.engine.dart.DartExecutor$DefaultBinaryMessenger:
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
@@ -16922,7 +17649,6 @@ io.flutter.embedding.engine.dart.DartExecutor:
     private static final java.lang.String TAG
     public void disableBufferingIncomingMessages()
     public void enableBufferingIncomingMessages()
-    public void executeDartCallback(io.flutter.embedding.engine.dart.DartExecutor$DartCallback)
     public void executeDartEntrypoint(io.flutter.embedding.engine.dart.DartExecutor$DartEntrypoint)
     public io.flutter.plugin.common.BinaryMessenger getBinaryMessenger()
     public int getPendingChannelResponseCount()
@@ -22667,7 +23393,6 @@ kotlin.jvm.internal.Ref$ByteRef
 kotlin.jvm.internal.Ref$CharRef
 kotlin.jvm.internal.Ref$DoubleRef
 kotlin.jvm.internal.Ref$FloatRef
-kotlin.jvm.internal.Ref$IntRef
 kotlin.jvm.internal.Ref$LongRef
 kotlin.jvm.internal.Ref$ShortRef
 kotlin.jvm.internal.Ref
@@ -23817,9 +24542,7 @@ kotlin.text.StringsKt__StringsKt:
     private static final java.lang.String replaceRange(java.lang.String,int,int,java.lang.CharSequence)
     private static final java.lang.String replaceRange(java.lang.String,kotlin.ranges.IntRange,java.lang.CharSequence)
     private static final java.util.List split(java.lang.CharSequence,kotlin.text.Regex,int)
-    public static final java.util.List split(java.lang.CharSequence,java.lang.String[],boolean,int)
     static synthetic java.util.List split$default(java.lang.CharSequence,kotlin.text.Regex,int,int,java.lang.Object)
-    public static synthetic java.util.List split$default(java.lang.CharSequence,java.lang.String[],boolean,int,int,java.lang.Object)
     private static final kotlin.sequences.Sequence splitToSequence(java.lang.CharSequence,kotlin.text.Regex,int)
     public static final kotlin.sequences.Sequence splitToSequence(java.lang.CharSequence,char[],boolean,int)
     static synthetic kotlin.sequences.Sequence splitToSequence$default(java.lang.CharSequence,kotlin.text.Regex,int,int,java.lang.Object)
@@ -26278,6 +27001,96 @@ org.jetbrains.annotations.NotNull
 org.jetbrains.annotations.Nullable
 org.jetbrains.annotations.PropertyKey
 org.jetbrains.annotations.TestOnly
+vn.hunghd.flutterdownloader.BuildConfig
+vn.hunghd.flutterdownloader.DownloadTask:
+    public final int component1()
+    public final boolean component10()
+    public final boolean component11()
+    public final boolean component12()
+    public final long component13()
+    public final boolean component14()
+    public final boolean component15()
+    public final java.lang.String component2()
+    public final vn.hunghd.flutterdownloader.DownloadStatus component3()
+    public final int component4()
+    public final java.lang.String component5()
+    public final java.lang.String component6()
+    public final java.lang.String component7()
+    public final java.lang.String component8()
+    public final java.lang.String component9()
+    public final vn.hunghd.flutterdownloader.DownloadTask copy(int,java.lang.String,vn.hunghd.flutterdownloader.DownloadStatus,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,boolean,boolean,boolean,long,boolean,boolean)
+    public static synthetic vn.hunghd.flutterdownloader.DownloadTask copy$default(vn.hunghd.flutterdownloader.DownloadTask,int,java.lang.String,vn.hunghd.flutterdownloader.DownloadStatus,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,boolean,boolean,boolean,long,boolean,boolean,int,java.lang.Object)
+    public final void setAllowCellular(boolean)
+    public final void setFilename(java.lang.String)
+    public final void setHeaders(java.lang.String)
+    public final void setMimeType(java.lang.String)
+    public final void setOpenFileFromNotification(boolean)
+    public final void setPrimaryId(int)
+    public final void setProgress(int)
+    public final void setResumable(boolean)
+    public final void setSaveInPublicStorage(boolean)
+    public final void setSavedDir(java.lang.String)
+    public final void setShowNotification(boolean)
+    public final void setStatus(vn.hunghd.flutterdownloader.DownloadStatus)
+    public final void setTaskId(java.lang.String)
+    public final void setTimeCreated(long)
+    public final void setUrl(java.lang.String)
+vn.hunghd.flutterdownloader.DownloadWorker$Companion:
+    public final javax.net.ssl.HostnameVerifier getDO_NOT_VERIFY()
+vn.hunghd.flutterdownloader.DownloadWorker:
+    public static final java.lang.String ARG_CALLBACK_HANDLE
+    public static final java.lang.String ARG_DEBUG
+    public static final java.lang.String ARG_FILE_NAME
+    public static final java.lang.String ARG_HEADERS
+    public static final java.lang.String ARG_IGNORESSL
+    public static final java.lang.String ARG_IS_RESUME
+    public static final java.lang.String ARG_OPEN_FILE_FROM_NOTIFICATION
+    public static final java.lang.String ARG_SAVED_DIR
+    public static final java.lang.String ARG_SAVE_IN_PUBLIC_STORAGE
+    public static final java.lang.String ARG_SHOW_NOTIFICATION
+    public static final java.lang.String ARG_STEP
+    public static final java.lang.String ARG_TIMEOUT
+    public static final java.lang.String ARG_URL
+    private static final int BUFFER_SIZE
+    private static final java.lang.String CHANNEL_ID
+    public static final synthetic javax.net.ssl.HostnameVerifier access$getDO_NOT_VERIFY$cp()
+vn.hunghd.flutterdownloader.DownloadedFileProvider
+vn.hunghd.flutterdownloader.FlutterDownloaderInitializer$Companion
+vn.hunghd.flutterdownloader.FlutterDownloaderInitializer
+vn.hunghd.flutterdownloader.FlutterDownloaderPlugin:
+    public static final java.lang.String CALLBACK_DISPATCHER_HANDLE_KEY
+    private static final java.lang.String CHANNEL
+    public static final java.lang.String SHARED_PREFERENCES_KEY
+    private static final java.lang.String TAG
+vn.hunghd.flutterdownloader.FlutterDownloaderPluginKt
+vn.hunghd.flutterdownloader.R$attr
+vn.hunghd.flutterdownloader.R$bool
+vn.hunghd.flutterdownloader.R$color
+vn.hunghd.flutterdownloader.R$dimen
+vn.hunghd.flutterdownloader.R$drawable
+vn.hunghd.flutterdownloader.R$id
+vn.hunghd.flutterdownloader.R$integer
+vn.hunghd.flutterdownloader.R$layout
+vn.hunghd.flutterdownloader.R$string:
+    public static final int androidx_startup
+    public static final int status_bar_notification_info_overflow
+    private void <init>()
+vn.hunghd.flutterdownloader.R$style
+vn.hunghd.flutterdownloader.R$styleable
+vn.hunghd.flutterdownloader.R$xml
+vn.hunghd.flutterdownloader.R
+vn.hunghd.flutterdownloader.TaskDbHelper:
+    public static final java.lang.String DATABASE_NAME
+    public static final int DATABASE_VERSION
+    private static final java.lang.String SQL_CREATE_ENTRIES
+    private static final java.lang.String SQL_DELETE_ENTRIES
+vn.hunghd.flutterdownloader.TaskEntry
+android.support.v4.app.INotificationSideChannel$Stub$Proxy:
+    public void cancel(java.lang.String,int,java.lang.String)
+    public void cancelAll(java.lang.String)
+android.support.v4.app.INotificationSideChannel:
+    public abstract void cancel(java.lang.String,int,java.lang.String)
+    public abstract void cancelAll(java.lang.String)
 androidx.activity.ComponentActivity$ReportFullyDrawnExecutorApi1
 androidx.core.app.BundleCompat$BeforeApi18Impl
 androidx.core.app.NotificationCompat$Action:
@@ -26302,13 +27115,14 @@ androidx.core.app.NotificationCompatJellybean:
     public static android.util.SparseArray buildActionExtrasMap(java.util.List)
     public static android.os.Bundle getExtras(android.app.Notification)
     public static android.os.Bundle writeActionAndGetExtras(android.app.Notification$Builder,androidx.core.app.NotificationCompat$Action)
-androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$2$4d9eadf30418bb102ccccfb521bf2b5ecdbb891fe0adeb138d38d18a75e7f8b7$0
-androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$2$652b21b2260b88548e108a363b9fcaf56776ff7642a320cfe357491561b6d4cc$0
-androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$2$bf9cde77d5e8fdceb133cb2db5a6537c4ee04dbb830dc7181f318427cf7ed005$0
-androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$2$e75ecb5064e52543d2e498b22dc672e1a40b299652c7e017dd638c3eeba62f4c$0
+androidx.core.app.NotificationManagerCompat$CancelTask
+androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$1$4d9eadf30418bb102ccccfb521bf2b5ecdbb891fe0adeb138d38d18a75e7f8b7$0
+androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$1$652b21b2260b88548e108a363b9fcaf56776ff7642a320cfe357491561b6d4cc$0
+androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$1$bf9cde77d5e8fdceb133cb2db5a6537c4ee04dbb830dc7181f318427cf7ed005$0
+androidx.core.app.RemoteInput$Api26Impl$$InternalSyntheticApiModelOutline$1$e75ecb5064e52543d2e498b22dc672e1a40b299652c7e017dd638c3eeba62f4c$0
 androidx.core.app.RemoteInput$Api26Impl
-androidx.core.app.RemoteInput$Api29Impl$$InternalSyntheticApiModelOutline$2$d3746ee3f324361ee2999a9f556003628247fa0745505baf8e59edc6f27c70b2$0
-androidx.core.app.RemoteInput$Api29Impl$$InternalSyntheticApiModelOutline$2$e5e38b49daf2c8d56afc79c1aad00972eb2a9b3b6be17da5d0454c7c4332e0d5$0
+androidx.core.app.RemoteInput$Api29Impl$$InternalSyntheticApiModelOutline$1$d3746ee3f324361ee2999a9f556003628247fa0745505baf8e59edc6f27c70b2$0
+androidx.core.app.RemoteInput$Api29Impl$$InternalSyntheticApiModelOutline$1$e5e38b49daf2c8d56afc79c1aad00972eb2a9b3b6be17da5d0454c7c4332e0d5$0
 androidx.core.app.RemoteInput$Api29Impl
 androidx.core.app.RemoteInput:
     public boolean getAllowFreeFormInput()
@@ -26344,6 +27158,8 @@ androidx.lifecycle.ViewModelProvider$Factory:
     static void <clinit>()
 androidx.lifecycle.ViewModelProvider$NewInstanceFactory:
     public synthetic androidx.lifecycle.ViewModel create(java.lang.Class,androidx.lifecycle.viewmodel.CreationExtras)
+androidx.room.util.TableInfo$Column:
+    public boolean isPrimaryKey()
 androidx.startup.StartupLogger
 com.google.android.gms.common.api.TransformedResult
 com.google.android.gms.common.api.internal.BasePendingResult:

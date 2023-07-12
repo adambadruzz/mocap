@@ -1,0 +1,12 @@
+fr.g123k.deviceapps.device_apps-jetified-window-1.0.0-beta04-0 C:\Users\Adam\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\res
+fr.g123k.deviceapps.device_apps-jetified-annotation-experimental-1.1.0-1 C:\Users\Adam\.gradle\caches\transforms-3\6c0c163cc77ae6c91f9f7dfcd179c29c\transformed\jetified-annotation-experimental-1.1.0\res
+fr.g123k.deviceapps.device_apps-core-1.6.0-2 C:\Users\Adam\.gradle\caches\transforms-3\7e9df2ac2213a6bd3cef0f2f27870d79\transformed\core-1.6.0\res
+fr.g123k.deviceapps.device_apps-jetified-window-java-1.0.0-beta04-3 C:\Users\Adam\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\res
+fr.g123k.deviceapps.device_apps-main-4 C:\Users\Adam\AppData\Local\Pub\Cache\hosted\pub.dev\device_apps-2.2.0\android\src\main\res
+fr.g123k.deviceapps.device_apps-release-5 C:\Users\Adam\AppData\Local\Pub\Cache\hosted\pub.dev\device_apps-2.2.0\android\src\release\res
+fr.g123k.deviceapps.device_apps-pngs-6 D:\Kuliah\Projek\Aplikasi\mocap\build\device_apps\generated\res\pngs\release
+fr.g123k.deviceapps.device_apps-resValues-7 D:\Kuliah\Projek\Aplikasi\mocap\build\device_apps\generated\res\resValues\release
+fr.g123k.deviceapps.device_apps-rs-8 D:\Kuliah\Projek\Aplikasi\mocap\build\device_apps\generated\res\rs\release
+fr.g123k.deviceapps.device_apps-mergeReleaseResources-9 D:\Kuliah\Projek\Aplikasi\mocap\build\device_apps\intermediates\incremental\release\mergeReleaseResources\merged.dir
+fr.g123k.deviceapps.device_apps-mergeReleaseResources-10 D:\Kuliah\Projek\Aplikasi\mocap\build\device_apps\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+fr.g123k.deviceapps.device_apps-merged_res-11 D:\Kuliah\Projek\Aplikasi\mocap\build\device_apps\intermediates\merged_res\release

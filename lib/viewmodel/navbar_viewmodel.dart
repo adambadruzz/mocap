@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mocap/view/chat_view.dart';
 import 'package:mocap/view/home_view.dart';
 import 'package:mocap/viewmodel/home_viemodel.dart';
 
@@ -19,8 +20,10 @@ class NavigationBarViewModel {
         );
         break;
       case 1:
-        // Navigasi ke halaman Chat
-        // ...
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ChatView()),
+        );
         break;
       case 2:
         Navigator.pushReplacement(

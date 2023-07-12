@@ -147,6 +147,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="D:\Kuliah\Projek\Aplikasi\mocap\android@@:flutter_downloader::release"
+      jars="D:\Kuliah\Projek\Aplikasi\mocap\build\flutter_downloader\.transforms\f3862d42ca52f7380428760bc4477889\transformed\out\jars\classes.jar;D:\Kuliah\Projek\Aplikasi\mocap\build\flutter_downloader\.transforms\f3862d42ca52f7380428760bc4477889\transformed\out\jars\libs\R.jar"
+      resolved="vn.hunghd.flutterdownloader:flutter_downloader:unspecified"
+      folder="D:\Kuliah\Projek\Aplikasi\mocap\build\flutter_downloader\.transforms\f3862d42ca52f7380428760bc4477889\transformed\out"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="D:\Kuliah\Projek\Aplikasi\mocap\android@@:image_picker_android::release"
       jars="D:\Kuliah\Projek\Aplikasi\mocap\build\image_picker_android\.transforms\0c2ca74e00e6e44f3e8bc9ba8126e603\transformed\out\jars\classes.jar;D:\Kuliah\Projek\Aplikasi\mocap\build\image_picker_android\.transforms\0c2ca74e00e6e44f3e8bc9ba8126e603\transformed\out\jars\libs\R.jar"
       resolved="io.flutter.plugins.imagepicker:image_picker_android:unspecified"
@@ -774,10 +787,36 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="androidx.work:work-runtime:2.7.1@aar"
+      jars="C:\Users\Adam\.gradle\caches\transforms-3\c8e25f60706e198163525ec7d2d7c16e\transformed\work-runtime-2.7.1\jars\classes.jar"
+      resolved="androidx.work:work-runtime:2.7.1"
+      folder="C:\Users\Adam\.gradle\caches\transforms-3\c8e25f60706e198163525ec7d2d7c16e\transformed\work-runtime-2.7.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="androidx.browser:browser:1.4.0@aar"
       jars="C:\Users\Adam\.gradle\caches\transforms-3\6d3bbaf4594b8ed85e4722883be764b3\transformed\browser-1.4.0\jars\classes.jar"
       resolved="androidx.browser:browser:1.4.0"
       folder="C:\Users\Adam\.gradle\caches\transforms-3\6d3bbaf4594b8ed85e4722883be764b3\transformed\browser-1.4.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.lifecycle:lifecycle-service:2.6.1@aar"
+      jars="C:\Users\Adam\.gradle\caches\transforms-3\7be114806d6b4857cf53cf8cd951e134\transformed\jetified-lifecycle-service-2.6.1\jars\classes.jar"
+      resolved="androidx.lifecycle:lifecycle-service:2.6.1"
+      folder="C:\Users\Adam\.gradle\caches\transforms-3\7be114806d6b4857cf53cf8cd951e134\transformed\jetified-lifecycle-service-2.6.1"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -817,6 +856,45 @@
       jars="C:\Users\Adam\.gradle\caches\transforms-3\d2a7f03e118140f639e8945afb58cddb\transformed\jetified-startup-runtime-1.1.1\jars\classes.jar"
       resolved="androidx.startup:startup-runtime:1.1.1"
       folder="C:\Users\Adam\.gradle\caches\transforms-3\d2a7f03e118140f639e8945afb58cddb\transformed\jetified-startup-runtime-1.1.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.room:room-runtime:2.2.5@aar"
+      jars="C:\Users\Adam\.gradle\caches\transforms-3\b4be91b71dbb8833b028ca23c612f59e\transformed\room-runtime-2.2.5\jars\classes.jar"
+      resolved="androidx.room:room-runtime:2.2.5"
+      folder="C:\Users\Adam\.gradle\caches\transforms-3\b4be91b71dbb8833b028ca23c612f59e\transformed\room-runtime-2.2.5"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.sqlite:sqlite-framework:2.1.0@aar"
+      jars="C:\Users\Adam\.gradle\caches\transforms-3\a20458a5623814d32b80ec53da6c72a8\transformed\sqlite-framework-2.1.0\jars\classes.jar"
+      resolved="androidx.sqlite:sqlite-framework:2.1.0"
+      folder="C:\Users\Adam\.gradle\caches\transforms-3\a20458a5623814d32b80ec53da6c72a8\transformed\sqlite-framework-2.1.0"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.sqlite:sqlite:2.1.0@aar"
+      jars="C:\Users\Adam\.gradle\caches\transforms-3\5a32a65e711955931d60ee5d3f1d067f\transformed\sqlite-2.1.0\jars\classes.jar"
+      resolved="androidx.sqlite:sqlite:2.1.0"
+      folder="C:\Users\Adam\.gradle\caches\transforms-3\5a32a65e711955931d60ee5d3f1d067f\transformed\sqlite-2.1.0"
       manifest="AndroidManifest.xml"
       resFolder="res"
       assetsFolder="assets"
@@ -868,6 +946,10 @@
       name="androidx.concurrent:concurrent-futures:1.1.0@jar"
       jars="C:\Users\Adam\.gradle\caches\modules-2\files-2.1\androidx.concurrent\concurrent-futures\1.1.0\50b7fb98350d5f42a4e49704b03278542293ba48\concurrent-futures-1.1.0.jar"
       resolved="androidx.concurrent:concurrent-futures:1.1.0"/>
+  <library
+      name="androidx.room:room-common:2.2.5@jar"
+      jars="C:\Users\Adam\.gradle\caches\modules-2\files-2.1\androidx.room\room-common\2.2.5\f5e3b73a0c2ab5e276e26868e4ce3542baede207\room-common-2.2.5.jar"
+      resolved="androidx.room:room-common:2.2.5"/>
   <library
       name="io.grpc:grpc-stub:1.52.1@jar"
       jars="C:\Users\Adam\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-stub\1.52.1\16726293bd4430fab8deb37b1ea2ddf8e69b85de\grpc-stub-1.52.1.jar"

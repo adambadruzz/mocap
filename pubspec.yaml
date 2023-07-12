@@ -23,7 +23,7 @@ dependencies:
   cached_network_image: ^3.2.3
   firebase_remote_config: ^4.2.3
   flutter_downloader: ^1.10.5
-  device_apps: ^2.2.0
+  path_provider: ^2.0.15
 
 dev_dependencies:
   flutter_test:
