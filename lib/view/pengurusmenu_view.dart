@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mocap/view/pengurus_view.dart';
 
 import '../viewmodel/navbar_viewmodel.dart';
@@ -9,14 +8,16 @@ import 'navbar_view.dart';
 class PengurusMenuView extends StatelessWidget {
   final PengurusMenuViewModel viewModel = PengurusMenuViewModel();
 
+  PengurusMenuView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final List<String> tahunKepengurusan = viewModel.generateTahunKepengurusan();
-    final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
+    final NavigationBarViewModel navBarViewModel = NavigationBarViewModel();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pengurus Komunitas'),
+        title: const Text('Pengurus Komunitas'),
       ),
       body: ListView.builder(
         itemCount: tahunKepengurusan.length,
@@ -36,7 +37,7 @@ class PengurusMenuView extends StatelessWidget {
         },
       ),
       bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
+        viewModel: navBarViewModel,
       ),
     );
   }

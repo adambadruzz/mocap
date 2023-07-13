@@ -1,11 +1,8 @@
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -42,11 +39,11 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> getUserDataFromGoogle(GoogleSignInAccount googleUser) async {
-  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
   final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
   );
 
   final UserCredential userCredential = await _firebaseAuth.signInWithCredential(credential);
@@ -90,7 +87,7 @@ Future<bool> checkGoogleUserRegistration() async {
     return userSnapshot.exists;
   } catch (e) {
     print('Error checking Google user registration: $e');
-    throw e;
+    rethrow;
   }
 }
 
@@ -109,7 +106,7 @@ Future<bool> checkGoogleUserRegistration() async {
   } catch (e) {
     // Handle any errors during the upload process
     print('Error uploading image to Firebase: $e');
-    throw e;
+    rethrow;
   }
 }
 

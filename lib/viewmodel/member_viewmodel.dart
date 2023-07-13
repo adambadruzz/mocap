@@ -5,6 +5,7 @@ import '../models/member_model.dart';
 class MemberViewModel {
   final user = FirebaseAuth.instance.currentUser!;
 
+  //untuk pengurus selanjutnya ganti String role, int tahun menjadi String role, int tahun2
   Future<List<MemberModel>> getMembersByRole(String role, int tahun) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -13,7 +14,7 @@ class MemberViewModel {
         .get();
 
     final members = snapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
+      final data = doc.data();
       final tahunkepengurusan = (data['tahunkepengurusan'] as List<dynamic>).cast<int>();
 
       // Convert Timestamp to DateTime

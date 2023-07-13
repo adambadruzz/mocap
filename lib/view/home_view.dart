@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../viewmodel/home_viemodel.dart';
@@ -9,13 +8,13 @@ class HomeView extends StatelessWidget {
   final HomeViewModel viewModel;
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
-  HomeView({required this.viewModel});
+  HomeView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         leading: null, // Hapus ikon AppBar
         actions: null
       ),
@@ -26,7 +25,7 @@ class HomeView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
@@ -37,13 +36,13 @@ class HomeView extends StatelessWidget {
                       onTap: () {
                         viewModel.navigateToEvent();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.event,
                         size: 50,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
+                    const SizedBox(height: 8),
+                    const Text(
                       'Event',
                       style: TextStyle(
                         fontSize: 16,
@@ -52,9 +51,9 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
@@ -65,13 +64,13 @@ class HomeView extends StatelessWidget {
                       onTap: () {
                         viewModel.navigateToMembers();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.people,
                         size: 50,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
+                    const SizedBox(height: 8),
+                    const Text(
                       'Members',
                       style: TextStyle(
                         fontSize: 16,
@@ -82,12 +81,12 @@ class HomeView extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
@@ -98,13 +97,13 @@ class HomeView extends StatelessWidget {
                       onTap: () {
                         viewModel.navigateToCourses();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.book,
                         size: 50,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
+                    const SizedBox(height: 8),
+                    const Text(
                       'Courses',
                       style: TextStyle(
                         fontSize: 16,
@@ -113,9 +112,9 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
@@ -126,13 +125,13 @@ class HomeView extends StatelessWidget {
                       onTap: () {
                         viewModel.navigateToStructure();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.group,
                         size: 50,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Text(
+                    const SizedBox(height: 8),
+                    const Text(
                       'Structure',
                       style: TextStyle(
                         fontSize: 16,

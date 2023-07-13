@@ -18,7 +18,7 @@ class LoginViewModel {
   }) async {
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
     );
@@ -31,7 +31,7 @@ class LoginViewModel {
       Navigator.pop(context);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => AuthPage()),
+        MaterialPageRoute(builder: (context) => const AuthPage()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -46,7 +46,7 @@ class LoginViewModel {
   }) async {
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
     );
@@ -59,7 +59,7 @@ class LoginViewModel {
       Navigator.pop(context);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => AuthPage()),
+        MaterialPageRoute(builder: (context) => const AuthPage()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -72,7 +72,7 @@ class LoginViewModel {
   }) async {
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
     );
@@ -83,7 +83,7 @@ class LoginViewModel {
       if (isRegistered) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => AuthPage()),
+          MaterialPageRoute(builder: (context) => const AuthPage()),
         );
       } else {
         Navigator.pushReplacement(
@@ -105,14 +105,14 @@ class LoginViewModel {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Error'),
+        title: const Text('Error'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),

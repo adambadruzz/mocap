@@ -1,8 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mocap/view/login_view.dart';
-import '../services/auth_service.dart';
-import '../viewmodel/login_viewmodel.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +8,7 @@ import '../viewmodel/registergugle_viewmodel.dart';
 class RegisterGoogleView extends StatefulWidget {
   final RegisterGoogleViewModel viewModel;
 
-  RegisterGoogleView({required this.viewModel});
+  const RegisterGoogleView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   State<RegisterGoogleView> createState() => _RegisterGoogleViewState();
@@ -29,9 +26,9 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
   File? _selectedImage;
 
   Future<void> _selectImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? image =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _selectedImage = File(image.path);
@@ -101,12 +98,12 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(children: [
-            SizedBox(height: 20),
-            Text('Welcome', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 20),
-            Text("Let's create an account for you!",
+            const SizedBox(height: 20),
+            const Text('Welcome', style: TextStyle(fontSize: 20)),
+            const SizedBox(height: 20),
+            const Text("Let's create an account for you!",
                 style: TextStyle(fontSize: 20)),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
                 _selectImage();
@@ -125,7 +122,7 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
                       : null,
                 ),
                 child: _selectedImage == null
-                    ? Icon(
+                    ? const Icon(
                         Icons.camera_alt,
                         color: Colors.white,
                       )
@@ -133,10 +130,10 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: DropdownButtonFormField<String>(
                 value: selectedYear,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Angkatan',
                 ),
@@ -160,23 +157,23 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: asalController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Asal',
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: InkWell(
                 onTap: () {
                   _selectDate(context);
                 },
                 child: InputDecorator(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Birthdate',
                   ),
@@ -185,17 +182,17 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
                     children: [
                       Text(
                         DateFormat('dd MMM yyyy').format(selectedDate),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
-                      Icon(Icons.calendar_today),
+                      const Icon(Icons.calendar_today),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
                 if (validateInputs()) {
@@ -218,13 +215,13 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
                 }
               },
               child: Container(
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.black,
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Sign Up',
                     style: TextStyle(color: Colors.white, fontSize: 16),
@@ -232,7 +229,7 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             
           ]),
         ),

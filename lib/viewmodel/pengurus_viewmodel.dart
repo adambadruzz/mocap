@@ -13,7 +13,7 @@ class PengurusViewModel {
         .get();
 
     final members = snapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
+      final data = doc.data();
 
       // Convert 'tahunkepengurusan' to List<int>
       final tahunkepengurusan = (data['tahunkepengurusan'] as List<dynamic>).cast<int>();

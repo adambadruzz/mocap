@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import '../services/auth_service.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
@@ -13,6 +10,8 @@ import 'login_view.dart';
 import 'navbar_view.dart';
 
 class ProfileView extends StatefulWidget {
+  const ProfileView({Key? key}) : super(key: key);
+
   @override
   _ProfileViewState createState() => _ProfileViewState();
 }
@@ -55,7 +54,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
        
       ),
       body: DefaultTabController(
@@ -71,7 +70,7 @@ class _ProfileViewState extends State<ProfileView> {
               child: TabBar(
                 labelColor: Colors.black,
                 indicatorColor: Colors.green.shade700,
-                tabs: [
+                tabs: const [
                   Tab(text: 'Information'),
                   Tab(text: 'Social Media'),
                   Tab(text: 'Settings'), // New "Settings" tab
@@ -96,14 +95,14 @@ class _ProfileViewState extends State<ProfileView> {
                                     )
                                   : null,
                               child: _userDetails['photourl'] == null
-                                  ? Icon(Icons.person, size: 50)
+                                  ? const Icon(Icons.person, size: 50)
                                   : null,
                             ),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Card(
                             child: ListTile(
-                              title: Text('Name'),
+                              title: const Text('Name'),
                               subtitle: Text(
                                 _userDetails['name'] ?? 'Loading...',
                               ),
@@ -111,7 +110,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Email'),
+                              title: const Text('Email'),
                               subtitle: Text(
                                 _userDetails['email'] ?? 'Loading...',
                               ),
@@ -119,7 +118,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Date of Birth'),
+                              title: const Text('Date of Birth'),
                               subtitle: Text(
                                 _formatDateOfBirth(_userDetails['dob']) ??
                                     'Loading...',
@@ -128,7 +127,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Phone'),
+                              title: const Text('Phone'),
                               subtitle: Text(
                                 _userDetails['phone'] ?? 'Loading...',
                               ),
@@ -136,7 +135,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Role'),
+                              title: const Text('Role'),
                               subtitle: Text(
                                 _userDetails['role'] ?? 'Loading...',
                               ),
@@ -144,7 +143,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Asal'),
+                              title: const Text('Asal'),
                               subtitle: Text(
                                 _userDetails['asal'] ?? 'Loading...',
                               ),
@@ -152,7 +151,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Angkatan'),
+                              title: const Text('Angkatan'),
                               subtitle: Text(
                                 _userDetails['angkatan'] ?? 'Loading...',
                               ),
@@ -177,17 +176,17 @@ class _ProfileViewState extends State<ProfileView> {
                                     )
                                   : null,
                               child: _userDetails['photourl'] == null
-                                  ? Icon(Icons.person, size: 50)
+                                  ? const Icon(Icons.person, size: 50)
                                   : null,
                             ),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/whatsapp.png',
                               width: 30,
                             ),
-                            title: Text('Whatsapp'),
+                            title: const Text('Whatsapp'),
                             subtitle: Text(
                               _userDetails['phone'] ?? 'Not Available',
                             ),
@@ -195,13 +194,13 @@ class _ProfileViewState extends State<ProfileView> {
                               // Add your logic here to open Whatsapp profile
                             },
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/instagram.png',
                               width: 30,
                             ),
-                            title: Text('Instagram'),
+                            title: const Text('Instagram'),
                             subtitle: Text(
                               _userDetails['instagram'] ?? 'Not Available',
                             ),
@@ -209,13 +208,13 @@ class _ProfileViewState extends State<ProfileView> {
                               // Add your logic here to open Instagram profile
                             },
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/linkedin.png',
                               width: 30,
                             ),
-                            title: Text('Linkedin'),
+                            title: const Text('Linkedin'),
                             subtitle: Text(
                               _userDetails['linkedin'] ?? 'Not Available',
                             ),
@@ -223,13 +222,13 @@ class _ProfileViewState extends State<ProfileView> {
                               // Add your logic here to open Linkedin profile
                             },
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/github.png',
                               width: 30,
                             ),
-                            title: Text('Github'),
+                            title: const Text('Github'),
                             subtitle: Text(
                               _userDetails['github'] ?? 'Not Available',
                             ),
@@ -247,13 +246,26 @@ class _ProfileViewState extends State<ProfileView> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 16),
+                          Center(
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage: _userDetails['photourl'] != null
+                                  ? CachedNetworkImageProvider(
+                                      _userDetails['photourl']!,
+                                    )
+                                  : null,
+                              child: _userDetails['photourl'] == null
+                                  ? const Icon(Icons.person, size: 50)
+                                  : null,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
                           ListTile(
-                            leading: Icon(Icons.logout),
-                            title: Text('Logout'),
+                            leading: const Icon(Icons.logout),
+                            title: const Text('Logout'),
                             onTap: _logout,
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           // ListTile(
                           //   leading: Icon(Icons.update),
                           //   title: Text('Update'),

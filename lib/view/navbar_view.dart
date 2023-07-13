@@ -4,7 +4,7 @@ import 'package:mocap/viewmodel/navbar_viewmodel.dart';
 class NavBarView extends StatelessWidget {
   final NavigationBarViewModel viewModel;
 
-  NavBarView({required this.viewModel});
+  const NavBarView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class NavBarView extends StatelessWidget {
       onTap: (index) {
         viewModel.onTabSelected(index, context);
       },
-      items: [
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',

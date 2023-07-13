@@ -22,13 +22,13 @@ class NavigationBarViewModel {
       case 1:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ChatView()),
+          MaterialPageRoute(builder: (context) => const ChatView()),
         );
         break;
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ProfileView()),
+          MaterialPageRoute(builder: (context) => const ProfileView()),
         );
         break;
     }

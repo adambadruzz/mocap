@@ -9,13 +9,13 @@ class DetailPengurusView extends StatelessWidget {
   final MemberModel member;
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
-  DetailPengurusView({required this.member});
+  DetailPengurusView({Key? key, required this.member}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Member Detail'),
+        title: const Text('Member Detail'),
       ),
       body: DefaultTabController(
         length: 2,
@@ -28,7 +28,7 @@ class DetailPengurusView extends StatelessWidget {
               child: TabBar(
                 labelColor: Colors.black, // Mengubah warna teks menjadi hitam
                 indicatorColor: Colors.green.shade700,
-                tabs: [
+                tabs: const [
                   Tab(text: 'Information'),
                   Tab(text: 'Social Media'),
                 ],
@@ -50,44 +50,44 @@ class DetailPengurusView extends StatelessWidget {
                                   ? CachedNetworkImageProvider(member.photourl) as ImageProvider<Object>?
                                   : null,
                               child: member.photourl.isEmpty
-                                  ? Icon(Icons.person, size: 50)
+                                  ? const Icon(Icons.person, size: 50)
                                   : null,
                             ),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Card(
                             child: ListTile(
-                              title: Text('Name'),
+                              title: const Text('Name'),
                               subtitle: Text(member.name),
                             ),
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Email'),
+                              title: const Text('Email'),
                               subtitle: Text(member.email),
                             ),
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Date of Birth'),
+                              title: const Text('Date of Birth'),
                               subtitle: Text(_formatDateOfBirth(member.dob) ?? 'N/A'),
                             ),
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Phone'),
+                              title: const Text('Phone'),
                               subtitle: Text(member.phone ?? 'N/A'),
                             ),
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Roles'),
+                              title: const Text('Role'),
                               subtitle: Text(member.roles ?? 'N/A'),
                             ),
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Asal'),
+                              title: const Text('Asal'),
                               subtitle: Text(
                                 member.asal ?? 'Loading...',
                               ),
@@ -95,7 +95,7 @@ class DetailPengurusView extends StatelessWidget {
                           ),
                           Card(
                             child: ListTile(
-                              title: Text('Angkatan'),
+                              title: const Text('Angkatan'),
                               subtitle: Text(
                                 member.angkatan ?? 'Loading...',
                               ),
@@ -118,17 +118,17 @@ class DetailPengurusView extends StatelessWidget {
                                   ? CachedNetworkImageProvider(member.photourl) as ImageProvider<Object>?
                                   : null,
                               child: member.photourl.isEmpty
-                                  ? Icon(Icons.person, size: 50)
+                                  ? const Icon(Icons.person, size: 50)
                                   : null,
                             ),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/whatsapp.png',
                               width: 30,
                             ),
-                            title: Text('Whatsapp'),
+                            title: const Text('Whatsapp'),
                             subtitle: Text(
                               member.phone ?? 'Not Available',
                             ),
@@ -136,13 +136,13 @@ class DetailPengurusView extends StatelessWidget {
                               // Add your logic here to open Whatsapp profile
                             },
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/instagram.png',
                               width: 30,
                             ),
-                            title: Text('Instagram'),
+                            title: const Text('Instagram'),
                             subtitle: Text(
                               member.instagram ?? 'Not Available',
                             ),
@@ -150,13 +150,13 @@ class DetailPengurusView extends StatelessWidget {
                               // Add your logic here to open Instagram profile
                             },
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/linkedin.png',
                               width: 30,
                             ),
-                            title: Text('Linkedin'),
+                            title: const Text('Linkedin'),
                             subtitle: Text(
                               member.linkedin ?? 'Not Available',
                             ),
@@ -164,13 +164,13 @@ class DetailPengurusView extends StatelessWidget {
                               // Add your logic here to open Linkedin profile
                             },
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           ListTile(
                             leading: Image.asset(
                               'assets/images/github.png',
                               width: 30,
                             ),
-                            title: Text('Github'),
+                            title: const Text('Github'),
                             subtitle: Text(
                               member.github ?? 'Not Available',
                             ),

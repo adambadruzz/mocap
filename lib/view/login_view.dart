@@ -9,7 +9,7 @@ import '../viewmodel/resetpass_viewmodel.dart';
 class LoginView extends StatelessWidget {
   final LoginViewModel viewModel;
 
-  LoginView({required this.viewModel});
+  LoginView({Key? key, required this.viewModel}) : super(key: key);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -21,35 +21,35 @@ class LoginView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 90),
-              Text('Welcome', style: TextStyle(fontSize: 20)),
-              SizedBox(height: 20),
-              Text("Welcome back you've been missed!", style: TextStyle(fontSize: 15)),
-              SizedBox(height: 20),
+              const SizedBox(height: 90),
+              const Text('Welcome', style: TextStyle(fontSize: 20)),
+              const SizedBox(height: 20),
+              const Text("Welcome back you've been missed!", style: TextStyle(fontSize: 15)),
+              const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
                   controller: emailController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -60,7 +60,7 @@ class LoginView extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => ResetPasswordView(viewModel: ResetPasswordViewModel(authService: AuthService()))),
                         );
                       },
-                      child: Text('Forgot Password?'),
+                      child: const Text('Forgot Password?'),
                     ),
                   ],
                 ),
@@ -74,13 +74,13 @@ class LoginView extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.black,
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Sign In',
                       style: TextStyle(color: Colors.white, fontSize: 16),
@@ -88,8 +88,8 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Padding(
+              const SizedBox(height: 20),
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   children: [
@@ -99,12 +99,12 @@ class LoginView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
@@ -119,9 +119,9 @@ class LoginView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
@@ -141,13 +141,13 @@ class LoginView extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Not a member?', style: TextStyle(fontSize: 15)),
+                    const Text('Not a member?', style: TextStyle(fontSize: 15)),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -155,7 +155,7 @@ class LoginView extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => RegisterView(viewModel: RegisterViewModel(authService: AuthService()))),
                         );
                       },
-                      child: Text('Register', style: TextStyle(color: Colors.blue)),
+                      child: const Text('Register', style: TextStyle(color: Colors.blue)),
                     ),
                   ],
                 ),

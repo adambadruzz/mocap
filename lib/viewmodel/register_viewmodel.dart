@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/services/auth_service.dart';
 import 'package:mocap/view/auth_view.dart';
-import 'package:mocap/view/waiting_view.dart';
 
-import '../view/home_view.dart';
 
 class RegisterViewModel {
   final AuthService authService;
@@ -30,7 +28,7 @@ class RegisterViewModel {
   }) async {
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
     );
@@ -69,7 +67,7 @@ class RegisterViewModel {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => AuthPage()),
+          MaterialPageRoute(builder: (context) => const AuthPage()),
         );
       } else {
         Navigator.pop(context);
@@ -85,14 +83,14 @@ class RegisterViewModel {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Error'),
+        title: const Text('Error'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),

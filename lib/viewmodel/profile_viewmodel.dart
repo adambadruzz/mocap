@@ -1,11 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
-import '../services/auth_service.dart';
-import '../view/login_view.dart';
-import 'login_viewmodel.dart';
 
 class ProfileViewModel {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

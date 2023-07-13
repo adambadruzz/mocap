@@ -13,7 +13,7 @@ import 'package:image_picker/image_picker.dart';
 class RegisterView extends StatefulWidget {
   final RegisterViewModel viewModel;
 
-  RegisterView({required this.viewModel});
+  const RegisterView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   State<RegisterView> createState() => _RegisterViewState();
@@ -35,9 +35,9 @@ class _RegisterViewState extends State<RegisterView> {
   File? _selectedImage;
 
   Future<void> _selectImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? image =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _selectedImage = File(image.path);
@@ -142,12 +142,12 @@ class _RegisterViewState extends State<RegisterView> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(children: [
-            SizedBox(height: 20),
-            Text('Welcome', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 20),
-            Text("Let's create an account for you!",
+            const SizedBox(height: 20),
+            const Text('Welcome', style: TextStyle(fontSize: 20)),
+            const SizedBox(height: 20),
+            const Text("Let's create an account for you!",
                 style: TextStyle(fontSize: 20)),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
                 _selectImage();
@@ -166,7 +166,7 @@ class _RegisterViewState extends State<RegisterView> {
                       : null,
                 ),
                 child: _selectedImage == null
-                    ? Icon(
+                    ? const Icon(
                         Icons.camera_alt,
                         color: Colors.white,
                       )
@@ -174,62 +174,62 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Email',
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password (Min 6 character)',
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: confirmpasswordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Confirm Password',
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Fullname',
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: phoneController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Gunakan Format (628)',
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: DropdownButtonFormField<String>(
                 value: selectedYear,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Angkatan',
                 ),
@@ -253,23 +253,23 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: asalController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Asal',
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: InkWell(
                 onTap: () {
                   _selectDate(context);
                 },
                 child: InputDecorator(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Birthdate',
                   ),
@@ -278,17 +278,17 @@ class _RegisterViewState extends State<RegisterView> {
                     children: [
                       Text(
                         DateFormat('dd MMM yyyy').format(selectedDate),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
-                      Icon(Icons.calendar_today),
+                      const Icon(Icons.calendar_today),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
                 if (validateInputs()) {
@@ -316,13 +316,13 @@ class _RegisterViewState extends State<RegisterView> {
                 }
               },
               child: Container(
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.black,
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Sign Up',
                     style: TextStyle(color: Colors.white, fontSize: 16),
@@ -330,14 +330,14 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(child: Divider(color: Colors.black)),
-                  Text('Already have an account?',
+                  const Expanded(child: Divider(color: Colors.black)),
+                  const Text('Already have an account?',
                       style: TextStyle(fontSize: 15)),
                   TextButton(
                     onPressed: () {
@@ -350,9 +350,9 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       );
                     },
-                    child: Text('Login', style: TextStyle(color: Colors.blue)),
+                    child: const Text('Login', style: TextStyle(color: Colors.blue)),
                   ),
-                  Expanded(child: Divider(color: Colors.black)),
+                  const Expanded(child: Divider(color: Colors.black)),
                 ],
               ),
             ),

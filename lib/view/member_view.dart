@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/member_model.dart';
-import '../services/auth_service.dart';
 import '../viewmodel/member_viewmodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import 'detailmember_view.dart';
@@ -36,6 +35,9 @@ class _MemberViewState extends State<MemberView> {
 
   Future<void> _fetchMembers() async {
     final int tahun = DateTime.now().year;
+    //final int tahun = DateTime.now().year;
+    //final int tahun2 = tahun+1;
+    //untuk pengurus selanjutnya
     final leaders = await _memberViewModel.getMembersByRole('Leader', tahun);
     final coleaders = await _memberViewModel.getMembersByRole('Co-Leader', tahun);
     final secretary = await _memberViewModel.getMembersByRole('Secretary', tahun);
@@ -67,18 +69,18 @@ class _MemberViewState extends State<MemberView> {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('Member List'),
+        title: const Text('Member List'),
       ),
       body: ListView(
         children: [
           if (_leaders.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Leader'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _leaders.length,
             itemBuilder: (context, index) {
               final leader = _leaders[index];
@@ -89,7 +91,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(leader.photourl) as ImageProvider<Object>?
                       : null,
                   child: leader.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(leader.name),
@@ -105,15 +107,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_coleaders.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Co-Leader'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _coleaders.length,
             itemBuilder: (context, index) {
               final coleader = _coleaders[index];
@@ -124,7 +126,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(coleader.photourl) as ImageProvider<Object>?
                       : null,
                   child: coleader.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(coleader.name),
@@ -140,15 +142,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_secretary.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Secretary'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _secretary.length,
             itemBuilder: (context, index) {
               final secretary = _secretary[index];
@@ -159,7 +161,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(secretary.photourl) as ImageProvider<Object>?
                       : null,
                   child: secretary.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(secretary.name),
@@ -175,15 +177,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_treasurer.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Treasurer'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _treasurer.length,
             itemBuilder: (context, index) {
               final treasurer = _treasurer[index];
@@ -194,7 +196,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(treasurer.photourl) as ImageProvider<Object>?
                       : null,
                   child: treasurer.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(treasurer.name),
@@ -210,15 +212,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_leadersEnd.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Leader Engineer & Developer'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _leadersEnd.length,
             itemBuilder: (context, index) {
               final leaderEnd = _leadersEnd[index];
@@ -229,7 +231,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(leaderEnd.photourl) as ImageProvider<Object>?
                       : null,
                   child: leaderEnd.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(leaderEnd.name),
@@ -245,15 +247,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_leadersUnD.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Leader User Interface & Design'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _leadersUnD.length,
             itemBuilder: (context, index) {
               final leaderUnD = _leadersUnD[index];
@@ -264,7 +266,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(leaderUnD.photourl) as ImageProvider<Object>?
                       : null,
                   child: leaderUnD.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(leaderUnD.name),
@@ -280,15 +282,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_endDivisionMembers.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Engineer & Developer Division'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _endDivisionMembers.length,
             itemBuilder: (context, index) {
               final enddivision = _endDivisionMembers[index];
@@ -299,7 +301,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(enddivision.photourl) as ImageProvider<Object>?
                       : null,
                   child: enddivision.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(enddivision.name),
@@ -315,15 +317,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_undDivisionMembers.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('User Interface & Design Division'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _undDivisionMembers.length,
             itemBuilder: (context, index) {
               final unddivision = _undDivisionMembers[index];
@@ -334,7 +336,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(unddivision.photourl) as ImageProvider<Object>?
                       : null,
                   child: unddivision.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(unddivision.name),
@@ -350,15 +352,15 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
           if (_memberMembers.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Member'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _memberMembers.length,
             itemBuilder: (context, index) {
               final member = _memberMembers[index];
@@ -369,7 +371,7 @@ class _MemberViewState extends State<MemberView> {
                       ? CachedNetworkImageProvider(member.photourl) as ImageProvider<Object>?
                       : null,
                   child: member.photourl.isEmpty
-                      ? Icon(Icons.person, size: 40)
+                      ? const Icon(Icons.person, size: 40)
                       : null,
                 ),
                 title: Text(member.name),
@@ -385,7 +387,7 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          Divider(thickness: 3),
+          const Divider(thickness: 3),
         ],
       ),
       bottomNavigationBar: NavBarView(

@@ -1,13 +1,10 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocap/services/auth_service.dart';
 import 'package:mocap/view/auth_view.dart';
-import 'package:mocap/view/waiting_view.dart';
 
-import '../view/home_view.dart';
 
 class RegisterGoogleViewModel {
   final AuthService authService;
@@ -28,7 +25,7 @@ class RegisterGoogleViewModel {
   ) async {
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(),
       ),
     );
@@ -70,7 +67,7 @@ class RegisterGoogleViewModel {
 
     Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => AuthPage()),
+          MaterialPageRoute(builder: (context) => const AuthPage()),
         );
   }
 }
@@ -79,14 +76,14 @@ class RegisterGoogleViewModel {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Error'),
+        title: const Text('Error'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),

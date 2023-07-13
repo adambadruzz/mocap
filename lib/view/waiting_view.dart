@@ -6,6 +6,8 @@ class WaitingView extends StatelessWidget {
 
 final Uri _url = Uri.parse('http://wa.me/6287884273699?text=HaloKak');
 
+   WaitingView({Key? key}) : super(key: key);
+
   Future<void> _openWhatsAppChat() async {
   if (!await launchUrl(_url)) {
     throw Exception('Could not launch $_url');
@@ -16,15 +18,14 @@ final Uri _url = Uri.parse('http://wa.me/6287884273699?text=HaloKak');
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Waiting View"),
+        title: const Text("Waiting View"),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: () {
                   Navigator.pop(context);
-            // Memberhentikan aplikasi
-    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
             },
           ),
         ],
@@ -33,18 +34,18 @@ final Uri _url = Uri.parse('http://wa.me/6287884273699?text=HaloKak');
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               "Tunggu untuk mendapatkan akses aplikasi",
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             IconButton(
               icon: Image.asset('assets/images/whatsapp.png'),
               onPressed: _openWhatsAppChat,
             ),
-            SizedBox(height: 8),
-            Text(
+            const SizedBox(height: 8),
+            const Text(
               "Konfirmasi ke nomor WhatsApp",
               style: TextStyle(fontSize: 16),
             ),

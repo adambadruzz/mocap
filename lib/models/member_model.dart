@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class MemberModel {
   final String id;
