@@ -35,17 +35,19 @@ class _MemberViewState extends State<MemberView> {
   }
 
   Future<void> _fetchMembers() async {
-    final leaders = await _memberViewModel.getMembersByRole('Leader');
-    final coleaders = await _memberViewModel.getMembersByRole('Co-Leader');
-    final secretary = await _memberViewModel.getMembersByRole('Secretary');
-    final treasurer = await _memberViewModel.getMembersByRole('Treasurer');
-    final leadersEnD = await _memberViewModel.getMembersByRole('Leader Engineer & Developer');
-    final leadersUnD = await _memberViewModel.getMembersByRole('Leader User Interface & Design');
+    final int tahun = DateTime.now().year;
+    final leaders = await _memberViewModel.getMembersByRole('Leader', tahun);
+    final coleaders = await _memberViewModel.getMembersByRole('Co-Leader', tahun);
+    final secretary = await _memberViewModel.getMembersByRole('Secretary', tahun);
+    final treasurer = await _memberViewModel.getMembersByRole('Treasurer', tahun);
+    final leadersEnD = await _memberViewModel.getMembersByRole('Leader Engineer & Developer', tahun);
+    final leadersUnD = await _memberViewModel.getMembersByRole('Leader User Interface & Design', tahun);
     final endDivisionMembers =
-        await _memberViewModel.getMembersByRole('Engineer & Developer');
+        await _memberViewModel.getMembersByRole('Engineer & Developer', tahun);
     final undDivisionMembers =
-        await _memberViewModel.getMembersByRole('User Interface & Design');
-    final memberMembers = await _memberViewModel.getMembersByRole('Member');
+        await _memberViewModel.getMembersByRole('User Interface & Design', tahun);
+    final memberMembers = await _memberViewModel.getMembersByRole('Member', tahun);
+
 
     setState(() {
       _leaders = leaders;

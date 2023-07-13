@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import '../services/auth_service.dart';
@@ -12,7 +11,6 @@ import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import 'login_view.dart';
 import 'navbar_view.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -24,42 +22,6 @@ class _ProfileViewState extends State<ProfileView> {
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   Map<String, dynamic> _userDetails = {};
-
-  Future<void> _checkForUpdate() async {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-
-    try {
-      await remoteConfig.fetchAndActivate();
-
-      final updateUrl = remoteConfig.getString('github_update_url');
-
-      final appDocDir = await getExternalStorageDirectory();
-      final downloadDir = '${appDocDir!.path}/Download'; // Folder Download bawaan di Android
-
-      final taskId = await FlutterDownloader.enqueue(
-        url: updateUrl,
-        savedDir: downloadDir,
-        showNotification: true,
-        openFileFromNotification: true,
-      );
-
-      FlutterDownloader.registerCallback((id, status, progress) async {
-        if (taskId == id && status == DownloadTaskStatus.complete) {
-          final filePath = '$downloadDir/MOCAP.apk'; // Ganti 'apkFileName' dengan nama APK Anda
-
-          try {
-            if (taskId != null) {
-              await FlutterDownloader.open(taskId: taskId);
-            }
-          } on PlatformException catch (e) {
-            print('Error opening file: $e');
-          }
-        }
-      });
-    } catch (e) {
-      print('Error checking for update: $e');
-    }
-  }
 
   @override
   void initState() {
@@ -272,7 +234,7 @@ class _ProfileViewState extends State<ProfileView> {
                               _userDetails['github'] ?? 'Not Available',
                             ),
                             onTap: () {
-                              _checkForUpdate();
+                              
                             },
                           ),
                         ],
@@ -292,11 +254,11 @@ class _ProfileViewState extends State<ProfileView> {
                             onTap: _logout,
                           ),
                           SizedBox(height: 16),
-                          ListTile(
-                            leading: Icon(Icons.update),
-                            title: Text('Update'),
-                            onTap: _checkForUpdate,
-                          ),
+                          // ListTile(
+                          //   leading: Icon(Icons.update),
+                          //   title: Text('Update'),
+                          //   onTap: ,
+                          // ),
                         ],
                       ),
                     ),

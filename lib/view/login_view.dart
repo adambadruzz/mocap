@@ -21,9 +21,9 @@ class LoginView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 80),
+              SizedBox(height: 90),
               Text('Welcome', style: TextStyle(fontSize: 20)),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
               Text("Welcome back you've been missed!", style: TextStyle(fontSize: 15)),
               SizedBox(height: 20),
               Padding(
@@ -111,10 +111,30 @@ class LoginView extends StatelessWidget {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        viewModel.signInWithGoogle();
+                        viewModel.signInWithGoogle(context: context);
                       },
                       child: Image.asset(
                         'assets/images/google.png',
+                        width: 50,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 20),
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        viewModel.signInGuest(
+                          email: 'guest@gmail.com',
+                          password: '123456',
+                          context: context,);
+                      },
+                      child: Image.asset(
+                        'assets/images/guest.png',
                         width: 50,
                       ),
                     ),

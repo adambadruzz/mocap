@@ -32,6 +32,10 @@
         "source": "com.example.mocap.app-core-1.10.1-13:/drawable-xhdpi-v4/ic_call_decline.png"
     },
     {
+        "merged": "com.example.mocap.app-merged_res-29:/mipmap-xxhdpi_launcher_icon.png.flat",
+        "source": "com.example.mocap.app-main-22:/mipmap-xxhdpi/launcher_icon.png"
+    },
+    {
         "merged": "com.example.mocap.app-merged_res-29:/drawable-xxhdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
         "source": "com.example.mocap.app-jetified-play-services-base-18.1.0-7:/drawable-xxhdpi-v4/common_google_signin_btn_icon_dark_normal_background.9.png"
     },
@@ -244,6 +248,10 @@
         "source": "com.example.mocap.app-jetified-play-services-base-18.1.0-7:/drawable-hdpi-v4/googleg_standard_color_18.png"
     },
     {
+        "merged": "com.example.mocap.app-merged_res-29:/mipmap-xhdpi_launcher_icon.png.flat",
+        "source": "com.example.mocap.app-main-22:/mipmap-xhdpi/launcher_icon.png"
+    },
+    {
         "merged": "com.example.mocap.app-merged_res-29:/drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
         "source": "com.example.mocap.app-core-1.10.1-13:/drawable-xhdpi-v4/notification_bg_low_pressed.9.png"
     },
@@ -284,12 +292,16 @@
         "source": "com.example.mocap.app-main-22:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
+        "merged": "com.example.mocap.app-merged_res-29:/mipmap-xxxhdpi_launcher_icon.png.flat",
+        "source": "com.example.mocap.app-main-22:/mipmap-xxxhdpi/launcher_icon.png"
+    },
+    {
         "merged": "com.example.mocap.app-merged_res-29:/drawable_notification_icon_background.xml.flat",
         "source": "com.example.mocap.app-core-1.10.1-13:/drawable/notification_icon_background.xml"
     },
     {
         "merged": "com.example.mocap.app-merged_res-29:/xml_flutter_image_picker_file_paths.xml.flat",
-        "source": "com.example.mocap.app-packaged_res-40:/xml/flutter_image_picker_file_paths.xml"
+        "source": "com.example.mocap.app-packaged_res-39:/xml/flutter_image_picker_file_paths.xml"
     },
     {
         "merged": "com.example.mocap.app-merged_res-29:/drawable-hdpi-v4_ic_call_decline.png.flat",
@@ -350,6 +362,10 @@
     {
         "merged": "com.example.mocap.app-merged_res-29:/drawable-mdpi-v4_ic_call_decline_low.png.flat",
         "source": "com.example.mocap.app-core-1.10.1-13:/drawable-mdpi-v4/ic_call_decline_low.png"
+    },
+    {
+        "merged": "com.example.mocap.app-merged_res-29:/mipmap-hdpi_launcher_icon.png.flat",
+        "source": "com.example.mocap.app-main-22:/mipmap-hdpi/launcher_icon.png"
     },
     {
         "merged": "com.example.mocap.app-merged_res-29:/mipmap-hdpi_ic_launcher.png.flat",
@@ -413,7 +429,7 @@
     },
     {
         "merged": "com.example.mocap.app-merged_res-29:/xml_provider_paths.xml.flat",
-        "source": "com.example.mocap.app-packaged_res-37:/xml/provider_paths.xml"
+        "source": "com.example.mocap.app-packaged_res-36:/xml/provider_paths.xml"
     },
     {
         "merged": "com.example.mocap.app-merged_res-29:/drawable-hdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
@@ -474,6 +490,10 @@
     {
         "merged": "com.example.mocap.app-merged_res-29:/layout_browser_actions_context_menu_row.xml.flat",
         "source": "com.example.mocap.app-browser-1.4.0-4:/layout/browser_actions_context_menu_row.xml"
+    },
+    {
+        "merged": "com.example.mocap.app-merged_res-29:/mipmap-mdpi_launcher_icon.png.flat",
+        "source": "com.example.mocap.app-main-22:/mipmap-mdpi/launcher_icon.png"
     },
     {
         "merged": "com.example.mocap.app-merged_res-29:/drawable-ldpi-v4_ic_call_answer_video_low.png.flat",

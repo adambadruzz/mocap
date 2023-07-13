@@ -12,7 +12,7 @@ class RegisterViewModel {
   final AuthService authService;
 
   RegisterViewModel({required this.authService});
-
+  
   void signUp({
     required String email,
     required String password,
@@ -47,7 +47,8 @@ class RegisterViewModel {
           profileImageUrl =
               await authService.uploadImageToFirebase(profileImage);
         }
-
+        final int tahun = DateTime.now().year;
+        final int tahun2 = tahun + 1;
         //add user detail
         await authService.adduserdetail(
           access: 'Denied',
@@ -56,8 +57,10 @@ class RegisterViewModel {
           dob: selectedDate,
           photourl: profileImageUrl,
           role: 'Member',
+          roles: 'Member',
           email: email,
           angkatan: angkatan,
+          tahunkepengurusan: [tahun2],
           asal: asal,
           instagram: instagram,
           github: github,

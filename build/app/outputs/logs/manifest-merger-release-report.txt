@@ -70,7 +70,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Ad
 	android:label
 		ADDED from D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:7:9-30
 	android:icon
-		ADDED from D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:9:9-43
+		ADDED from D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:9:9-45
 	android:name
 		INJECTED from D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml
 		ADDED from D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:8:9-42

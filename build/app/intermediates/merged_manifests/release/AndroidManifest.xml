@@ -31,7 +31,7 @@
     <application
         android:name="android.app.Application"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:label="MOCAP" >
         <activity
             android:name="com.example.mocap.MainActivity"

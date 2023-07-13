@@ -58,8 +58,8 @@
 32-->D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:8:9-42
 33        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 33-->[androidx.core:core:1.10.1] C:\Users\Adam\.gradle\caches\transforms-3\c4988ff80110f75080a936fc6f044848\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
-34        android:icon="@mipmap/ic_launcher"
-34-->D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:9:9-43
+34        android:icon="@mipmap/launcher_icon"
+34-->D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:9:9-45
 35        android:label="MOCAP" >
 35-->D:\Kuliah\Projek\Aplikasi\mocap\android\app\src\main\AndroidManifest.xml:7:9-30
 36        <activity

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class MemberModel {
   final String id;
   final String name;
@@ -6,7 +8,9 @@ class MemberModel {
   final String asal;
   final String phone;
   final String role;
+  final String roles;
   final String angkatan;
+  final List<int> tahunkepengurusan;
   final String photourl;
   final String instagram;
   final String github;
@@ -19,8 +23,10 @@ class MemberModel {
     required this.dob,
     required this.phone,
     required this.role,
+    required this.roles,
     required this.asal,
     required this.angkatan,
+    required this.tahunkepengurusan,
     required this.photourl,
     required this.instagram,
     required this.github,
