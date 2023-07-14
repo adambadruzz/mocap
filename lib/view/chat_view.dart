@@ -10,6 +10,7 @@ import 'navbar_view.dart';
 class ChatView extends StatefulWidget {
   const ChatView({Key? key}) : super(key: key);
 
+
   @override
   _ChatViewState createState() => _ChatViewState();
 }
@@ -60,35 +61,27 @@ class _ChatViewState extends State<ChatView> {
                           final String userPhotoUrl = userData['photourl'];
                           final String currentUserUid = FirebaseAuth.instance.currentUser!.uid;
 
-                          if (senderId == currentUserUid) {
-                            // Pesan pengguna yang dikirim (sebelah kanan)
-                            return Container(
-                              alignment: Alignment.centerRight,
-                              child: ListTile(
-                                title: Text(userName),
-                                subtitle: Text(messageText),
-                                trailing: CircleAvatar(
-                                  backgroundImage: NetworkImage(userPhotoUrl),
-                                ),
-                              ),
-                            );
-                          } else {
-                            // Pesan pengguna lain (sebelah kiri)
-                            return Container(
-                              alignment: Alignment.centerLeft,
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(userPhotoUrl),
-                                ),
-                                title: Text(userName),
-                                subtitle: Text(messageText),
-                              ),
-                            );
-                          }
+                          return Container(
+                            alignment: senderId == currentUserUid ? Alignment.centerRight : Alignment.centerLeft,
+                            child: ListTile(
+                              leading: senderId != currentUserUid
+                                  ? CircleAvatar(
+                                      backgroundImage: NetworkImage(userPhotoUrl),
+                                    )
+                                  : null,
+                              title: Text(userName),
+                              subtitle: Text(messageText),
+                              trailing: senderId == currentUserUid
+                                  ? CircleAvatar(
+                                      backgroundImage: NetworkImage(userPhotoUrl),
+                                    )
+                                  : null,
+                            ),
+                          );
                         }
 
-                        return const ListTile(
-                          title: Text('Loading...'),
+                        return ListTile(
+                          title: const Text('Loading...'),
                         );
                       },
                     );
