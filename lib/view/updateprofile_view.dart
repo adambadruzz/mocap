@@ -7,10 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mocap/view/profile_view.dart';
 
-import '../viewmodel/navbar_viewmodel.dart';
-import '../viewmodel/profile_viewmodel.dart';
 import '../viewmodel/updateprofile_viewmodel.dart';
-import 'navbar_view.dart';
 
 class UpdateProfileView extends StatefulWidget {
   final UpdateProfileViewModel viewModel;
@@ -30,7 +27,6 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
   final TextEditingController _githubController = TextEditingController();
   final TextEditingController _linkedinController = TextEditingController();
   late Timestamp? _selectedDate;
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
   File? _selectedImage;
   bool _isLoading = false;
 
@@ -94,12 +90,12 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: const Text('Profile updated successfully')),
+      const SnackBar(content: Text('Profile updated successfully')),
     );
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ProfileView()),
+      MaterialPageRoute(builder: (context) => const ProfileView()),
     );
   }
 
@@ -190,7 +186,7 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
+                  const Text(
                     'Khusus untuk social media cukup masukkan username saja, tanpa link. Contoh: @username',
                   ),
                   TextFormField(

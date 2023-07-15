@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../models/post_model.dart';
 
 class CreatePostView extends StatefulWidget {
   const CreatePostView({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _CreatePostViewState extends State<CreatePostView> {
 
   late String _posttitleText;
   late String _postText;
-  List<File> _selectedImages = [];
+  final List<File> _selectedImages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +102,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                               _selectedImages.remove(image);
                             });
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.close,
                             color: Colors.white,
                           ),

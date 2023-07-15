@@ -1,17 +1,12 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/post_model.dart';
 import '../viewmodel/home_viemodel.dart';
-import '../viewmodel/navbar_viewmodel.dart';
-import 'event_view.dart';
 import 'home_view.dart';
-import 'navbar_view.dart';
 
 class DetailEventView extends StatelessWidget {
   final PostModel post;
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   DetailEventView({Key? key, required this.post}) : super(key: key);
 
@@ -25,21 +20,21 @@ class DetailEventView extends StatelessWidget {
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         // Menampilkan loading spinner jika masih dalam proses pengambilan data
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       } else if (snapshot.hasError) {
         // Menampilkan pesan error jika terjadi kesalahan
         return Text('Error: ${snapshot.error}');
       } else if (snapshot.data == true) {
         // Menampilkan ikon delete jika user memiliki special role 'admin'
         return IconButton(
-          icon: Icon(Icons.delete),
+          icon: const Icon(Icons.delete),
           onPressed: () {
             _showConfirmationDialog(context); // Menampilkan dialog konfirmasi sebelum menghapus
           },
         );
       } else {
         // Tidak menampilkan ikon delete jika user tidak memiliki special role 'admin'
-        return SizedBox();
+        return const SizedBox();
       }
     },
   ),
@@ -51,7 +46,7 @@ class DetailEventView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (post.images.isNotEmpty)
-              Container(
+              SizedBox(
                 height: 200,
                 width: double.infinity,
                 child: PageView.builder(
@@ -63,7 +58,7 @@ class DetailEventView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-            Text(
+            const Text(
               'Title:',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -73,7 +68,7 @@ class DetailEventView extends StatelessWidget {
             Text(post.title),
 
             const SizedBox(height: 16),
-            Text(
+            const Text(
               'Description:',
               style: TextStyle(
                 fontWeight: FontWeight.bold,

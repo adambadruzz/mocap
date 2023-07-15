@@ -24,14 +24,14 @@ class _ChatViewState extends State<ChatView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Peringatan'),
+          title: const Text('Peringatan'),
           content: Text(message),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -41,7 +41,6 @@ class _ChatViewState extends State<ChatView> {
 
   Future<void> _sendMessage(String message) async {
     final currentUser = FirebaseAuth.instance.currentUser;
-    final timestamp = DateTime.now();
 
     // Cek apakah pengguna memiliki roles 'Pengurus' atau 'Member'
     final userDoc = await FirebaseFirestore.instance.collection('users').doc(currentUser?.uid).get();
@@ -108,8 +107,8 @@ class _ChatViewState extends State<ChatView> {
                                 ? Container(
                                     color: Colors.red,
                                     alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 16.0),
                                       child: Icon(
                                         Icons.delete,
                                         color: Colors.white,
@@ -137,8 +136,8 @@ class _ChatViewState extends State<ChatView> {
                           );
                         }
 
-                        return ListTile(
-                          title: const Text('Loading...'),
+                        return const ListTile(
+                          title: Text('Loading...'),
                         );
                       },
                     );

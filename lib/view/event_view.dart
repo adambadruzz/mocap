@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/post_model.dart';
-import '../viewmodel/navbar_viewmodel.dart';
 import 'createpost_view.dart';
 import 'detailevent_view.dart';
-import 'navbar_view.dart';
 
 class EventView extends StatefulWidget {
   const EventView({Key? key}) : super(key: key);
@@ -17,7 +15,6 @@ class EventView extends StatefulWidget {
 class _EventViewState extends State<EventView> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
   bool _isPengurus = false;
 
   @override
@@ -74,7 +71,7 @@ class _EventViewState extends State<EventView> {
               child: Text('Error: ${snapshot.error}'),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -85,7 +82,7 @@ class _EventViewState extends State<EventView> {
               onPressed: () {
                 _createPost();
               },
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             )
           : null,
       
@@ -95,7 +92,7 @@ class _EventViewState extends State<EventView> {
   void _createPost() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CreatePostView()),
+      MaterialPageRoute(builder: (context) => const CreatePostView()),
     ).then((value) {
       // Refresh page after creating a post
       setState(() {});

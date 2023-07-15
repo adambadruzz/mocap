@@ -94,7 +94,6 @@ Future<bool> checkGoogleUserRegistration() async {
 
   Future<String> uploadImageToFirebase(File imageFile) async {
   try {
-    final String userId = _firebaseAuth.currentUser!.uid;
     final User? user = _firebaseAuth.currentUser;
     final String fileName = 'profile_images/${user?.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg';
 

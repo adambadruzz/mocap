@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WaitingView extends StatelessWidget {
-  WaitingView({Key? key}) : super(key: key);
+  const WaitingView({Key? key}) : super(key: key);
 
   Future<void> _openWhatsAppChat() async {
-    final phoneNumber = '6287884273699';
+    const phoneNumber = '6287884273699';
 
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {

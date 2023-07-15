@@ -314,8 +314,8 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           const SizedBox(height: 16),
                           ListTile(
-                            leading: Icon(Icons.edit),
-                            title: Text('Update Profile'),
+                            leading: const Icon(Icons.edit),
+                            title: const Text('Update Profile'),
                             onTap: () {
                               Navigator.push(
                                 context,

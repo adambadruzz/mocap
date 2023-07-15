@@ -18,7 +18,7 @@ class HomeView extends StatelessWidget {
       future: viewModel.shouldShowCoursesMenu(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -108,14 +108,14 @@ class HomeView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.book,
                                 size: 50,
                               ),
-                              const SizedBox(height: 8),
-                              const Text(
+                              SizedBox(height: 8),
+                              Text(
                                 'Courses',
                                 style: TextStyle(
                                   fontSize: 16,

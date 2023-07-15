@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/course_model.dart';
 import '../viewmodel/course_viewmodel.dart';
-import '../viewmodel/navbar_viewmodel.dart';
 import 'detailcourse_view.dart';
-import 'navbar_view.dart';
 
 class CourseView extends StatefulWidget {
   final String courseType;
@@ -15,7 +13,6 @@ class CourseView extends StatefulWidget {
 
 class _CourseViewState extends State<CourseView> {
   final CourseViewModel _courseViewModel = CourseViewModel();
-final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
   List<CourseModel> _beginnerCourses = [];
   List<CourseModel> _intermediateCourses = [];
   List<CourseModel> _advancedCourses = [];
@@ -50,13 +47,13 @@ final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
       body: ListView(
         children: [
           if (_beginnerCourses.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Beginner'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _beginnerCourses.length,
             itemBuilder: (context, index) {
               final course = _beginnerCourses[index];
@@ -75,13 +72,13 @@ final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
           ),
           const Divider(thickness: 3),
           if (_intermediateCourses.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Intermediate'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _intermediateCourses.length,
             itemBuilder: (context, index) {
               final course = _intermediateCourses[index];
@@ -100,13 +97,13 @@ final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
           ),
           const Divider(thickness: 3),
           if (_advancedCourses.isNotEmpty)
-            ListTile(
+            const ListTile(
               title: Text('Advanced'),
               dense: true,
             ),
           ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             itemCount: _advancedCourses.length,
             itemBuilder: (context, index) {
               final course = _advancedCourses[index];

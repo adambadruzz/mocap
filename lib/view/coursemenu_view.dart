@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../viewmodel/coursemenu_viewmodel.dart';
-import '../viewmodel/home_viemodel.dart';
-import '../viewmodel/navbar_viewmodel.dart';
-import 'navbar_view.dart';
 
 class CourseMenuView extends StatelessWidget {
   final CourseMenuViewModel viewModel;
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   CourseMenuView({Key? key, required this.viewModel}) : super(key: key);
 

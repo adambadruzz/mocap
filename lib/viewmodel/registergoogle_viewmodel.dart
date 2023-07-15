@@ -46,7 +46,6 @@ class RegisterGoogleViewModel {
     final int tahun = DateTime.now().year;
     final int tahun2 = tahun + 1;
 
-    final int angkatan1 = tahun + 1;
 
     await authService.adduserdetail(
       access: 'Denied',

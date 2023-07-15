@@ -3,8 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mocap/models/member_model.dart';
 import 'package:mocap/view/detailpengurus_view.dart';
 import 'package:mocap/viewmodel/pengurus_viewmodel.dart';
-import 'package:mocap/viewmodel/navbar_viewmodel.dart';
-import 'package:mocap/view/navbar_view.dart';
 
 class PengurusView extends StatefulWidget {
   final int tahunSelesai;
@@ -17,7 +15,6 @@ class PengurusView extends StatefulWidget {
 
 class _PengurusViewState extends State<PengurusView> {
   final PengurusViewModel _pengurusViewModel = PengurusViewModel();
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   List<MemberModel> _memberMembers = [];
   List<MemberModel> _pengurus = [];

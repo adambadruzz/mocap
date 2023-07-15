@@ -4,18 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
-import 'package:mocap/view/pengurusmenu_view.dart';
 import '../models/member_model.dart';
 import '../viewmodel/home_viemodel.dart';
-import '../viewmodel/navbar_viewmodel.dart';
 import 'home_view.dart';
-import 'navbar_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailPengurusView extends StatelessWidget {
   final MemberModel member;
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   DetailPengurusView({Key? key, required this.member}) : super(key: key);
 
@@ -30,21 +26,21 @@ class DetailPengurusView extends StatelessWidget {
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         // Menampilkan loading spinner jika masih dalam proses pengambilan data
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       } else if (snapshot.hasError) {
         // Menampilkan pesan error jika terjadi kesalahan
         return Text('Error: ${snapshot.error}');
       } else if (snapshot.data == true) {
         // Menampilkan ikon delete jika user memiliki special role 'admin'
         return IconButton(
-          icon: Icon(Icons.delete),
+          icon: const Icon(Icons.delete),
           onPressed: () {
             _showConfirmationDialog(context); // Menampilkan dialog konfirmasi sebelum menghapus
           },
         );
       } else {
         // Tidak menampilkan ikon delete jika user tidak memiliki special role 'admin'
-        return SizedBox();
+        return const SizedBox();
       }
     },
   ),
@@ -109,20 +105,20 @@ class DetailPengurusView extends StatelessWidget {
                           Card(
                             child: ListTile(
                               title: const Text('Phone'),
-                              subtitle: Text(member.phone ?? 'N/A'),
+                              subtitle: Text(member.phone),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Role'),
-                              subtitle: Text(member.roles ?? 'N/A'),
+                              subtitle: Text(member.roles),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Asal'),
                               subtitle: Text(
-                                member.asal ?? 'Loading...',
+                                member.asal,
                               ),
                             ),
                           ),
@@ -130,7 +126,7 @@ class DetailPengurusView extends StatelessWidget {
                             child: ListTile(
                               title: const Text('Angkatan'),
                               subtitle: Text(
-                                member.angkatan ?? 'Loading...',
+                                member.angkatan,
                               ),
                             ),
                           ),
@@ -163,15 +159,13 @@ class DetailPengurusView extends StatelessWidget {
                             ),
                             title: const Text('Whatsapp'),
                             subtitle: Text(
-                              member.phone ?? 'Not Available',
+                              member.phone,
                             ),
                             onTap: () {
                               final phoneNumber = member.phone;
-                              if (phoneNumber != null) {
-                                final whatsappUrl =
-                                    'https://wa.me/$phoneNumber';
-                                _launchUrl(whatsappUrl);
-                              }
+                              final whatsappUrl =
+                                  'https://wa.me/$phoneNumber';
+                              _launchUrl(whatsappUrl);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -182,15 +176,13 @@ class DetailPengurusView extends StatelessWidget {
                             ),
                             title: const Text('Instagram'),
                             subtitle: Text(
-                              member.instagram ?? 'Not Available',
+                              member.instagram,
                             ),
                             onTap: () {
                               final instagramUsername = member.instagram;
-                              if (instagramUsername != null) {
-                                final instagramUrl =
-                                    'https://www.instagram.com/$instagramUsername';
-                                _launchUrl(instagramUrl);
-                              }
+                              final instagramUrl =
+                                  'https://www.instagram.com/$instagramUsername';
+                              _launchUrl(instagramUrl);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -201,15 +193,13 @@ class DetailPengurusView extends StatelessWidget {
                             ),
                             title: const Text('Linkedin'),
                             subtitle: Text(
-                              member.linkedin ?? 'Not Available',
+                              member.linkedin,
                             ),
                             onTap: () {
                               final linkedinUsername = member.linkedin;
-                              if (linkedinUsername != null) {
-                                final linkedinUrl =
-                                    'https://www.linkedin.com/in/$linkedinUsername';
-                                _launchUrl(linkedinUrl);
-                              }
+                              final linkedinUrl =
+                                  'https://www.linkedin.com/in/$linkedinUsername';
+                              _launchUrl(linkedinUrl);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -220,20 +210,17 @@ class DetailPengurusView extends StatelessWidget {
                             ),
                             title: const Text('Github'),
                             subtitle: Text(
-                              member.github ?? 'Not Available',
+                              member.github,
                             ),
                             onTap: () {
                               final githubUsername = member.github;
-                              if (githubUsername != null) {
-                                final githubUrl =
-                                    'https://github.com/$githubUsername';
-                                _launchUrl(githubUrl);
-                              }
+                              final githubUrl =
+                                  'https://github.com/$githubUsername';
+                              _launchUrl(githubUrl);
                             },
                           ),
                           const SizedBox(height: 16),
                           
-                          Text(member.photourl.split('%2F').last.split('?').first ?? 'Not Available')
                         ],
                       ),
                     ),

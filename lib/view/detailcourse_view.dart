@@ -2,20 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../models/course_model.dart';
-import '../viewmodel/navbar_viewmodel.dart';
-import 'navbar_view.dart';
 
 class DetailCourseView extends StatelessWidget {
   final CourseModel course;
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   DetailCourseView({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    YoutubePlayerController _controller = YoutubePlayerController(
+    YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: course.linkYoutube,
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
       ),
@@ -30,12 +27,12 @@ class DetailCourseView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               YoutubePlayer(
-                controller: _controller,
+                controller: controller,
                 showVideoProgressIndicator: true,
                 progressIndicatorColor: Colors.amber,
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Title:',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -43,11 +40,11 @@ class DetailCourseView extends StatelessWidget {
                 ),
               ),
               Text(course.title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Tingkatan:',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -55,22 +52,22 @@ class DetailCourseView extends StatelessWidget {
                 ),
               ),
               Text(course.tingkatan,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),),
-              SizedBox(height: 16),
-              if (course.description != null)
+              const SizedBox(height: 16),
+              if (course.description == true)   
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Description:',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
-                    Text(course.description!),
+                    Text(course.description),
                   ],
                 ),
             ],

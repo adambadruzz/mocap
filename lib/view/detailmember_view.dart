@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 import '../models/member_model.dart';
 import '../viewmodel/navbar_viewmodel.dart';
-import 'navbar_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailMemberView extends StatelessWidget {
@@ -135,11 +134,9 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             onTap: () {
                               final phoneNumber = member.phone;
-                              if (phoneNumber != null) {
-                                final whatsappUrl =
-                                    'https://wa.me/$phoneNumber';
-                                _launchUrl(whatsappUrl);
-                              }
+                              final whatsappUrl =
+                                  'https://wa.me/$phoneNumber';
+                              _launchUrl(whatsappUrl);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -154,11 +151,9 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             onTap: () {
                               final instagramUsername = member.instagram;
-                              if (instagramUsername != null) {
-                                final instagramUrl =
-                                    'https://www.instagram.com/$instagramUsername';
-                                _launchUrl(instagramUrl);
-                              }
+                              final instagramUrl =
+                                  'https://www.instagram.com/$instagramUsername';
+                              _launchUrl(instagramUrl);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -173,11 +168,9 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             onTap: () {
                               final linkedinUsername = member.linkedin;
-                              if (linkedinUsername != null) {
-                                final linkedinUrl =
-                                    'https://www.linkedin.com/in/$linkedinUsername';
-                                _launchUrl(linkedinUrl);
-                              }
+                              final linkedinUrl =
+                                  'https://www.linkedin.com/in/$linkedinUsername';
+                              _launchUrl(linkedinUrl);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -192,11 +185,9 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             onTap: () {
                               final githubUsername = member.github;
-                              if (githubUsername != null) {
-                                final githubUrl =
-                                    'https://github.com/$githubUsername';
-                                _launchUrl(githubUrl);
-                              }
+                              final githubUrl =
+                                  'https://github.com/$githubUsername';
+                              _launchUrl(githubUrl);
                             },
                           ),
                         ],

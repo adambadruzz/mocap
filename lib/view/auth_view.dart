@@ -35,7 +35,7 @@ class AuthPage extends StatelessWidget {
                   final access = snapshot.data!.get('access') as String?;
                   if (access == null) {
                     // User access is null, navigate to register view
-                    WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => RegisterView(viewModel: RegisterViewModel(authService: AuthService()))),
                       );
@@ -43,10 +43,10 @@ class AuthPage extends StatelessWidget {
                     return Container();
                   } else if (access == 'Denied' || access == 'Granted' || access == 'Pending' || access == 'OK') {
                     // Show waiting view if access is denied, granted, pending, or OK
-                    return WaitingView();
+                    return const WaitingView();
                   } else {
                     // User has valid access, navigate to home view
-                    WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => HomeView(viewModel: HomeViewModel(context: context)),

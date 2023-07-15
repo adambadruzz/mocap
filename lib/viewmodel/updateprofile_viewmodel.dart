@@ -12,7 +12,7 @@ class UpdateProfileViewModel {
     try {
       final User? user = _firebaseAuth.currentUser;
       final userSnapshot = await _firestore.collection('users').doc(user?.uid).get();
-      final userData = userSnapshot.data() as Map<String, dynamic>?;
+      final userData = userSnapshot.data();
 
       return userData ?? {};
     } catch (e) {
@@ -49,7 +49,7 @@ class UpdateProfileViewModel {
     try {
       final User? user = _firebaseAuth.currentUser;
       final userSnapshot = await _firestore.collection('users').doc(user?.uid).get();
-      final userData = userSnapshot.data() as Map<String, dynamic>?;
+      final userData = userSnapshot.data();
 
       return userData?['photourl'] as String?;
     } catch (e) {

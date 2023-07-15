@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mocap/view/course_view.dart';
-import 'package:mocap/view/member_view.dart';
-import 'package:mocap/view/pengurusmenu_view.dart';
 
 class CourseMenuViewModel {
   final BuildContext context;
