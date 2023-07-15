@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mocap/view/register_view.dart';
-import 'package:mocap/view/resetpass_view.dart';
 import '../services/auth_service.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/register_viewmodel.dart';
 import '../viewmodel/resetpass_viewmodel.dart';
+import 'register_view.dart';
+import 'resetpass_view.dart';
 
 class LoginView extends StatelessWidget {
   final LoginViewModel viewModel;
@@ -13,6 +13,14 @@ class LoginView extends StatelessWidget {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void _restartApp(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/',
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,10 @@ class LoginView extends StatelessWidget {
               const SizedBox(height: 90),
               const Text('Welcome', style: TextStyle(fontSize: 20)),
               const SizedBox(height: 20),
-              const Text("Welcome back you've been missed!", style: TextStyle(fontSize: 15)),
+              const Text(
+                "Welcome back you've been missed!",
+                style: TextStyle(fontSize: 15),
+              ),
               const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -57,7 +68,13 @@ class LoginView extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ResetPasswordView(viewModel: ResetPasswordViewModel(authService: AuthService()))),
+                          MaterialPageRoute(
+                            builder: (context) => ResetPasswordView(
+                              viewModel: ResetPasswordViewModel(
+                                authService: AuthService(),
+                              ),
+                            ),
+                          ),
                         );
                       },
                       child: const Text('Forgot Password?'),
@@ -131,7 +148,8 @@ class LoginView extends StatelessWidget {
                         viewModel.signInGuest(
                           email: 'guest@gmail.com',
                           password: '123456',
-                          context: context,);
+                          context: context,
+                        );
                       },
                       child: Image.asset(
                         'assets/images/guest.png',
@@ -152,13 +170,23 @@ class LoginView extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => RegisterView(viewModel: RegisterViewModel(authService: AuthService()))),
+                          MaterialPageRoute(
+                            builder: (context) => RegisterView(
+                              viewModel: RegisterViewModel(
+                                authService: AuthService(),
+                              ),
+                            ),
+                          ),
                         );
                       },
                       child: const Text('Register', style: TextStyle(color: Colors.blue)),
                     ),
                   ],
                 ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => _restartApp(context),
               ),
             ],
           ),

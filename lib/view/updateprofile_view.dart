@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mocap/view/profile_view.dart';
 
@@ -13,7 +15,8 @@ import 'navbar_view.dart';
 class UpdateProfileView extends StatefulWidget {
   final UpdateProfileViewModel viewModel;
 
-  const UpdateProfileView({Key? key, required this.viewModel}) : super(key: key);
+  const UpdateProfileView({Key? key, required this.viewModel})
+      : super(key: key);
 
   @override
   State<UpdateProfileView> createState() => _UpdateProfileViewState();
@@ -26,9 +29,9 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
   final TextEditingController _instagramController = TextEditingController();
   final TextEditingController _githubController = TextEditingController();
   final TextEditingController _linkedinController = TextEditingController();
-  late Timestamp? _selectedDate; // Update tipe data menjadi Timestamp?
+  late Timestamp? _selectedDate;
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
-
+  File? _selectedImage;
   bool _isLoading = false;
 
   @override
@@ -50,7 +53,8 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
       _instagramController.text = userDetails['instagram'] ?? '';
       _githubController.text = userDetails['github'] ?? '';
       _linkedinController.text = userDetails['linkedin'] ?? '';
-      _selectedDate = userDetails['dob'] as Timestamp?; // Menggunakan tipe Timestamp
+      _selectedDate =
+          userDetails['dob'] as Timestamp?;
     });
   }
 
@@ -70,6 +74,19 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
       'dob': _selectedDate,
     };
 
+    if (_selectedImage != null) {
+      // Hapus foto lama dari Firebase Storage
+      final String? oldPhotoUrl = await widget.viewModel.getProfilePhotoUrl();
+      if (oldPhotoUrl != null) {
+        await FirebaseStorage.instance.refFromURL(oldPhotoUrl).delete();
+      }
+
+      // Unggah foto terbaru ke Firebase Storage
+      final photoUrl =
+          await widget.viewModel.uploadProfilePhoto(_selectedImage!);
+      updatedUserDetails['photourl'] = photoUrl;
+    }
+
     await widget.viewModel.updateProfile(updatedUserDetails);
 
     setState(() {
@@ -80,14 +97,10 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
       SnackBar(content: const Text('Profile updated successfully')),
     );
 
-    //write me a navigator push replacement to profile view
-                      Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProfileView()
-                                  ),
-                                );
-                                
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ProfileView()),
+    );
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -99,7 +112,16 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
     );
     if (pickedDate != null && pickedDate != _selectedDate?.toDate()) {
       setState(() {
-        _selectedDate = Timestamp.fromDate(pickedDate); // Mengubah kembali ke tipe Timestamp
+        _selectedDate = Timestamp.fromDate(pickedDate);
+      });
+    }
+  }
+
+  Future<void> _selectImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
       });
     }
   }
@@ -117,10 +139,35 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Update your profile',
-                    style: TextStyle(fontSize: 20),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: GestureDetector(
+                    onTap: () {
+                      _selectImage();
+                    },
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey,
+                        image: _selectedImage != null
+                            ? DecorationImage(
+                                image: FileImage(_selectedImage!),
+                                fit: BoxFit.cover,
+                              )
+                            : null,
+                      ),
+                      child: _selectedImage == null
+                          ? const Icon(
+                              Icons.camera_alt,
+                              color: Colors.white,
+                            )
+                          : null,
+                    ),
                   ),
+                  ),
+                  
                   const SizedBox(height: 20),
                   TextFormField(
                     controller: _nameController,
@@ -143,7 +190,9 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text('Khusus untuk social media cukup masukkan username saja, tanpa link. Contoh: @username'')'),
+                  Text(
+                    'Khusus untuk social media cukup masukkan username saja, tanpa link. Contoh: @username',
+                  ),
                   TextFormField(
                     controller: _instagramController,
                     decoration: const InputDecoration(
@@ -177,7 +226,8 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            DateFormat('dd MMM yyyy').format(_selectedDate?.toDate() ?? DateTime.now()),
+                            DateFormat('dd MMM yyyy').format(
+                                _selectedDate?.toDate() ?? DateTime.now()),
                             style: const TextStyle(
                               fontSize: 16,
                             ),
@@ -195,7 +245,6 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                 ],
               ),
             ),
-            
     );
   }
 }

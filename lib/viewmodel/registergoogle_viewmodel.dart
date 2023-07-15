@@ -63,6 +63,7 @@ class RegisterGoogleViewModel {
           instagram: instagram,
           github: github,
           linkedin: linkedin,
+          whatsapp: phoneNumber ?? 'Not Available',
     );
 
     Navigator.pushReplacement(

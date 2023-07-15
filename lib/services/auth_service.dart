@@ -95,7 +95,8 @@ Future<bool> checkGoogleUserRegistration() async {
   Future<String> uploadImageToFirebase(File imageFile) async {
   try {
     final String userId = _firebaseAuth.currentUser!.uid;
-    final String fileName = 'profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final User? user = _firebaseAuth.currentUser;
+    final String fileName = 'profile_images/${user?.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg';
 
     final Reference storageRef = FirebaseStorage.instance.ref().child(fileName);
     final UploadTask uploadTask = storageRef.putFile(imageFile);
@@ -125,6 +126,7 @@ Future<bool> checkGoogleUserRegistration() async {
   required String instagram,
   required String github,
   required String linkedin,
+  required String whatsapp,
 }) async {
   await _firebasefirestore.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).set(
     {
@@ -142,6 +144,7 @@ Future<bool> checkGoogleUserRegistration() async {
       'instagram': instagram,
       'github': github,
       'linkedin': linkedin,
+      'whatsapp': phone,
     },
   );
 }

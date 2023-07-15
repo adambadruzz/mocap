@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mocap/view/registergugleview.dart';
-import 'package:mocap/viewmodel/registergugle_viewmodel.dart';
+import 'package:mocap/view/registergoogle_view.dart';
+import 'package:mocap/viewmodel/registergoogle_viewmodel.dart';
 
 import '../services/auth_service.dart';
 import '../view/auth_view.dart';
+import '../view/home_view.dart';
+import 'home_viemodel.dart';
 
 class LoginViewModel {
   final AuthService authService;
@@ -78,13 +80,13 @@ class LoginViewModel {
     );
     try {
       final isRegistered = await authService.checkGoogleUserRegistration();
-      Navigator.pop(context);
 
       if (isRegistered) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const AuthPage()),
-        );
+        Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => HomeView(viewModel: HomeViewModel(context: context)),
+                        ),
+                      );
       } else {
         Navigator.pushReplacement(
           context,

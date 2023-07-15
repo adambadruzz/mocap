@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mocap/view/updateprofile_view.dart';
@@ -48,7 +50,6 @@ class _ProfileViewState extends State<ProfileView> {
         ),
       ),
     );
-    // Add your logic here to navigate to the login or home page
   }
 
   Future<void> _launchUrl(String? url) async {
@@ -56,6 +57,28 @@ class _ProfileViewState extends State<ProfileView> {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  void _deleteAccount() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user?.uid;
+    if (uid != null) {
+       // Delete user from FirebaseAuth
+      await user?.delete();
+      
+      // Delete user data from Firestore
+      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+
+     
+
+      // Delete user's profile image from FirebaseStorage
+      final String? photoUrl = _userDetails['photourl'];
+      if (photoUrl != null) {
+        await FirebaseStorage.instance.refFromURL(photoUrl).delete();
+      }
+
+      _logout(); // Logout after deleting account
     }
   }
 
@@ -81,7 +104,7 @@ class _ProfileViewState extends State<ProfileView> {
                 tabs: const [
                   Tab(text: 'Information'),
                   Tab(text: 'Social Media'),
-                  Tab(text: 'Settings'), // New "Settings" tab
+                  Tab(text: 'Settings'),
                 ],
               ),
             ),
@@ -289,28 +312,35 @@ class _ProfileViewState extends State<ProfileView> {
                                   : null,
                             ),
                           ),
-                          
                           const SizedBox(height: 16),
                           ListTile(
                             leading: Icon(Icons.edit),
                             title: Text('Update Profile'),
-                             onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => UpdateProfileView(
-                                      viewModel: UpdateProfileViewModel(),
-                                    ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UpdateProfileView(
+                                    viewModel: UpdateProfileViewModel(),
                                   ),
-                                );
-                              },
+                                ),
+                              );
+                            },
                           ),
+                          const SizedBox(height: 16),
+                          ListTile(
+                            leading: const Icon(Icons.delete),
+                            title: const Text('Delete Account'),
+                            onTap: _deleteAccount,
+                          ),
+                          
                           const SizedBox(height: 16),
                           ListTile(
                             leading: const Icon(Icons.logout),
                             title: const Text('Logout'),
                             onTap: _logout,
                           ),
+                          
                         ],
                       ),
                     ),

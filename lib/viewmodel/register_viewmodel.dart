@@ -63,6 +63,7 @@ class RegisterViewModel {
           instagram: instagram,
           github: github,
           linkedin: linkedin,
+          whatsapp: phoneController,
         );
 
         Navigator.pushReplacement(

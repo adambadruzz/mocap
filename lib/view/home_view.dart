@@ -12,6 +12,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
+
     return FutureBuilder<bool>(
       future: viewModel.shouldShowCoursesMenu(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -95,12 +97,37 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (shouldShowCoursesMenu) ...[
-                  const SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: () {
-                      viewModel.navigateToCourses();
-                    },
-                    child: Container(
+                      const SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () {
+                          viewModel.navigateToCourses();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: Column(
+                            children: [
+                              const Icon(
+                                Icons.book,
+                                size: 50,
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Courses',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                    const SizedBox(width: 16),
+                    Container(
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -108,13 +135,18 @@ class HomeView extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          const Icon(
-                            Icons.book,
-                            size: 50,
+                          GestureDetector(
+                            onTap: () {
+                              viewModel.navigateToStructure();
+                            },
+                            child: const Icon(
+                              Icons.group,
+                              size: 50,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           const Text(
-                            'Courses',
+                            'Structure',
                             style: TextStyle(
                               fontSize: 16,
                             ),
@@ -122,41 +154,10 @@ class HomeView extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ),
-                ],
-                const SizedBox(width: 16),
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          viewModel.navigateToStructure();
-                        },
-                        child: const Icon(
-                          Icons.group,
-                          size: 50,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Structure',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
               ],
             ),
-                  ],
-                ),
-                
             bottomNavigationBar: NavBarView(
               viewModel: _navBarViewModel,
             ),

@@ -1,4 +1,3 @@
-// chatview.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +18,41 @@ class _ChatViewState extends State<ChatView> {
   final ChatViewModel _chatViewModel = ChatViewModel();
   final TextEditingController _messageController = TextEditingController();
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
+
+  void _showAlertDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Peringatan'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _sendMessage(String message) async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final timestamp = DateTime.now();
+
+    // Cek apakah pengguna memiliki roles 'Pengurus' atau 'Member'
+    final userDoc = await FirebaseFirestore.instance.collection('users').doc(currentUser?.uid).get();
+    final roles = userDoc['roles'] ;
+    if (!roles.contains('Pengurus') && !roles.contains('Member')) {
+      _showAlertDialog(context, 'Anda tidak bisa mengirim pesan');
+      return;
+    }
+
+    await _chatViewModel.sendMessage(message);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +163,7 @@ class _ChatViewState extends State<ChatView> {
                   onPressed: () {
                     final String message = _messageController.text.trim();
                     if (message.isNotEmpty) {
-                      _chatViewModel.sendMessage(message);
+                      _sendMessage(message);
                       _messageController.clear();
                     }
                   },

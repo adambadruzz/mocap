@@ -134,24 +134,26 @@ class _CreatePostViewState extends State<CreatePostView> {
     }
   }
 
-  Future<void> _createPost() async {
-    final user = _auth.currentUser;
-    if (user != null) {
-      // Upload selected images to Firebase Storage
-      final List<String> imageUrls = await _uploadImages();
+ Future<void> _createPost() async {
+  final user = _auth.currentUser;
+  if (user != null) {
+    // Upload selected images to Firebase Storage
+    final List<String> imageUrls = await _uploadImages();
 
-      // Create a new post document in Firestore
-      final post = PostModel(
-        title: _posttitleText,
-        description: _postText,
-        images: imageUrls,
-      );
-      await _firestore.collection('posts').add(post.toMap());
+    // Create a new post document in Firestore
+    final post = {
+      'title': _posttitleText,
+      'description': _postText,
+      'images': imageUrls,
+    };
 
-      // Navigate back to the EventView
-      Navigator.pop(context);
-    }
+    await _firestore.collection('posts').add(post);
+
+    // Navigate back to the EventView
+    Navigator.pop(context);
   }
+}
+
 
   Future<List<String>> _uploadImages() async {
     final List<String> imageUrls = [];

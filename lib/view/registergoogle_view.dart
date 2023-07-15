@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import '../viewmodel/registergugle_viewmodel.dart';
+import '../services/auth_service.dart';
+import '../viewmodel/login_viewmodel.dart';
+import '../viewmodel/registergoogle_viewmodel.dart';
+import 'login_view.dart';
 
 class RegisterGoogleView extends StatefulWidget {
   final RegisterGoogleViewModel viewModel;
@@ -18,7 +21,6 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
 
   final asalController = TextEditingController();
   final instagramController = TextEditingController();
-  final whatsappController = TextEditingController();
   final githubController = TextEditingController();
   final linkedinController = TextEditingController();
   late DateTime selectedDate;
@@ -27,8 +29,7 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
 
   Future<void> _selectImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? image =
-        await picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         _selectedImage = File(image.path);
@@ -72,25 +73,25 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
   }
 
   bool validateInputs() {
-  if (_selectedImage == null) {
-    widget.viewModel.showErrorMessage(context, 'Please select an image');
-    return false;
+    if (_selectedImage == null) {
+      widget.viewModel.showErrorMessage(context, 'Please select an image');
+      return false;
+    }
+
+    if (selectedYear.isEmpty) {
+      widget.viewModel.showErrorMessage(context, 'Please select the year of entry');
+      return false;
+    }
+
+    if (asalController.text.isEmpty) {
+      widget.viewModel.showErrorMessage(context, 'Please enter your origin');
+      return false;
+    }
+
+    return true;
   }
 
-  if (selectedYear.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please select the year of entry');
-    return false;
-  }
-
-  if (asalController.text.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please enter your origin');
-    return false;
-  }
-
-  return true;
-}
-
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +200,8 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
                   widget.viewModel.signInWithGoogle(
                     angkatan: selectedYear,
                     asal: asalController.text,
+                    selectedDate: selectedDate,
+                    profileImage: _selectedImage,
                     instagram: instagramController.text.isEmpty
                         ? 'Not Available'
                         : instagramController.text,
@@ -208,8 +211,6 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
                     linkedin: linkedinController.text.isEmpty
                         ? 'Not Available'
                         : linkedinController.text,
-                    selectedDate: selectedDate,
-                    profileImage: _selectedImage,
                     context: context,
                   );
                 }
@@ -230,7 +231,33 @@ class _RegisterGoogleViewState extends State<RegisterGoogleView> {
               ),
             ),
             const SizedBox(height: 20),
-            
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Expanded(child: Divider(color: Colors.black)),
+                  const Text('Already have an account?',
+                      style: TextStyle(fontSize: 15)),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginView(
+                            viewModel: LoginViewModel(authService: AuthService()),
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Login', style: TextStyle(color: Colors.blue)),
+                  ),
+                  const Expanded(child: Divider(color: Colors.black)),
+                ],
+              ),
+            ),
+           
           ]),
         ),
       ),
