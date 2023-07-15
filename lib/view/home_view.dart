@@ -12,8 +12,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-
     return FutureBuilder<bool>(
       future: viewModel.shouldShowCoursesMenu(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -155,6 +153,49 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                FutureBuilder<bool>(
+                  future: viewModel.isUserAdmin(),
+                  builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      final bool isAdmin = snapshot.data ?? false;
+
+                      return GestureDetector(
+                        onTap: () {
+                          viewModel.navigateToAccess();
+                        },
+                        child: Visibility(
+                          visible: isAdmin,
+                          child: Container(
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: const Column(
+                              children: [
+                                Icon(
+                                  Icons.lock,
+                                  size: 50,
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  'Access',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  },
                 ),
               ],
             ),
