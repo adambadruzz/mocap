@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mocap/view/updateprofile_view.dart';
 import '../services/auth_service.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
+import '../viewmodel/updateprofile_viewmodel.dart';
 import 'login_view.dart';
 import 'navbar_view.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -287,18 +289,28 @@ class _ProfileViewState extends State<ProfileView> {
                                   : null,
                             ),
                           ),
+                          
+                          const SizedBox(height: 16),
+                          ListTile(
+                            leading: Icon(Icons.edit),
+                            title: Text('Update Profile'),
+                             onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => UpdateProfileView(
+                                      viewModel: UpdateProfileViewModel(),
+                                    ),
+                                  ),
+                                );
+                              },
+                          ),
                           const SizedBox(height: 16),
                           ListTile(
                             leading: const Icon(Icons.logout),
                             title: const Text('Logout'),
                             onTap: _logout,
                           ),
-                          const SizedBox(height: 16),
-                          // ListTile(
-                          //   leading: Icon(Icons.update),
-                          //   title: Text('Update'),
-                          //   onTap: ,
-                          // ),
                         ],
                       ),
                     ),
