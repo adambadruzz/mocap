@@ -20,16 +20,29 @@ class _PengurusViewState extends State<PengurusView> {
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   List<MemberModel> _memberMembers = [];
+  List<MemberModel> _pengurus = [];
 
   @override
   void initState() {
     super.initState();
+    _fetchPengurus();
     _fetchMembers();
   }
 
-  Future<void> _fetchMembers() async {
-    final memberMembers = await _pengurusViewModel.getMembersByRole(
+  Future<void> _fetchPengurus() async {
+    final pengurus = await _pengurusViewModel.getMembersByRole(
       'Pengurus',
+      widget.tahunSelesai
+    );
+
+    setState(() {
+      _pengurus = pengurus;
+    });
+  }
+
+   Future<void> _fetchMembers() async {
+    final memberMembers = await _pengurusViewModel.getMembersByRole(
+      'Member',
       widget.tahunSelesai
     );
 
@@ -47,9 +60,42 @@ class _PengurusViewState extends State<PengurusView> {
       body: ListView(
         children: [
           const Divider(thickness: 3),
-          if (_memberMembers.isNotEmpty)
+          if (_pengurus.isNotEmpty)
             const ListTile(
               title: Text('Pengurus'),
+              dense: true,
+            ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: _pengurus.length,
+            itemBuilder: (context, index) {
+              final pengurus = _pengurus[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  radius: 20,
+                  backgroundImage: pengurus.photourl.isNotEmpty
+                      ? CachedNetworkImageProvider(pengurus.photourl) as ImageProvider<Object>?
+                      : null,
+                  child: pengurus.photourl.isEmpty ? const Icon(Icons.person, size: 40) : null,
+                ),
+                title: Text(pengurus.name),
+                subtitle: Text(pengurus.email),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailPengurusView(member: pengurus),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+          const Divider(thickness: 3),
+          if (_memberMembers.isNotEmpty)
+            const ListTile(
+              title: Text('Member'),
               dense: true,
             ),
           ListView.builder(
@@ -80,6 +126,7 @@ class _PengurusViewState extends State<PengurusView> {
             },
           ),
           const Divider(thickness: 3),
+          
         ],
       ),
       bottomNavigationBar: NavBarView(

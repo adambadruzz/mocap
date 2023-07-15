@@ -8,6 +8,7 @@ import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import 'login_view.dart';
 import 'navbar_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -48,14 +49,19 @@ class _ProfileViewState extends State<ProfileView> {
     // Add your logic here to navigate to the login or home page
   }
 
-  
+  Future<void> _launchUrl(String? url) async {
+    if (await canLaunch(url!)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-       
       ),
       body: DefaultTabController(
         length: 3, // Updated to include the new "Settings" tab
@@ -191,7 +197,12 @@ class _ProfileViewState extends State<ProfileView> {
                               _userDetails['phone'] ?? 'Not Available',
                             ),
                             onTap: () {
-                              // Add your logic here to open Whatsapp profile
+                              final phoneNumber = _userDetails['phone'];
+                              if (phoneNumber != null) {
+                                final whatsappUrl =
+                                    'https://wa.me/$phoneNumber';
+                                _launchUrl(whatsappUrl);
+                              }
                             },
                           ),
                           const SizedBox(height: 16),
@@ -205,7 +216,13 @@ class _ProfileViewState extends State<ProfileView> {
                               _userDetails['instagram'] ?? 'Not Available',
                             ),
                             onTap: () {
-                              // Add your logic here to open Instagram profile
+                              final instagramUsername =
+                                  _userDetails['instagram'];
+                              if (instagramUsername != null) {
+                                final instagramUrl =
+                                    'https://www.instagram.com/$instagramUsername';
+                                _launchUrl(instagramUrl);
+                              }
                             },
                           ),
                           const SizedBox(height: 16),
@@ -219,7 +236,13 @@ class _ProfileViewState extends State<ProfileView> {
                               _userDetails['linkedin'] ?? 'Not Available',
                             ),
                             onTap: () {
-                              // Add your logic here to open Linkedin profile
+                              final linkedinUsername =
+                                  _userDetails['linkedin'];
+                              if (linkedinUsername != null) {
+                                final linkedinUrl =
+                                    'https://www.linkedin.com/in/$linkedinUsername';
+                                _launchUrl(linkedinUrl);
+                              }
                             },
                           ),
                           const SizedBox(height: 16),
@@ -233,7 +256,12 @@ class _ProfileViewState extends State<ProfileView> {
                               _userDetails['github'] ?? 'Not Available',
                             ),
                             onTap: () {
-                              
+                              final githubUsername = _userDetails['github'];
+                              if (githubUsername != null) {
+                                final githubUrl =
+                                    'https://github.com/$githubUsername';
+                                _launchUrl(githubUrl);
+                              }
                             },
                           ),
                         ],

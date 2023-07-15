@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../models/member_model.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import 'navbar_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailMemberView extends StatelessWidget {
   final MemberModel member;
@@ -89,7 +90,7 @@ class DetailMemberView extends StatelessWidget {
                             child: ListTile(
                               title: const Text('Asal'),
                               subtitle: Text(
-                                member.asal ?? 'Loading...',
+                                member.asal ?? 'N/A',
                               ),
                             ),
                           ),
@@ -97,7 +98,7 @@ class DetailMemberView extends StatelessWidget {
                             child: ListTile(
                               title: const Text('Angkatan'),
                               subtitle: Text(
-                                member.angkatan ?? 'Loading...',
+                                member.angkatan ?? 'N/A',
                               ),
                             ),
                           ),
@@ -133,7 +134,12 @@ class DetailMemberView extends StatelessWidget {
                               member.phone ?? 'Not Available',
                             ),
                             onTap: () {
-                              // Add your logic here to open Whatsapp profile
+                              final phoneNumber = member.phone;
+                              if (phoneNumber != null) {
+                                final whatsappUrl =
+                                    'https://wa.me/$phoneNumber';
+                                _launchUrl(whatsappUrl);
+                              }
                             },
                           ),
                           const SizedBox(height: 16),
@@ -147,7 +153,12 @@ class DetailMemberView extends StatelessWidget {
                               member.instagram ?? 'Not Available',
                             ),
                             onTap: () {
-                              // Add your logic here to open Instagram profile
+                              final instagramUsername = member.instagram;
+                              if (instagramUsername != null) {
+                                final instagramUrl =
+                                    'https://www.instagram.com/$instagramUsername';
+                                _launchUrl(instagramUrl);
+                              }
                             },
                           ),
                           const SizedBox(height: 16),
@@ -161,7 +172,12 @@ class DetailMemberView extends StatelessWidget {
                               member.linkedin ?? 'Not Available',
                             ),
                             onTap: () {
-                              // Add your logic here to open Linkedin profile
+                              final linkedinUsername = member.linkedin;
+                              if (linkedinUsername != null) {
+                                final linkedinUrl =
+                                    'https://www.linkedin.com/in/$linkedinUsername';
+                                _launchUrl(linkedinUrl);
+                              }
                             },
                           ),
                           const SizedBox(height: 16),
@@ -175,7 +191,12 @@ class DetailMemberView extends StatelessWidget {
                               member.github ?? 'Not Available',
                             ),
                             onTap: () {
-                              // Add your logic here to open Github profile
+                              final githubUsername = member.github;
+                              if (githubUsername != null) {
+                                final githubUrl =
+                                    'https://github.com/$githubUsername';
+                                _launchUrl(githubUrl);
+                              }
                             },
                           ),
                         ],
@@ -201,6 +222,12 @@ class DetailMemberView extends StatelessWidget {
     }
     return null;
   }
+
+  Future<void> _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }
-
-
