@@ -390,9 +390,7 @@ class _MemberViewState extends State<MemberView> {
           const Divider(thickness: 3),
         ],
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+      
     );
   }
 }

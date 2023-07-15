@@ -55,9 +55,7 @@ class DetailEventView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+      
     );
   }
 }

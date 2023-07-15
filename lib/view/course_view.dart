@@ -126,9 +126,7 @@ final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
           const Divider(thickness: 3),
         ],
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+     
     );
   }
 }

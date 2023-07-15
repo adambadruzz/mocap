@@ -129,9 +129,7 @@ class _PengurusViewState extends State<PengurusView> {
           
         ],
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+      
     );
   }
 }

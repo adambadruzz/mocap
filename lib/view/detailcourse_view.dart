@@ -77,9 +77,7 @@ class DetailCourseView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+      
     );
   }
 }

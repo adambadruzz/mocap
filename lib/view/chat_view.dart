@@ -1,3 +1,4 @@
+// chatview.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,6 @@ import 'navbar_view.dart';
 class ChatView extends StatefulWidget {
   const ChatView({Key? key}) : super(key: key);
 
-
   @override
   _ChatViewState createState() => _ChatViewState();
 }
@@ -18,7 +18,7 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   final ChatViewModel _chatViewModel = ChatViewModel();
   final TextEditingController _messageController = TextEditingController();
-    final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
+  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,10 @@ class _ChatViewState extends State<ChatView> {
                   itemCount: messages.length,
                   itemBuilder: (BuildContext context, int index) {
                     final message = messages[index].data() as Map<String, dynamic>;
+                    final String messageId = messages[index].id;
                     final String senderId = message['senderId'];
                     final String messageText = message['message'];
+                    final bool isCurrentUser = senderId == FirebaseAuth.instance.currentUser!.uid;
 
                     return FutureBuilder<DocumentSnapshot>(
                       future: FirebaseFirestore.instance.collection('users').doc(senderId).get(),
@@ -59,23 +61,44 @@ class _ChatViewState extends State<ChatView> {
                           final userData = snapshot.data!.data() as Map<String, dynamic>;
                           final String userName = userData['name'];
                           final String userPhotoUrl = userData['photourl'];
-                          final String currentUserUid = FirebaseAuth.instance.currentUser!.uid;
 
-                          return Container(
-                            alignment: senderId == currentUserUid ? Alignment.centerRight : Alignment.centerLeft,
-                            child: ListTile(
-                              leading: senderId != currentUserUid
-                                  ? CircleAvatar(
-                                      backgroundImage: NetworkImage(userPhotoUrl),
-                                    )
-                                  : null,
-                              title: Text(userName),
-                              subtitle: Text(messageText),
-                              trailing: senderId == currentUserUid
-                                  ? CircleAvatar(
-                                      backgroundImage: NetworkImage(userPhotoUrl),
-                                    )
-                                  : null,
+                          return Dismissible(
+                            key: Key(messageId),
+                            direction: isCurrentUser ? DismissDirection.endToStart : DismissDirection.none,
+                            onDismissed: (direction) {
+                              if (isCurrentUser) {
+                                _chatViewModel.deleteMessage(messageId);
+                              }
+                            },
+                            background: isCurrentUser
+                                ? Container(
+                                    color: Colors.red,
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                : null,
+                            child: Container(
+                              alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
+                              child: ListTile(
+                                leading: !isCurrentUser
+                                    ? CircleAvatar(
+                                        backgroundImage: NetworkImage(userPhotoUrl),
+                                      )
+                                    : null,
+                                title: Text(userName),
+                                subtitle: Text(messageText),
+                                trailing: isCurrentUser
+                                    ? CircleAvatar(
+                                        backgroundImage: NetworkImage(userPhotoUrl),
+                                      )
+                                    : null,
+                              ),
                             ),
                           );
                         }

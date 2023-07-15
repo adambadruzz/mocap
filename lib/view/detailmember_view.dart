@@ -209,9 +209,7 @@ class DetailMemberView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+      
     );
   }
 

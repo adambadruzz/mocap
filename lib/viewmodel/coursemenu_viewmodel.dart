@@ -9,28 +9,28 @@ class CourseMenuViewModel {
   CourseMenuViewModel({required this.context});
 
   void navigateToJava() {
-   Navigator.pushReplacement(
+   Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const CourseView(courseType: 'Java',)),
     );
   }
 
   void navigateToKotlin() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const CourseView(courseType: 'Kotlin',)),
     );
   }
 
   void navigateToFlutter() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const CourseView(courseType: 'Flutter',)),
     );
   }
 
   void navigateToJS() {
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const CourseView(courseType: 'Java Script',)),
     );

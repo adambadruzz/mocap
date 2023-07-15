@@ -16,7 +16,7 @@ class DetailPengurusView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Member Detail'),
+        title: const Text('Pengurus Detail'),
       ),
       body: DefaultTabController(
         length: 2,
@@ -208,9 +208,6 @@ class DetailPengurusView extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
       ),
     );
   }

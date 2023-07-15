@@ -88,9 +88,7 @@ class _EventViewState extends State<EventView> {
               child: Icon(Icons.add),
             )
           : null,
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+      
     );
   }
 

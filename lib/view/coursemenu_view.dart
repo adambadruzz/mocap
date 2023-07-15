@@ -149,9 +149,7 @@ class CourseMenuView extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+      
     );
   }
 }

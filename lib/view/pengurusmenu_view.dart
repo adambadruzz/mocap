@@ -36,9 +36,7 @@ class PengurusMenuView extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: navBarViewModel,
-      ),
+      
     );
   }
 }

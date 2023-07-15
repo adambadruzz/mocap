@@ -195,9 +195,7 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                 ],
               ),
             ),
-            bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
+            
     );
   }
 }
