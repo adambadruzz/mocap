@@ -41,7 +41,7 @@ class AuthPage extends StatelessWidget {
                       );
                     });
                     return Container();
-                  } else if (access == 'Denied' || access == 'Granted' || access == 'Pending' || access == 'OK') {
+                  } else if (access == 'Denied' || access == 'Granted' || access == 'Pending' || access == 'OK' || access == 'Approved') {
                     // Show waiting view if access is denied, granted, pending, or OK
                     return const WaitingView();
                   } else {

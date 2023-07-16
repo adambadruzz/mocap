@@ -28,4 +28,14 @@ class CourseModel {
       index: data['index'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'linkyoutube': linkYoutube,
+      'tingkatan': tingkatan,
+      'description': description,
+      'index': index,
+    };
+  }
 }

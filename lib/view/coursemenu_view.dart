@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../viewmodel/coursemenu_viewmodel.dart';
 
 class CourseMenuView extends StatelessWidget {
@@ -12,8 +11,27 @@ class CourseMenuView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Course Menu'),
-        leading: null, // Hapus ikon AppBar
-        actions: null
+        leading: null,
+        actions: [
+          FutureBuilder<bool>(
+            future: viewModel.isAdmin(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container(); // Tampilkan widget kosong saat menunggu hasil
+              }
+              if (snapshot.hasData && snapshot.data!) {
+                // Tampilkan ikon tambah course hanya jika pengguna memiliki specialRole 'admin'
+                return IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    viewModel.navigateToAddCourse(context);
+                  },
+                );
+              }
+              return Container(); // Tampilkan widget kosong jika pengguna tidak memiliki specialRole 'admin'
+            },
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -145,8 +163,6 @@ class CourseMenuView extends StatelessWidget {
           ),
         ],
       ),
-      
     );
   }
 }
-

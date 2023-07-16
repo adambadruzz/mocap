@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
 import '../models/member_model.dart';
-import '../viewmodel/navbar_viewmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailMemberView extends StatelessWidget {
   final MemberModel member;
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
   DetailMemberView({Key? key, required this.member}) : super(key: key);
 
@@ -76,20 +74,20 @@ class DetailMemberView extends StatelessWidget {
                           Card(
                             child: ListTile(
                               title: const Text('Phone'),
-                              subtitle: Text(member.phone ?? 'N/A'),
+                              subtitle: Text(member.phone),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Role'),
-                              subtitle: Text(member.role ?? 'N/A'),
+                              subtitle: Text(member.role),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Asal'),
                               subtitle: Text(
-                                member.asal ?? 'N/A',
+                                member.asal,
                               ),
                             ),
                           ),
@@ -97,7 +95,7 @@ class DetailMemberView extends StatelessWidget {
                             child: ListTile(
                               title: const Text('Angkatan'),
                               subtitle: Text(
-                                member.angkatan ?? 'N/A',
+                                member.angkatan,
                               ),
                             ),
                           ),
@@ -130,7 +128,7 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             title: const Text('Whatsapp'),
                             subtitle: Text(
-                              member.phone ?? 'Not Available',
+                              member.phone,
                             ),
                             onTap: () {
                               final phoneNumber = member.phone;
@@ -147,7 +145,7 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             title: const Text('Instagram'),
                             subtitle: Text(
-                              member.instagram ?? 'Not Available',
+                              member.instagram,
                             ),
                             onTap: () {
                               final instagramUsername = member.instagram;
@@ -164,7 +162,7 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             title: const Text('Linkedin'),
                             subtitle: Text(
-                              member.linkedin ?? 'Not Available',
+                              member.linkedin,
                             ),
                             onTap: () {
                               final linkedinUsername = member.linkedin;
@@ -181,7 +179,7 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             title: const Text('Github'),
                             subtitle: Text(
-                              member.github ?? 'Not Available',
+                              member.github,
                             ),
                             onTap: () {
                               final githubUsername = member.github;

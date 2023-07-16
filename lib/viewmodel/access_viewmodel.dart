@@ -10,6 +10,6 @@ class AccessViewModel {
   void approveAccess(String userId) {
     final userRef = FirebaseFirestore.instance.collection('users').doc(userId);
 
-    userRef.update({'access': 'Approved'});
+    userRef.update({'access': 'mm'});
   }
 }

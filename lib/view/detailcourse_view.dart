@@ -56,7 +56,7 @@ class DetailCourseView extends StatelessWidget {
                   fontSize: 18,
                 ),),
               const SizedBox(height: 16),
-              if (course.description == true)   
+              if (course.description != null)   
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
