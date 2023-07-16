@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../models/course_model.dart';
+import '../viewmodel/coursemenu_viewmodel.dart';
+import '../viewmodel/detailcourse_viewmodel.dart';
+import 'coursemenu_view.dart';
 
 class DetailCourseView extends StatelessWidget {
   final CourseModel course;
+  final String courseType;
 
-  DetailCourseView({Key? key, required this.course}) : super(key: key);
+  DetailCourseView({Key? key, required this.course, required this.courseType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = DetailCourseViewModel(course: course);
+
     YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: course.linkYoutube,
       flags: const YoutubePlayerFlags(
@@ -19,7 +25,56 @@ class DetailCourseView extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          FutureBuilder<bool>(
+            future: viewModel.isAdmin(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container();
+              }
+              if (snapshot.hasData && snapshot.data!) {
+                return IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Delete Course'),
+                          content: Text('Are you sure you want to delete this course?'),
+                          actions: [
+                            TextButton(
+                              child: Text('Cancel'),
+                              onPressed: () {
+                                //create me a navigator push replacement to coursemenu
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => CourseMenuView(viewModel: CourseMenuViewModel(context: context))),
+                                );
+                                
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Delete'),
+                              onPressed: () async {
+                                await viewModel.deleteCourse(courseType);
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
+              }
+              return Container();
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -39,10 +94,12 @@ class DetailCourseView extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              Text(course.title,
+              Text(
+                course.title,
                 style: const TextStyle(
                   fontSize: 18,
-                ),),
+                ),
+              ),
               const SizedBox(height: 10),
               const Text(
                 'Tingkatan:',
@@ -51,12 +108,14 @@ class DetailCourseView extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              Text(course.tingkatan,
+              Text(
+                course.tingkatan,
                 style: const TextStyle(
                   fontSize: 18,
-                ),),
+                ),
+              ),
               const SizedBox(height: 16),
-              if (course.description != null)   
+              if (course.description != null)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -74,7 +133,6 @@ class DetailCourseView extends StatelessWidget {
           ),
         ),
       ),
-      
     );
   }
 }

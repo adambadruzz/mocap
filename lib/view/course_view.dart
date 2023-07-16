@@ -63,7 +63,7 @@ class _CourseViewState extends State<CourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailCourseView(course: course),
+                      builder: (context) => DetailCourseView(course: course, courseType: widget.courseType,),
                     ),
                   );
                 },
@@ -88,7 +88,7 @@ class _CourseViewState extends State<CourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailCourseView(course: course),
+                      builder: (context) => DetailCourseView(course: course, courseType: widget.courseType),
                     ),
                   );
                 },
@@ -113,7 +113,7 @@ class _CourseViewState extends State<CourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailCourseView(course: course),
+                      builder: (context) => DetailCourseView(course: course, courseType: widget.courseType),
                     ),
                   );
                 },
