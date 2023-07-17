@@ -22,7 +22,10 @@ class ChatViewModel {
   }
 
   Future<void> deleteMessage(String messageId) async {
-    await _firebaseFirestore.collection('chat_messages').doc(messageId).delete();
+    await _firebaseFirestore
+        .collection('chat_messages')
+        .doc(messageId)
+        .delete();
   }
 
   Stream<QuerySnapshot> getChatMessages() {
@@ -33,38 +36,41 @@ class ChatViewModel {
   }
 
   Future<void> sendNotification(String senderId, String message) async {
-    final querySnapshot = await _firebaseFirestore
-        .collection('users')
-        .where(FieldPath.documentId, isNotEqualTo: senderId)
-        .get();
+    final querySnapshot = await _firebaseFirestore.collection('users').get();
 
     final List<String> recipientTokens = [];
 
-    querySnapshot.docs.forEach((doc) {
-      final recipientToken = doc['fcmToken'];
-      if (recipientToken != null) {
-        recipientTokens.add(recipientToken);
+    try {
+      querySnapshot.docs.forEach((doc) {
+        final recipientToken = doc['fcmToken'] as String?;
+        if (recipientToken != null && doc.id != senderId) {
+          recipientTokens.add(recipientToken);
+        }
+      });
+
+      final currentUser = _firebaseAuth.currentUser;
+      final currentUserDoc = await _firebaseFirestore
+          .collection('users')
+          .doc(currentUser?.uid)
+          .get();
+
+      final senderName = currentUserDoc['name'] as String?;
+
+      final messageData = <String, String>{
+        'senderName': senderName ?? '',
+        'message': message,
+      };
+
+      for (final token in recipientTokens) {
+        await _firebaseMessaging.sendMessage(
+          to: token,
+          data: messageData,
+        );
       }
-    });
-
-    final currentUser = _firebaseAuth.currentUser;
-    final currentUserDoc = await _firebaseFirestore
-        .collection('users')
-        .doc(currentUser?.uid)
-        .get();
-
-    final senderName = currentUserDoc['name'];
-
-    final messageData = <String, String>{
-      'senderName': senderName,
-      'message': message,
-    };
-
-    for (final token in recipientTokens) {
-      await _firebaseMessaging.sendMessage(
-        to: token,
-        data: messageData,
-      );
+    } catch (e) {
+      // Tangani kesalahan atau lanjutkan dengan eksekusi program lanjutan
+      print('Error sending notification: $e');
+      // Tambahkan kode yang ingin dieksekusi setelah penanganan kesalahan
     }
   }
 }
