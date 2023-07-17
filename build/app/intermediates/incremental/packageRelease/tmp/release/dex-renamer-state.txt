@@ -1,4 +1,4 @@
-#Sat Jul 15 21:29:55 WIB 2023
+#Sun Jul 16 19:49:39 WIB 2023
 base.0=D\:\\Kuliah\\Projek\\Aplikasi\\mocap\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

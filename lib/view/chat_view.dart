@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:mocap/viewmodel/chat_viewmodel.dart';
+import 'package:mocap/viewmodel/navbar_viewmodel.dart';
 
-import '../viewmodel/navbar_viewmodel.dart';
 import 'navbar_view.dart';
 
 class ChatView extends StatefulWidget {
@@ -18,6 +19,65 @@ class _ChatViewState extends State<ChatView> {
   final ChatViewModel _chatViewModel = ChatViewModel();
   final TextEditingController _messageController = TextEditingController();
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeFirebaseMessaging();
+  }
+
+  Future<void> _initializeFirebaseMessaging() async {
+    NotificationSettings settings = await _firebaseMessaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      String? token = await _firebaseMessaging.getToken();
+      print('Firebase Messaging Token: $token');
+
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        print('onMessage: $message');
+        // Lakukan penanganan notifikasi di sini
+        _handleNotification(message);
+      });
+
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        print('onMessageOpenedApp: $message');
+        // Lakukan tindakan berdasarkan pesan yang diterima saat aplikasi dibuka dari notifikasi
+        _handleNotification(message);
+      });
+    }
+  }
+
+  void _handleNotification(RemoteMessage message) {
+    // Menampilkan notifikasi atau melakukan tindakan berdasarkan pesan yang diterima saat aplikasi berjalan
+    final Map<String, dynamic> notificationData = message.data;
+
+    final String senderName = notificationData['senderName'];
+    final String messageText = notificationData['message'];
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('New Message from $senderName'),
+          content: Text(messageText),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Arahkan ke halaman ChatView
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => ChatView()));
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void _showAlertDialog(BuildContext context, String message) {
     showDialog(
@@ -43,14 +103,19 @@ class _ChatViewState extends State<ChatView> {
     final currentUser = FirebaseAuth.instance.currentUser;
 
     // Cek apakah pengguna memiliki roles 'Pengurus' atau 'Member'
-    final userDoc = await FirebaseFirestore.instance.collection('users').doc(currentUser?.uid).get();
-    final roles = userDoc['roles'] ;
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser?.uid)
+        .get();
+    final roles = userDoc['roles'];
     if (!roles.contains('Pengurus') && !roles.contains('Member')) {
       _showAlertDialog(context, 'Anda tidak bisa mengirim pesan');
       return;
     }
 
     await _chatViewModel.sendMessage(message);
+    // Panggil metode _sendNotification setelah mengirim pesan
+    await _chatViewModel.sendNotification(currentUser!.uid, message);
   }
 
   @override

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.mocap.app-mergeReleaseResources-35:/values-lv/values-lv.xml",
+            "outputFile": "com.example.mocap.app-mergeReleaseResources-37:/values-lv/values-lv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Adam\\.gradle\\caches\\transforms-3\\f5aeeb70e4aa208ac830e747eaf33ddc\\transformed\\jetified-play-services-basement-18.2.0\\res\\values-lv\\values.xml",

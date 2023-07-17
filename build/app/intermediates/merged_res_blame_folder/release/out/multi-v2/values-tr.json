@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.mocap.app-mergeReleaseResources-35:/values-tr/values-tr.xml",
+            "outputFile": "com.example.mocap.app-mergeReleaseResources-37:/values-tr/values-tr.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Adam\\.gradle\\caches\\transforms-3\\6d3bbaf4594b8ed85e4722883be764b3\\transformed\\browser-1.4.0\\res\\values-tr\\values-tr.xml",

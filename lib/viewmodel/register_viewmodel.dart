@@ -4,14 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/services/auth_service.dart';
 import 'package:mocap/view/auth_view.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class RegisterViewModel {
   final AuthService authService;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   RegisterViewModel({required this.authService});
-  
-  void signUp({
+
+  Future<void> signUp({
     required String email,
     required String password,
     required String confirmpassword,
@@ -35,6 +36,8 @@ class RegisterViewModel {
 
     try {
       if (password == confirmpassword) {
+        final fcmToken = await _firebaseMessaging.getToken();
+
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
@@ -64,6 +67,7 @@ class RegisterViewModel {
           github: github,
           linkedin: linkedin,
           whatsapp: phoneController,
+          fcmToken: fcmToken, // Tambahkan fcmToken ke pemanggilan adduserdetail
         );
 
         Navigator.pushReplacement(
