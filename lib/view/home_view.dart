@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../viewmodel/home_viemodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import 'navbar_view.dart';
 
-class HomeView extends StatelessWidget {
-  final HomeViewModel viewModel;
+class HomeView extends GetWidget<HomeViewModel> {
   final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
 
-  HomeView({Key? key, required this.viewModel}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: viewModel.shouldShowCoursesMenu(),
+      future: controller.shouldShowCoursesMenu(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -44,7 +44,7 @@ class HomeView extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              viewModel.navigateToEvent();
+                              controller.navigateToEvent();
                             },
                             child: const Icon(
                               Icons.event,
@@ -72,7 +72,7 @@ class HomeView extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              viewModel.navigateToMembers();
+                              controller.navigateToMembers();
                             },
                             child: const Icon(
                               Icons.people,
@@ -98,7 +98,7 @@ class HomeView extends StatelessWidget {
                       const SizedBox(height: 16),
                       GestureDetector(
                         onTap: () {
-                          viewModel.navigateToCourses();
+                          controller.navigateToCourses();
                         },
                         child: Container(
                           padding: const EdgeInsets.all(15),
@@ -135,7 +135,7 @@ class HomeView extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              viewModel.navigateToStructure();
+                              controller.navigateToStructure();
                             },
                             child: const Icon(
                               Icons.group,
@@ -155,7 +155,7 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
                 FutureBuilder<bool>(
-                  future: viewModel.isUserAdmin(),
+                  future: controller.isUserAdmin(),
                   builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
@@ -166,7 +166,7 @@ class HomeView extends StatelessWidget {
 
                       return GestureDetector(
                         onTap: () {
-                          viewModel.navigateToAccess();
+                          controller.navigateToAccess();
                         },
                         child: Visibility(
                           visible: isAdmin,
@@ -200,7 +200,7 @@ class HomeView extends StatelessWidget {
               ],
             ),
             bottomNavigationBar: NavBarView(
-              viewModel: _navBarViewModel,
+              
             ),
           );
         }

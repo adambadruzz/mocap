@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../viewmodel/createcourse_viewmodel.dart';
 
 class CreateCourseView extends StatelessWidget {
+  final CreateCourseViewModel viewModel = Get.put(CreateCourseViewModel());
+
   @override
   Widget build(BuildContext context) {
-    final viewModel = CreateCourseViewModel(context: context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Course'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: CourseForm(viewModel: viewModel),
+        child: CourseForm(),
       ),
     );
   }
 }
 
-class CourseForm extends StatefulWidget {
-  final CreateCourseViewModel viewModel;
+class CourseForm extends StatelessWidget {
+  final CreateCourseViewModel viewModel = Get.find();
 
-  CourseForm({required this.viewModel});
-
-  @override
-  _CourseFormState createState() => _CourseFormState();
-}
-
-class _CourseFormState extends State<CourseForm> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _youtubeLinkController = TextEditingController();
@@ -49,7 +43,7 @@ class _CourseFormState extends State<CourseForm> {
               return null;
             },
             onChanged: (value) {
-              widget.viewModel.setTitle(value);
+              viewModel.setTitle(value);
             },
           ),
           SizedBox(height: 16.0),
@@ -59,7 +53,7 @@ class _CourseFormState extends State<CourseForm> {
             maxLines: null,
             keyboardType: TextInputType.multiline,
             onChanged: (value) {
-              widget.viewModel.setDescription(value);
+              viewModel.setDescription(value);
             },
           ),
           SizedBox(height: 16.0),
@@ -68,10 +62,8 @@ class _CourseFormState extends State<CourseForm> {
             decoration: InputDecoration(labelText: 'Level'),
             onChanged: (String? newValue) {
               if (newValue != null) {
-                setState(() {
-                  _selectedLevel = newValue;
-                  widget.viewModel.setSelectedLevel(newValue);
-                });
+                _selectedLevel = newValue;
+                viewModel.setSelectedLevel(newValue);
               }
             },
             items: <String>['Beginner', 'Intermediate', 'Advanced']
@@ -88,10 +80,8 @@ class _CourseFormState extends State<CourseForm> {
             decoration: InputDecoration(labelText: 'Programming Language'),
             onChanged: (String? newValue) {
               if (newValue != null) {
-                setState(() {
-                  _selectedProgrammingLanguage = newValue;
-                  widget.viewModel.setSelectedProgrammingLanguage(newValue);
-                });
+                _selectedProgrammingLanguage = newValue;
+                viewModel.setSelectedProgrammingLanguage(newValue);
               }
             },
             items: <String>['Flutter', 'Kotlin', 'Java', 'JavaScript']
@@ -113,7 +103,7 @@ class _CourseFormState extends State<CourseForm> {
               return null;
             },
             onChanged: (value) {
-              widget.viewModel.setYoutubeLink(value);
+              viewModel.setYoutubeLink(value);
             },
           ),
           SizedBox(height: 16.0),
@@ -122,7 +112,7 @@ class _CourseFormState extends State<CourseForm> {
               if (_titleController.text.isNotEmpty &&
                   _descriptionController.text.isNotEmpty &&
                   _youtubeLinkController.text.isNotEmpty) {
-                widget.viewModel.createCourse(
+                viewModel.createCourse(
                   _selectedLevel,
                   _selectedProgrammingLanguage,
                 );

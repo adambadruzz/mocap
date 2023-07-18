@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mocap/view/pengurus_view.dart';
 
 import '../viewmodel/pengurusmenu_viewmodel.dart';
 
-class PengurusMenuView extends StatelessWidget {
-  final PengurusMenuViewModel viewModel = PengurusMenuViewModel();
-
+class PengurusMenuView extends GetView<PengurusMenuViewModel> {
   PengurusMenuView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<String> tahunKepengurusan = viewModel.generateTahunKepengurusan();
+    final List<String> tahunKepengurusan = controller.generateTahunKepengurusan();
 
     return Scaffold(
       appBar: AppBar(
@@ -23,17 +22,11 @@ class PengurusMenuView extends StatelessWidget {
           return ListTile(
             title: Text(tahun),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PengurusView(tahunSelesai: viewModel.getTahunSelesai(tahun)),
-                ),
-              );
+              Get.to(() => PengurusView(tahunSelesai: controller.getTahunSelesai(tahun)));
             },
           );
         },
       ),
-      
     );
   }
 }

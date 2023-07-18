@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/course_model.dart';
 
-class CreateCourseViewModel {
-  final BuildContext context;
+class CreateCourseViewModel extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   late String _title;
@@ -12,8 +12,6 @@ class CreateCourseViewModel {
   late String _youtubeLink;
   late String _selectedLevel;
   late String _selectedProgrammingLanguage;
-
-  CreateCourseViewModel({required this.context});
 
   void setTitle(String value) {
     _title = value;
@@ -52,22 +50,19 @@ class CreateCourseViewModel {
 
       await collection.add(course.toMap());
 
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Success'),
-            content: Text('Course created successfully'),
-            actions: [
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
+      Get.dialog(
+        AlertDialog(
+          title: Text('Success'),
+          content: Text('Course created successfully'),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ],
+        ),
       );
 
       _title = '';
@@ -77,22 +72,19 @@ class CreateCourseViewModel {
       _selectedProgrammingLanguage = 'Flutter';
 
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to create course'),
-            actions: [
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
+      Get.dialog(
+        AlertDialog(
+          title: Text('Error'),
+          content: Text('Failed to create course'),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ],
+        ),
       );
     }
   }

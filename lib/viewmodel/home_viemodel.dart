@@ -1,19 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:mocap/view/coursemenu_view.dart';
-import 'package:mocap/view/event_view.dart';
-import 'package:mocap/view/member_view.dart';
-import 'package:mocap/view/pengurusmenu_view.dart';
+import 'package:get/get.dart';
 
 import '../view/access_view.dart';
-import 'access_viewmodel.dart';
-import 'coursemenu_viewmodel.dart';
+import '../view/coursemenu_view.dart';
+import '../view/event_view.dart';
+import '../view/member_view.dart';
+import '../view/pengurusmenu_view.dart';
 
-class HomeViewModel {
-  final BuildContext context;
 
-  HomeViewModel({required this.context});
+class HomeViewModel extends GetxController {
+
 
   Future<bool> shouldShowCoursesMenu() async {
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -52,39 +49,24 @@ class HomeViewModel {
   }
 
   void navigateToEvent() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const EventView()),
-    );
+    Get.to(() => const EventView());
   }
 
   void navigateToMembers() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const MemberView()),
-    );
+    Get.to(() =>  MemberView());
   }
 
   void navigateToCourses() async {
     if (await shouldShowCoursesMenu()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CourseMenuView(viewModel: CourseMenuViewModel(context: context))),
-      );
+      Get.to(() => CourseMenuView());
     }
   }
 
   void navigateToStructure() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => PengurusMenuView()),
-    );
+    Get.to(() => PengurusMenuView());
   }
 
   void navigateToAccess() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AccessView(viewModel: AccessViewModel())),
-    );
+    Get.to(() => AccessView());
   }
 }

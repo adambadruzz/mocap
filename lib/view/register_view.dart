@@ -1,69 +1,33 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mocap/view/login_view.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:mocap/viewmodel/register_viewmodel.dart';
 
-import '../services/auth_service.dart';
-import '../viewmodel/login_viewmodel.dart';
-import 'package:intl/intl.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
+class RegisterView extends StatelessWidget {
+  final RegisterViewModel _viewModel = Get.find();
 
-class RegisterView extends StatefulWidget {
-  final RegisterViewModel viewModel;
-
-  const RegisterView({Key? key, required this.viewModel}) : super(key: key);
-
-  @override
-  State<RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<RegisterView> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmpasswordController = TextEditingController();
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final asalController = TextEditingController();
-  final instagramController = TextEditingController();
-  final whatsappController = TextEditingController();
-  final githubController = TextEditingController();
-  final linkedinController = TextEditingController();
-  late DateTime selectedDate;
-  late String selectedYear;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _angkatanController = TextEditingController();
+  final TextEditingController _asalController = TextEditingController();
+  final TextEditingController _instagramController = TextEditingController();
+  final TextEditingController _githubController = TextEditingController();
+  final TextEditingController _linkedinController = TextEditingController();
+  final ImagePicker _imagePicker = ImagePicker();
+  late DateTime _selectedDate;
   File? _selectedImage;
 
   Future<void> _selectImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image =
-        await picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      setState(() {
-        _selectedImage = File(image.path);
-      });
+      _selectedImage = File(image.path);
     }
-  }
-
-  Future<String> _uploadImageToFirebase() async {
-    if (_selectedImage == null) {
-      return '';
-    }
-
-    final Reference storageRef = FirebaseStorage.instance
-        .ref()
-        .child('profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
-    final UploadTask uploadTask = storageRef.putFile(_selectedImage!);
-    final TaskSnapshot storageSnapshot = await uploadTask;
-    final String downloadUrl = await storageSnapshot.ref.getDownloadURL();
-    return downloadUrl;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    selectedDate = DateTime.now();
-    selectedYear = DateTime.now().year.toString();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -73,85 +37,78 @@ class _RegisterViewState extends State<RegisterView> {
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
-    if (pickedDate != null && pickedDate != selectedDate) {
-      setState(() {
-        selectedDate = pickedDate;
-      });
+    if (pickedDate != null) {
+      _selectedDate = pickedDate;
     }
   }
 
-  bool validateInputs() {
-  if (_selectedImage == null) {
-    widget.viewModel.showErrorMessage(context, 'Please select an image');
-    return false;
+  bool _validateInputs() {
+    if (_selectedImage == null) {
+      _viewModel.showErrorMessage('Please select an image');
+      return false;
+    }
+
+    if (_emailController.text.isEmpty) {
+      _viewModel.showErrorMessage('Please enter an email');
+      return false;
+    }
+
+    if (_passwordController.text.isEmpty) {
+      _viewModel.showErrorMessage('Please enter a password');
+      return false;
+    }
+
+    if (_confirmPasswordController.text.isEmpty) {
+      _viewModel.showErrorMessage('Please enter a confirm password');
+      return false;
+    }
+
+    if (_passwordController.text != _confirmPasswordController.text) {
+      _viewModel.showErrorMessage('Password and Confirm Password must be the same');
+      return false;
+    }
+
+    if (_nameController.text.isEmpty) {
+      _viewModel.showErrorMessage('Please enter your full name');
+      return false;
+    }
+
+    if (_phoneController.text.isEmpty) {
+      _viewModel.showErrorMessage('Please enter a phone number');
+      return false;
+    }
+
+    if (!_phoneController.text.startsWith('62')) {
+      _viewModel.showErrorMessage('Phone number must start with 62');
+      return false;
+    }
+
+    if (_angkatanController.text.isEmpty) {
+      _viewModel.showErrorMessage('Please enter the year of entry');
+      return false;
+    }
+
+    if (_asalController.text.isEmpty) {
+      _viewModel.showErrorMessage('Please enter your origin');
+      return false;
+    }
+
+    return true;
   }
-
-  if (emailController.text.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please enter an email');
-    return false;
-  }
-
-  if (passwordController.text.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please enter a password');
-    return false;
-  }
-
-  if (confirmpasswordController.text.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please enter a confirm password');
-    return false;
-  }
-
-  if (passwordController.text != confirmpasswordController.text) {
-    widget.viewModel.showErrorMessage(context, 'Password and Confirm Password must be the same');
-    return false;
-  }
-
-  if (nameController.text.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please enter your fullname');
-    return false;
-  }
-
-  if (phoneController.text.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please enter a phone number');
-    return false;
-  }
-
-  if (!phoneController.text.startsWith('62')) {
-    widget.viewModel.showErrorMessage(context, 'Phone number must start with 62');
-    return false;
-  }
-
-  if (selectedYear.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please select the year of entry');
-    return false;
-  }
-
-  if (asalController.text.isEmpty) {
-    widget.viewModel.showErrorMessage(context, 'Please enter your origin');
-    return false;
-  }
-
-  return true;
-}
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(children: [
-            const SizedBox(height: 20),
-            const Text('Welcome', style: TextStyle(fontSize: 20)),
-            const SizedBox(height: 20),
-            const Text("Let's create an account for you!",
-                style: TextStyle(fontSize: 20)),
-            const SizedBox(height: 20),
+      appBar: AppBar(
+        title: const Text('Register'),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
             GestureDetector(
-              onTap: () {
-                _selectImage();
-              },
+              onTap: _selectImage,
               child: Container(
                 width: 100,
                 height: 100,
@@ -173,192 +130,123 @@ class _RegisterViewState extends State<RegisterView> {
                     : null,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: emailController,
+            const SizedBox(height: 16.0),
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Confirm Password',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Full Name',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _phoneController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _angkatanController,
+              decoration: const InputDecoration(
+                labelText: 'Year of Entry',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _asalController,
+              decoration: const InputDecoration(
+                labelText: 'Origin',
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            InkWell(
+              onTap: () => _selectDate(context),
+              child: InputDecorator(
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email',
+                  labelText: 'Birthdate',
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      DateFormat('dd MMM yyyy').format(_selectedDate),
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
+                    const Icon(Icons.calendar_today),
+                  ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password (Min 6 character)',
-                ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _instagramController,
+              decoration: const InputDecoration(
+                labelText: 'Instagram',
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: confirmpasswordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Confirm Password',
-                ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _githubController,
+              decoration: const InputDecoration(
+                labelText: 'GitHub',
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Fullname',
-                ),
+            const SizedBox(height: 8.0),
+            TextField(
+              controller: _linkedinController,
+              decoration: const InputDecoration(
+                labelText: 'LinkedIn',
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: phoneController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Gunakan Format (628)',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: DropdownButtonFormField<String>(
-                value: selectedYear,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Angkatan',
-                ),
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    setState(() {
-                      selectedYear = newValue;
-                    });
-                  }
-                },
-                items: List<DropdownMenuItem<String>>.generate(
-                  10, // Jumlah tahun yang ingin ditampilkan
-                  (int index) {
-                    final year = DateTime.now().year - index;
-                    return DropdownMenuItem<String>(
-                      value: year.toString(),
-                      child: Text(year.toString()),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: asalController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Asal',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: InkWell(
-                onTap: () {
-                  _selectDate(context);
-                },
-                child: InputDecorator(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Birthdate',
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        DateFormat('dd MMM yyyy').format(selectedDate),
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      const Icon(Icons.calendar_today),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                if (validateInputs()) {
-                  widget.viewModel.signUp(
-                    email: emailController.text,
-                    password: passwordController.text,
-                    confirmpassword: confirmpasswordController.text,
-                    nameController: nameController.text,
-                    phoneController: phoneController.text,
-                    angkatan: selectedYear,
-                    asal: asalController.text,
-                    instagram: instagramController.text.isEmpty
-                        ? 'Not Available'
-                        : instagramController.text,
-                    github: githubController.text.isEmpty 
-                        ? 'Not Available' 
-                        : githubController.text,
-                    linkedin: linkedinController.text.isEmpty
-                        ? 'Not Available'
-                        : linkedinController.text,
-                    selectedDate: selectedDate,
+            const SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                if (_validateInputs()) {
+                  _viewModel.signUp(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    confirmpassword: _confirmPasswordController.text,
+                    name: _nameController.text,
+                    phone: _phoneController.text,
+                    angkatan: _angkatanController.text,
+                    asal: _asalController.text,
+                    instagram: _instagramController.text,
+                    github: _githubController.text,
+                    linkedin: _linkedinController.text,
+                    selectedDate: _selectedDate,
                     profileImage: _selectedImage,
-                    context: context,
                   );
                 }
               },
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.black,
-                ),
-                child: const Center(
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
-              ),
+              child: const Text('Sign Up'),
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Expanded(child: Divider(color: Colors.black)),
-                  const Text('Already have an account?',
-                      style: TextStyle(fontSize: 15)),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginView(
-                            viewModel: LoginViewModel(authService: AuthService()),
-                          ),
-                        ),
-                      );
-                    },
-                    child: const Text('Login', style: TextStyle(color: Colors.blue)),
-                  ),
-                  const Expanded(child: Divider(color: Colors.black)),
-                ],
-              ),
-            ),
-          ]),
+          ],
         ),
       ),
     );
   }
 }
+

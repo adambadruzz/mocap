@@ -1,15 +1,25 @@
-import '../models/course_model.dart';
+import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class DetailCourseViewModel {
+import '../models/course_model.dart';
+
+class DetailCourseViewModel extends GetxController {
   final CourseModel course;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  RxBool isAdmin = false.obs;
+
   DetailCourseViewModel({required this.course});
 
-  Future<bool> isAdmin() async {
+  @override
+  void onInit() {
+    checkAdmin();
+    super.onInit();
+  }
+
+  Future<void> checkAdmin() async {
     final user = _firebaseAuth.currentUser;
     if (user != null) {
       final uid = user.uid;
@@ -17,9 +27,8 @@ class DetailCourseViewModel {
       final snapshot = await userDoc.get();
       final userData = snapshot.data() as Map<String, dynamic>;
       final specialRole = userData['specialrole'];
-      return specialRole == 'admin';
+      isAdmin.value = specialRole == 'admin';
     }
-    return false;
   }
 
   Future<void> deleteCourse(String courseType) async {

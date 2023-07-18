@@ -1,16 +1,27 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mocap/services/auth_service.dart';
 import 'package:mocap/view/auth_view.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-class RegisterGoogleViewModel {
-  final AuthService authService;
+class RegisterGoogleViewModel extends GetxController {
+  final AuthService _authService = Get.find();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
-  RegisterGoogleViewModel({required this.authService});
+  String selectedYear = '';
+
+  List<String> get yearList {
+    final int currentYear = DateTime.now().year;
+    return List<String>.generate(10, (index) => (currentYear - index).toString());
+  }
+
+  Future<void> setSelectedYear(String year) async {
+  selectedYear = year;
+}
+
 
   Future<void> signInWithGoogle({
     required String angkatan,
@@ -20,20 +31,19 @@ class RegisterGoogleViewModel {
     required String linkedin,
     required DateTime selectedDate,
     required File? profileImage,
-    required BuildContext context,
+
   }) async {
     showDialog(
-      context: context,
+      barrierDismissible: false,
       builder: (context) => const Center(
         child: CircularProgressIndicator(),
-      ),
+      ), context: Get.overlayContext!,
     );
 
     try {
       String profileImageUrl = '';
       if (profileImage != null) {
-        profileImageUrl =
-            await authService.uploadImageToFirebase(profileImage);
+        profileImageUrl = await _authService.uploadImageToFirebase(profileImage);
       }
 
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -41,7 +51,7 @@ class RegisterGoogleViewModel {
       if (googleUser != null) {
         final fcmToken = await _firebaseMessaging.getToken();
 
-        final userData = await authService.getUserDataFromGoogle(googleUser);
+        final userData = await _authService.getUserDataFromGoogle(googleUser);
         final email = userData['email'] as String?;
         final phoneNumber = userData['phoneNumber'] as String?;
         final fullName = userData['fullName'] as String?;
@@ -49,7 +59,7 @@ class RegisterGoogleViewModel {
         final int tahun = DateTime.now().year;
         final int tahun2 = tahun + 1;
 
-        await authService.adduserdetail(
+        await _authService.adduserdetail(
           access: 'Denied',
           name: fullName ?? 'Not Available',
           email: email ?? 'Not Available',
@@ -65,30 +75,26 @@ class RegisterGoogleViewModel {
           github: github,
           linkedin: linkedin,
           whatsapp: phoneNumber ?? 'Not Available',
-          fcmToken: fcmToken, // Tambahkan fcmToken ke pemanggilan adduserdetail
+          fcmToken: fcmToken,
         );
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const AuthPage()),
-        );
+        Get.offAll(() => AuthPage());
       }
     } catch (e) {
-      Navigator.pop(context);
-      showErrorMessage(context, 'Failed to sign in with Google');
+      Get.back();
+      showErrorMessage('Failed to sign in with Google');
     }
   }
 
-  void showErrorMessage(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
+  void showErrorMessage(String message) {
+    Get.dialog(
+      AlertDialog(
         title: const Text('Error'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
             child: const Text('OK'),
           ),

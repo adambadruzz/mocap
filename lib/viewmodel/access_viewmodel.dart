@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
-class AccessViewModel {
+class AccessViewModel extends GetxController {
   Stream<QuerySnapshot> getDeniedUsers() {
     final usersRef = FirebaseFirestore.instance.collection('users');
 

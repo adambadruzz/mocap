@@ -1,55 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mocap/models/member_model.dart';
 import 'package:mocap/view/detailpengurus_view.dart';
 import 'package:mocap/viewmodel/pengurus_viewmodel.dart';
 
-class PengurusView extends StatefulWidget {
+class PengurusView extends GetView<PengurusViewModel> {
   final int tahunSelesai;
 
   const PengurusView({Key? key, required this.tahunSelesai}) : super(key: key);
 
   @override
-  _PengurusViewState createState() => _PengurusViewState();
-}
-
-class _PengurusViewState extends State<PengurusView> {
-  final PengurusViewModel _pengurusViewModel = PengurusViewModel();
-
-  List<MemberModel> _memberMembers = [];
-  List<MemberModel> _pengurus = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchPengurus();
-    _fetchMembers();
-  }
-
-  Future<void> _fetchPengurus() async {
-    final pengurus = await _pengurusViewModel.getMembersByRole(
-      'Pengurus',
-      widget.tahunSelesai
-    );
-
-    setState(() {
-      _pengurus = pengurus;
-    });
-  }
-
-   Future<void> _fetchMembers() async {
-    final memberMembers = await _pengurusViewModel.getMembersByRole(
-      'Member',
-      widget.tahunSelesai
-    );
-
-    setState(() {
-      _memberMembers = memberMembers;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final pengurusController = Get.find<PengurusViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pengurus List'),
@@ -57,7 +20,7 @@ class _PengurusViewState extends State<PengurusView> {
       body: ListView(
         children: [
           const Divider(thickness: 3),
-          if (_pengurus.isNotEmpty)
+          if (pengurusController.pengurus.isNotEmpty)
             const ListTile(
               title: Text('Pengurus'),
               dense: true,
@@ -65,9 +28,9 @@ class _PengurusViewState extends State<PengurusView> {
           ListView.builder(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            itemCount: _pengurus.length,
+            itemCount: pengurusController.pengurus.length,
             itemBuilder: (context, index) {
-              final pengurus = _pengurus[index];
+              final pengurus = pengurusController.pengurus[index];
               return ListTile(
                 leading: CircleAvatar(
                   radius: 20,
@@ -79,18 +42,13 @@ class _PengurusViewState extends State<PengurusView> {
                 title: Text(pengurus.name),
                 subtitle: Text(pengurus.email),
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailPengurusView(member: pengurus),
-                    ),
-                  );
+                  Get.to(() => DetailPengurusView(member: pengurus));
                 },
               );
             },
           ),
           const Divider(thickness: 3),
-          if (_memberMembers.isNotEmpty)
+          if (pengurusController.memberMembers.isNotEmpty)
             const ListTile(
               title: Text('Member'),
               dense: true,
@@ -98,9 +56,9 @@ class _PengurusViewState extends State<PengurusView> {
           ListView.builder(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            itemCount: _memberMembers.length,
+            itemCount: pengurusController.memberMembers.length,
             itemBuilder: (context, index) {
-              final member = _memberMembers[index];
+              final member = pengurusController.memberMembers[index];
               return ListTile(
                 leading: CircleAvatar(
                   radius: 20,
@@ -112,21 +70,14 @@ class _PengurusViewState extends State<PengurusView> {
                 title: Text(member.name),
                 subtitle: Text(member.email),
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailPengurusView(member: member),
-                    ),
-                  );
+                  Get.to(() => DetailPengurusView(member: member));
                 },
               );
             },
           ),
           const Divider(thickness: 3),
-          
         ],
       ),
-      
     );
   }
 }
