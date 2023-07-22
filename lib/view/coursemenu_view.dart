@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../viewmodel/coursemenu_viewmodel.dart';
 
 class CourseMenuView extends StatelessWidget {
-  final CourseMenuViewModel viewModel = Get.put(CourseMenuViewModel());
+  final CourseMenuViewModel viewModel;
 
-  CourseMenuView({Key? key}) : super(key: key);
+  CourseMenuView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,25 +13,23 @@ class CourseMenuView extends StatelessWidget {
         title: const Text('Course Menu'),
         leading: null,
         actions: [
-          Obx(
-            () => FutureBuilder<bool>(
-              future: viewModel.isAdmin(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Container(); // Tampilkan widget kosong saat menunggu hasil
-                }
-                if (snapshot.hasData && snapshot.data!) {
-                  // Tampilkan ikon tambah course hanya jika pengguna memiliki specialRole 'admin'
-                  return IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      viewModel.navigateToAddCourse(context);
-                    },
-                  );
-                }
-                return Container(); // Tampilkan widget kosong jika pengguna tidak memiliki specialRole 'admin'
-              },
-            ),
+          FutureBuilder<bool>(
+            future: viewModel.isAdmin(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container(); // Tampilkan widget kosong saat menunggu hasil
+              }
+              if (snapshot.hasData && snapshot.data!) {
+                // Tampilkan ikon tambah course hanya jika pengguna memiliki specialRole 'admin'
+                return IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    viewModel.navigateToAddCourse(context);
+                  },
+                );
+              }
+              return Container(); // Tampilkan widget kosong jika pengguna tidak memiliki specialRole 'admin'
+            },
           ),
         ],
       ),
@@ -52,7 +49,7 @@ class CourseMenuView extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        viewModel.navigateToCourse('Java');
+                        viewModel.navigateToJava();
                       },
                       child: Image.asset(
                         'assets/images/java.png',
@@ -81,7 +78,7 @@ class CourseMenuView extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        viewModel.navigateToCourse('Kotlin');
+                        viewModel.navigateToKotlin();
                       },
                       child: Image.asset(
                         'assets/images/kotlin.png',
@@ -115,7 +112,7 @@ class CourseMenuView extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        viewModel.navigateToCourse('Flutter');
+                        viewModel.navigateToFlutter();
                       },
                       child: Image.asset(
                         'assets/images/flutter.png',
@@ -144,7 +141,7 @@ class CourseMenuView extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        viewModel.navigateToCourse('JavaScript');
+                        viewModel.navigateToJS();
                       },
                       child: Image.asset(
                         'assets/images/js.png',

@@ -1,11 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../viewmodel/access_viewmodel.dart';
 
 class AccessView extends StatelessWidget {
-  final AccessViewModel viewModel = Get.find();
+  final AccessViewModel viewModel;
+
+  AccessView({required this.viewModel});
 
   @override
   Widget build(BuildContext context) {

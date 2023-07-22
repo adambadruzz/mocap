@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:mocap/viewmodel/navbar_viewmodel.dart';
 
-import '../viewmodel/navbar_viewmodel.dart';
-import 'chat_view.dart';
-import 'home_view.dart';
-import 'profile_view.dart';
+class NavBarView extends StatelessWidget {
+  final NavigationBarViewModel viewModel;
 
-class NavBarView extends GetWidget<NavigationBarViewModel> {
-  NavBarView({Key? key}) : super(key: key);
+  const NavBarView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: controller.currentIndex.value,
+      currentIndex: viewModel.currentIndex,
       onTap: (index) {
-        controller.onTabSelected(index);
+        viewModel.onTabSelected(index, context);
       },
       items: const [
         BottomNavigationBarItem(

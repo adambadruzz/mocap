@@ -1,24 +1,23 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mocap/services/auth_service.dart';
 import 'package:mocap/view/auth_view.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-
-class RegisterViewModel extends GetxController {
-  final AuthService authService = Get.find();
-
+class RegisterViewModel {
+  final AuthService authService;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  RegisterViewModel({required this.authService});
 
   Future<void> signUp({
     required String email,
     required String password,
     required String confirmpassword,
-    required String name,
-    required String phone,
+    required String nameController,
+    required String phoneController,
     required String angkatan,
     required String asal,
     required String instagram,
@@ -26,28 +25,36 @@ class RegisterViewModel extends GetxController {
     required String linkedin,
     required DateTime selectedDate,
     required File? profileImage,
+    required BuildContext context,
   }) async {
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
     try {
       if (password == confirmpassword) {
         final fcmToken = await _firebaseMessaging.getToken();
 
-        final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
 
         String profileImageUrl = '';
         if (profileImage != null) {
-          profileImageUrl = await authService.uploadImageToFirebase(profileImage);
+          profileImageUrl =
+              await authService.uploadImageToFirebase(profileImage);
         }
-
         final int tahun = DateTime.now().year;
         final int tahun2 = tahun + 1;
-
+        //add user detail
         await authService.adduserdetail(
           access: 'Denied',
-          name: name,
-          phone: phone,
+          name: nameController,
+          phone: phoneController,
           dob: selectedDate,
           photourl: profileImageUrl,
           role: 'Member',
@@ -59,28 +66,34 @@ class RegisterViewModel extends GetxController {
           instagram: instagram,
           github: github,
           linkedin: linkedin,
-          whatsapp: phone,
-          fcmToken: fcmToken,
+          whatsapp: phoneController,
+          fcmToken: fcmToken, // Tambahkan fcmToken ke pemanggilan adduserdetail
         );
 
-        Get.offAll(() => AuthPage());
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const AuthPage()),
+        );
       } else {
-        showErrorMessage('Password and Confirm Password must be the same');
+        Navigator.pop(context);
+        showErrorMessage(context, 'Password and Confirm Password must be same');
       }
     } on FirebaseAuthException catch (e) {
-      showErrorMessage(e.code);
+      Navigator.pop(context);
+      showErrorMessage(context, e.code);
     }
   }
 
-  void showErrorMessage(String message) {
-    Get.dialog(
-      AlertDialog(
+  void showErrorMessage(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
         title: const Text('Error'),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () {
-              Get.back();
+              Navigator.pop(context);
             },
             child: const Text('OK'),
           ),

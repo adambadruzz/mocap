@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 
-class ChatViewModel extends GetxController {
+class ChatViewModel {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
@@ -23,7 +22,10 @@ class ChatViewModel extends GetxController {
   }
 
   Future<void> deleteMessage(String messageId) async {
-    await _firebaseFirestore.collection('chat_messages').doc(messageId).delete();
+    await _firebaseFirestore
+        .collection('chat_messages')
+        .doc(messageId)
+        .delete();
   }
 
   Stream<QuerySnapshot> getChatMessages() {
@@ -47,7 +49,10 @@ class ChatViewModel extends GetxController {
       });
 
       final currentUser = _firebaseAuth.currentUser;
-      final currentUserDoc = await _firebaseFirestore.collection('users').doc(currentUser?.uid).get();
+      final currentUserDoc = await _firebaseFirestore
+          .collection('users')
+          .doc(currentUser?.uid)
+          .get();
 
       final senderName = currentUserDoc['name'] as String?;
 

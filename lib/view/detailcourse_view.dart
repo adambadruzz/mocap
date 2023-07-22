@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../models/course_model.dart';
+import '../viewmodel/coursemenu_viewmodel.dart';
 import '../viewmodel/detailcourse_viewmodel.dart';
 import 'coursemenu_view.dart';
 
@@ -14,7 +14,7 @@ class DetailCourseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Get.put(DetailCourseViewModel(course: course));
+    final viewModel = DetailCourseViewModel(course: course);
 
     YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: course.linkYoutube,
@@ -27,40 +27,52 @@ class DetailCourseView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Obx(() {
-            if (viewModel.isAdmin.value) {
-              return IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Delete Course'),
-                        content: Text('Are you sure you want to delete this course?'),
-                        actions: [
-                          TextButton(
-                            child: Text('Cancel'),
-                            onPressed: () {
-                              Get.offAll(() => CourseMenuView());
-                            },
-                          ),
-                          TextButton(
-                            child: Text('Delete'),
-                            onPressed: () async {
-                              await viewModel.deleteCourse(courseType);
-                              Get.offAll(() => CourseMenuView());
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              );
-            }
-            return Container();
-          }),
+          FutureBuilder<bool>(
+            future: viewModel.isAdmin(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container();
+              }
+              if (snapshot.hasData && snapshot.data!) {
+                return IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Delete Course'),
+                          content: Text('Are you sure you want to delete this course?'),
+                          actions: [
+                            TextButton(
+                              child: Text('Cancel'),
+                              onPressed: () {
+                                //create me a navigator push replacement to coursemenu
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => CourseMenuView(viewModel: CourseMenuViewModel(context: context))),
+                                );
+                                
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Delete'),
+                              onPressed: () async {
+                                await viewModel.deleteCourse(courseType);
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                );
+              }
+              return Container();
+            },
+          ),
         ],
       ),
       body: SingleChildScrollView(

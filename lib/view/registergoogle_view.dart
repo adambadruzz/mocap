@@ -1,28 +1,61 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import '../services/auth_service.dart';
+import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/registergoogle_viewmodel.dart';
+import 'login_view.dart';
 
+class RegisterGoogleView extends StatefulWidget {
+  final RegisterGoogleViewModel viewModel;
 
-class RegisterGoogleView extends StatelessWidget {
-  final RegisterGoogleViewModel _viewModel = Get.find();
+  const RegisterGoogleView({Key? key, required this.viewModel}) : super(key: key);
 
-  final TextEditingController _asalController = TextEditingController();
-  final TextEditingController _instagramController = TextEditingController();
-  final TextEditingController _githubController = TextEditingController();
-  final TextEditingController _linkedinController = TextEditingController();
-  final ImagePicker _imagePicker = ImagePicker();
-  late DateTime _selectedDate;
+  @override
+  State<RegisterGoogleView> createState() => _RegisterGoogleViewState();
+}
+
+class _RegisterGoogleViewState extends State<RegisterGoogleView> {
+
+  final asalController = TextEditingController();
+  final instagramController = TextEditingController();
+  final githubController = TextEditingController();
+  final linkedinController = TextEditingController();
+  late DateTime selectedDate;
+  late String selectedYear;
   File? _selectedImage;
 
   Future<void> _selectImage() async {
-    final XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      _selectedImage = File(image.path);
+      setState(() {
+        _selectedImage = File(image.path);
+      });
     }
+  }
+
+  Future<String> _uploadImageToFirebase() async {
+    if (_selectedImage == null) {
+      return '';
+    }
+
+    final Reference storageRef = FirebaseStorage.instance
+        .ref()
+        .child('profile_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
+    final UploadTask uploadTask = storageRef.putFile(_selectedImage!);
+    final TaskSnapshot storageSnapshot = await uploadTask;
+    final String downloadUrl = await storageSnapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = DateTime.now();
+    selectedYear = DateTime.now().year.toString();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -32,38 +65,50 @@ class RegisterGoogleView extends StatelessWidget {
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
-    if (pickedDate != null) {
-      _selectedDate = pickedDate;
+    if (pickedDate != null && pickedDate != selectedDate) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
     }
   }
 
-  bool _validateInputs() {
+  bool validateInputs() {
     if (_selectedImage == null) {
-      _viewModel.showErrorMessage('Please select an image');
+      widget.viewModel.showErrorMessage(context, 'Please select an image');
       return false;
     }
 
-    if (_asalController.text.isEmpty) {
-      _viewModel.showErrorMessage('Please enter your origin');
+    if (selectedYear.isEmpty) {
+      widget.viewModel.showErrorMessage(context, 'Please select the year of entry');
+      return false;
+    }
+
+    if (asalController.text.isEmpty) {
+      widget.viewModel.showErrorMessage(context, 'Please enter your origin');
       return false;
     }
 
     return true;
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register with Google'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(children: [
+            const SizedBox(height: 20),
+            const Text('Welcome', style: TextStyle(fontSize: 20)),
+            const SizedBox(height: 20),
+            const Text("Let's create an account for you!",
+                style: TextStyle(fontSize: 20)),
+            const SizedBox(height: 20),
             GestureDetector(
-              onTap: _selectImage,
+              onTap: () {
+                _selectImage();
+              },
               child: Container(
                 width: 100,
                 height: 100,
@@ -85,34 +130,37 @@ class RegisterGoogleView extends StatelessWidget {
                     : null,
               ),
             ),
-            const SizedBox(height: 16.0),
             Padding(
               padding: const EdgeInsets.all(10),
               child: DropdownButtonFormField<String>(
-                value: _viewModel.selectedYear,
+                value: selectedYear,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Angkatan',
                 ),
                 onChanged: (String? newValue) {
                   if (newValue != null) {
-                    _viewModel.setSelectedYear(newValue);
+                    setState(() {
+                      selectedYear = newValue;
+                    });
                   }
                 },
-                items: _viewModel.yearList
-                    .map(
-                      (year) => DropdownMenuItem<String>(
-                        value: year,
-                        child: Text(year),
-                      ),
-                    )
-                    .toList(),
+                items: List<DropdownMenuItem<String>>.generate(
+                  10, // Jumlah tahun yang ingin ditampilkan
+                  (int index) {
+                    final year = DateTime.now().year - index;
+                    return DropdownMenuItem<String>(
+                      value: year.toString(),
+                      child: Text(year.toString()),
+                    );
+                  },
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextField(
-                controller: _asalController,
+                controller: asalController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Asal',
@@ -122,7 +170,9 @@ class RegisterGoogleView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: InkWell(
-                onTap: () => _selectDate(context),
+                onTap: () {
+                  _selectDate(context);
+                },
                 child: InputDecorator(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -132,7 +182,7 @@ class RegisterGoogleView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        DateFormat('dd MMM yyyy').format(_selectedDate),
+                        DateFormat('dd MMM yyyy').format(selectedDate),
                         style: const TextStyle(
                           fontSize: 16,
                         ),
@@ -144,24 +194,71 @@ class RegisterGoogleView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (_validateInputs()) {
-                  _viewModel.signInWithGoogle(
-                     
-                    angkatan: _viewModel.selectedYear,
-                    asal: _asalController.text,
-                    selectedDate: _selectedDate,
+            GestureDetector(
+              onTap: () {
+                if (validateInputs()) {
+                  widget.viewModel.signInWithGoogle(
+                    angkatan: selectedYear,
+                    asal: asalController.text,
+                    selectedDate: selectedDate,
                     profileImage: _selectedImage,
-                    instagram: _instagramController.text.isEmpty ? 'Not Available' : _instagramController.text,
-                    github: _githubController.text.isEmpty ? 'Not Available' : _githubController.text,
-                    linkedin: _linkedinController.text.isEmpty ? 'Not Available' : _linkedinController.text,
+                    instagram: instagramController.text.isEmpty
+                        ? 'Not Available'
+                        : instagramController.text,
+                    github: githubController.text.isEmpty 
+                        ? 'Not Available' 
+                        : githubController.text,
+                    linkedin: linkedinController.text.isEmpty
+                        ? 'Not Available'
+                        : linkedinController.text,
+                    context: context,
                   );
                 }
               },
-              child: const Text('Sign Up'),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.black,
+                ),
+                child: const Center(
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+              ),
             ),
-          ],
+            const SizedBox(height: 20),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Expanded(child: Divider(color: Colors.black)),
+                  const Text('Already have an account?',
+                      style: TextStyle(fontSize: 15)),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginView(
+                            viewModel: LoginViewModel(authService: AuthService()),
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text('Login', style: TextStyle(color: Colors.blue)),
+                  ),
+                  const Expanded(child: Divider(color: Colors.black)),
+                ],
+              ),
+            ),
+           
+          ]),
         ),
       ),
     );

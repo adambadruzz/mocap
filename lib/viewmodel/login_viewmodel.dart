@@ -1,15 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:mocap/view/registergoogle_view.dart';
 import 'package:mocap/viewmodel/registergoogle_viewmodel.dart';
 
 import '../services/auth_service.dart';
 import '../view/auth_view.dart';
 import '../view/home_view.dart';
-import '../view/registergoogle_view.dart';
 import 'home_viemodel.dart';
 
-class LoginViewModel extends GetxController {
+class LoginViewModel {
   final AuthService authService;
 
   LoginViewModel({required this.authService});
@@ -32,7 +31,10 @@ class LoginViewModel extends GetxController {
         password: password,
       );
       Navigator.pop(context);
-      Get.offAll(() => AuthPage());
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AuthPage()),
+      );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(context, e.code);
@@ -57,7 +59,10 @@ class LoginViewModel extends GetxController {
         password: password,
       );
       Navigator.pop(context);
-      Get.offAll(() => AuthPage());
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AuthPage()),
+      );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(context, e.code);
@@ -77,11 +82,20 @@ class LoginViewModel extends GetxController {
       final isRegistered = await authService.checkGoogleUserRegistration();
 
       if (isRegistered) {
-        Get.offAll(() => HomeView());
+        Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => HomeView(viewModel: HomeViewModel(context: context)),
+                        ),
+                      );
       } else {
-        Get.offAll(() => RegisterGoogleView(
-              
-            ));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RegisterGoogleView(
+              viewModel: RegisterGoogleViewModel(authService: AuthService()),
+            ),
+          ),
+        );
       }
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);

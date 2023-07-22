@@ -1,25 +1,35 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:mocap/view/chat_view.dart';
+import 'package:mocap/view/home_view.dart';
+import 'package:mocap/viewmodel/home_viemodel.dart';
 
-import '../view/chat_view.dart';
-import '../view/home_view.dart';
 import '../view/profile_view.dart';
 
-class NavigationBarViewModel extends GetxController {
-  final RxInt currentIndex = 0.obs;
+class NavigationBarViewModel {
+  int currentIndex = 0;
 
-  void onTabSelected(int index) {
-    currentIndex.value = index;
+  void onTabSelected(int index, BuildContext context) {
+    currentIndex = index;
 
     // Navigasi berdasarkan tab yang dipilih
-    switch (currentIndex.value) {
+    switch (currentIndex) {
       case 0:
-        Get.offAll(() => HomeView());
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeView(viewModel: HomeViewModel(context: context))),
+        );
         break;
       case 1:
-        Get.offAll(() => ChatView());
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ChatView()),
+        );
         break;
       case 2:
-        Get.offAll(() => ProfileView());
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfileView()),
+        );
         break;
     }
   }
