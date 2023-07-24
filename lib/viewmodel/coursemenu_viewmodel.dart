@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../view/course_view.dart';
 import '../view/createcourse_view.dart';
 
-class CourseMenuViewModel extends GetxController {
+class CourseMenuViewModel {
+  final BuildContext context;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  CourseMenuViewModel({required this.context});
 
   Future<bool> isAdmin() async {
     final user = _firebaseAuth.currentUser;
@@ -22,14 +24,41 @@ class CourseMenuViewModel extends GetxController {
     return false;
   }
 
-  void navigateToCourse(String courseType) {
-    Get.to(() => CourseView(courseType: courseType));
+  void navigateToJava() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CourseView(courseType: 'Java')),
+    );
+  }
+
+  void navigateToKotlin() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CourseView(courseType: 'Kotlin')),
+    );
+  }
+
+  void navigateToFlutter() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CourseView(courseType: 'Flutter')),
+    );
+  }
+
+  void navigateToJS() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CourseView(courseType: 'JavaScript')),
+    );
   }
 
   Future<void> navigateToAddCourse(BuildContext context) async {
     final user = _firebaseAuth.currentUser;
-    if (user != null && await isAdmin()) {
-      Get.to(() => CreateCourseView());
+    if (user != null && await isAdmin()) { // Menunggu hasil dari isAdmin()
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CreateCourseView()),
+      );
     } else {
       showDialog(
         context: context,

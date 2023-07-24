@@ -1,13 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/post_model.dart';
 import 'createpost_view.dart';
 import 'detailevent_view.dart';
-import '../viewmodel/event_viewmodel.dart';
 
-class EventView extends GetWidget<EventViewModel> {
+class EventView extends StatefulWidget {
   const EventView({Key? key}) : super(key: key);
+
+  @override
+  _EventViewState createState() => _EventViewState();
+}
+
+class _EventViewState extends State<EventView> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  bool _isPengurus = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPengurusRole();
+  }
+
+  void _checkPengurusRole() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
+      if (docSnapshot.exists) {
+        final userData = docSnapshot.data() as Map<String, dynamic>;
+        final roles = userData['roles'];
+        if (roles.contains('Pengurus')) {
+          setState(() {
+            _isPengurus = true;
+          });
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +45,11 @@ class EventView extends GetWidget<EventViewModel> {
       appBar: AppBar(
         title: const Text('Event'),
       ),
-      body: StreamBuilder<List<PostModel>>(
-        stream: controller.getPostsStream(),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _firestore.collection('posts').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final posts = snapshot.data!;
+            final posts = snapshot.data!.docs.map((doc) => PostModel.fromSnapshot(doc)).toList();
             return ListView.builder(
               itemCount: posts.length,
               itemBuilder: (context, index) {
@@ -28,7 +58,10 @@ class EventView extends GetWidget<EventViewModel> {
                   title: Text(post.title),
                   leading: post.images.isNotEmpty ? Image.network(post.images[0]) : null,
                   onTap: () {
-                    Get.to(() => DetailEventView(post: post));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DetailEventView(post: post)),
+                    );
                   },
                 );
               },
@@ -44,14 +77,25 @@ class EventView extends GetWidget<EventViewModel> {
           }
         },
       ),
-      floatingActionButton: controller.isPengurus
+      floatingActionButton: _isPengurus
           ? FloatingActionButton(
               onPressed: () {
-                controller.createPost();
+                _createPost();
               },
               child: const Icon(Icons.add),
             )
           : null,
+      
     );
+  }
+
+  void _createPost() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CreatePostView()),
+    ).then((value) {
+      // Refresh page after creating a post
+      setState(() {});
+    });
   }
 }

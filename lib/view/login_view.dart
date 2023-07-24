@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../services/auth_service.dart';
 import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/register_viewmodel.dart';
@@ -8,14 +6,20 @@ import '../viewmodel/resetpass_viewmodel.dart';
 import 'register_view.dart';
 import 'resetpass_view.dart';
 
-class LoginView extends GetWidget<LoginViewModel> {
-  LoginView({Key? key}) : super(key: key);
+class LoginView extends StatelessWidget {
+  final LoginViewModel viewModel;
+
+  LoginView({Key? key, required this.viewModel}) : super(key: key);
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void _restartApp(BuildContext context) {
-    Get.offAllNamed('/');
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      '/',
+      (route) => false,
+    );
   }
 
   @override
@@ -62,9 +66,16 @@ class LoginView extends GetWidget<LoginViewModel> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Get.to(() => ResetPasswordView(
-                              
-                            ));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResetPasswordView(
+                              viewModel: ResetPasswordViewModel(
+                                authService: AuthService(),
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       child: const Text('Forgot Password?'),
                     ),
@@ -73,7 +84,7 @@ class LoginView extends GetWidget<LoginViewModel> {
               ),
               GestureDetector(
                 onTap: () {
-                  controller.signIn(
+                  viewModel.signIn(
                     email: emailController.text,
                     password: passwordController.text,
                     context: context,
@@ -117,7 +128,7 @@ class LoginView extends GetWidget<LoginViewModel> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        controller.signInWithGoogle(context: context);
+                        viewModel.signInWithGoogle(context: context);
                       },
                       child: Image.asset(
                         'assets/images/google.png',
@@ -134,7 +145,7 @@ class LoginView extends GetWidget<LoginViewModel> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        controller.signInGuest(
+                        viewModel.signInGuest(
                           email: 'guest@gmail.com',
                           password: '123456',
                           context: context,
@@ -157,8 +168,16 @@ class LoginView extends GetWidget<LoginViewModel> {
                     const Text('Not a member?', style: TextStyle(fontSize: 15)),
                     TextButton(
                       onPressed: () {
-                        Get.to(() => RegisterView(
-                        ));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterView(
+                              viewModel: RegisterViewModel(
+                                authService: AuthService(),
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       child: const Text('Register', style: TextStyle(color: Colors.blue)),
                     ),

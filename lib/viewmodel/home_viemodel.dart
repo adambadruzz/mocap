@@ -1,16 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:mocap/view/coursemenu_view.dart';
+import 'package:mocap/view/event_view.dart';
+import 'package:mocap/view/member_view.dart';
+import 'package:mocap/view/pengurusmenu_view.dart';
 
 import '../view/access_view.dart';
-import '../view/coursemenu_view.dart';
-import '../view/event_view.dart';
-import '../view/member_view.dart';
-import '../view/pengurusmenu_view.dart';
+import 'access_viewmodel.dart';
+import 'coursemenu_viewmodel.dart';
 
+class HomeViewModel {
+  final BuildContext context;
 
-class HomeViewModel extends GetxController {
-
+  HomeViewModel({required this.context});
 
   Future<bool> shouldShowCoursesMenu() async {
     final currentUser = FirebaseAuth.instance.currentUser;
@@ -49,24 +52,39 @@ class HomeViewModel extends GetxController {
   }
 
   void navigateToEvent() {
-    Get.to(() => const EventView());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const EventView()),
+    );
   }
 
   void navigateToMembers() {
-    Get.to(() =>  MemberView());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MemberView()),
+    );
   }
 
   void navigateToCourses() async {
     if (await shouldShowCoursesMenu()) {
-      Get.to(() => CourseMenuView());
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CourseMenuView(viewModel: CourseMenuViewModel(context: context))),
+      );
     }
   }
 
   void navigateToStructure() {
-    Get.to(() => PengurusMenuView());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PengurusMenuView()),
+    );
   }
 
   void navigateToAccess() {
-    Get.to(() => AccessView());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AccessView(viewModel: AccessViewModel())),
+    );
   }
 }

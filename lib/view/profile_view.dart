@@ -1,18 +1,86 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mocap/view/navbar_view.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:mocap/view/updateprofile_view.dart';
+import '../services/auth_service.dart';
+import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../viewmodel/updateprofile_viewmodel.dart';
-import 'updateprofile_view.dart';
+import 'login_view.dart';
+import 'navbar_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class ProfileView extends GetView<ProfileViewModel> {
-  ProfileView({Key? key}) : super(key: key);
+class ProfileView extends StatefulWidget {
+  const ProfileView({Key? key}) : super(key: key);
+
+  @override
+  _ProfileViewState createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
+  final ProfileViewModel _profileViewModel = ProfileViewModel();
+  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
+
+  Map<String, dynamic> _userDetails = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCurrentUser();
+  }
+
+  Future<void> _fetchCurrentUser() async {
+    final userDetails = await _profileViewModel.getCurrentUser();
+    setState(() {
+      _userDetails = userDetails;
+    });
+  }
+
+  void _logout() {
+    _profileViewModel.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LoginView(
+          viewModel: LoginViewModel(authService: AuthService()),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchUrl(String? url) async {
+    if (await canLaunch(url!)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void _deleteAccount() async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    final uid = user?.uid;
+    if (uid != null) {
+       // Delete user from FirebaseAuth
+      await user?.delete();
+      
+      // Delete user data from Firestore
+      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+
+     
+
+      // Delete user's profile image from FirebaseStorage
+      final String? photoUrl = _userDetails['photourl'];
+      if (photoUrl != null) {
+        await FirebaseStorage.instance.refFromURL(photoUrl).delete();
+      }
+
+      _logout(); // Logout after deleting account
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +89,7 @@ class ProfileView extends GetView<ProfileViewModel> {
         title: const Text('Profile'),
       ),
       body: DefaultTabController(
-        length: 3,
+        length: 3, // Updated to include the new "Settings" tab
         child: Column(
           children: [
             Container(
@@ -52,10 +120,12 @@ class ProfileView extends GetView<ProfileViewModel> {
                           Center(
                             child: CircleAvatar(
                               radius: 50,
-                              backgroundImage: controller.userDetails.value['photourl'] != null
-                                  ? CachedNetworkImageProvider(controller.userDetails.value['photourl']!)
+                              backgroundImage: _userDetails['photourl'] != null
+                                  ? CachedNetworkImageProvider(
+                                      _userDetails['photourl']!,
+                                    )
                                   : null,
-                              child: controller.userDetails.value['photourl'] == null
+                              child: _userDetails['photourl'] == null
                                   ? const Icon(Icons.person, size: 50)
                                   : null,
                             ),
@@ -64,45 +134,58 @@ class ProfileView extends GetView<ProfileViewModel> {
                           Card(
                             child: ListTile(
                               title: const Text('Name'),
-                              subtitle: Text(controller.userDetails.value['name'] ?? 'Loading...'),
+                              subtitle: Text(
+                                _userDetails['name'] ?? 'Loading...',
+                              ),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Email'),
-                              subtitle: Text(controller.userDetails.value['email'] ?? 'Loading...'),
+                              subtitle: Text(
+                                _userDetails['email'] ?? 'Loading...',
+                              ),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Date of Birth'),
                               subtitle: Text(
-                                _formatDateOfBirth(controller.userDetails.value['dob']) ?? 'Loading...',
+                                _formatDateOfBirth(_userDetails['dob']) ??
+                                    'Loading...',
                               ),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Phone'),
-                              subtitle: Text(controller.userDetails.value['phone'] ?? 'Loading...'),
+                              subtitle: Text(
+                                _userDetails['phone'] ?? 'Loading...',
+                              ),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Role'),
-                              subtitle: Text(controller.userDetails.value['role'] ?? 'Loading...'),
+                              subtitle: Text(
+                                _userDetails['role'] ?? 'Loading...',
+                              ),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Asal'),
-                              subtitle: Text(controller.userDetails.value['asal'] ?? 'Loading...'),
+                              subtitle: Text(
+                                _userDetails['asal'] ?? 'Loading...',
+                              ),
                             ),
                           ),
                           Card(
                             child: ListTile(
                               title: const Text('Angkatan'),
-                              subtitle: Text(controller.userDetails.value['angkatan'] ?? 'Loading...'),
+                              subtitle: Text(
+                                _userDetails['angkatan'] ?? 'Loading...',
+                              ),
                             ),
                           ),
                         ],
@@ -118,10 +201,12 @@ class ProfileView extends GetView<ProfileViewModel> {
                           Center(
                             child: CircleAvatar(
                               radius: 50,
-                              backgroundImage: controller.userDetails.value['photourl'] != null
-                                  ? CachedNetworkImageProvider(controller.userDetails.value['photourl']!)
+                              backgroundImage: _userDetails['photourl'] != null
+                                  ? CachedNetworkImageProvider(
+                                      _userDetails['photourl']!,
+                                    )
                                   : null,
-                              child: controller.userDetails.value['photourl'] == null
+                              child: _userDetails['photourl'] == null
                                   ? const Icon(Icons.person, size: 50)
                                   : null,
                             ),
@@ -133,12 +218,15 @@ class ProfileView extends GetView<ProfileViewModel> {
                               width: 30,
                             ),
                             title: const Text('Whatsapp'),
-                            subtitle: Text(controller.userDetails.value['phone'] ?? 'Not Available'),
+                            subtitle: Text(
+                              _userDetails['phone'] ?? 'Not Available',
+                            ),
                             onTap: () {
-                              final phoneNumber = controller.userDetails.value['phone'];
+                              final phoneNumber = _userDetails['phone'];
                               if (phoneNumber != null) {
-                                final whatsappUrl = 'https://wa.me/$phoneNumber';
-                                launch(whatsappUrl);
+                                final whatsappUrl =
+                                    'https://wa.me/$phoneNumber';
+                                _launchUrl(whatsappUrl);
                               }
                             },
                           ),
@@ -149,12 +237,16 @@ class ProfileView extends GetView<ProfileViewModel> {
                               width: 30,
                             ),
                             title: const Text('Instagram'),
-                            subtitle: Text(controller.userDetails.value['instagram'] ?? 'Not Available'),
+                            subtitle: Text(
+                              _userDetails['instagram'] ?? 'Not Available',
+                            ),
                             onTap: () {
-                              final instagramUsername = controller.userDetails.value['instagram'];
+                              final instagramUsername =
+                                  _userDetails['instagram'];
                               if (instagramUsername != null) {
-                                final instagramUrl = 'https://www.instagram.com/$instagramUsername';
-                                launch(instagramUrl);
+                                final instagramUrl =
+                                    'https://www.instagram.com/$instagramUsername';
+                                _launchUrl(instagramUrl);
                               }
                             },
                           ),
@@ -165,12 +257,16 @@ class ProfileView extends GetView<ProfileViewModel> {
                               width: 30,
                             ),
                             title: const Text('Linkedin'),
-                            subtitle: Text(controller.userDetails.value['linkedin'] ?? 'Not Available'),
+                            subtitle: Text(
+                              _userDetails['linkedin'] ?? 'Not Available',
+                            ),
                             onTap: () {
-                              final linkedinUsername = controller.userDetails.value['linkedin'];
+                              final linkedinUsername =
+                                  _userDetails['linkedin'];
                               if (linkedinUsername != null) {
-                                final linkedinUrl = 'https://www.linkedin.com/in/$linkedinUsername';
-                                launch(linkedinUrl);
+                                final linkedinUrl =
+                                    'https://www.linkedin.com/in/$linkedinUsername';
+                                _launchUrl(linkedinUrl);
                               }
                             },
                           ),
@@ -181,12 +277,15 @@ class ProfileView extends GetView<ProfileViewModel> {
                               width: 30,
                             ),
                             title: const Text('Github'),
-                            subtitle: Text(controller.userDetails.value['github'] ?? 'Not Available'),
+                            subtitle: Text(
+                              _userDetails['github'] ?? 'Not Available',
+                            ),
                             onTap: () {
-                              final githubUsername = controller.userDetails.value['github'];
+                              final githubUsername = _userDetails['github'];
                               if (githubUsername != null) {
-                                final githubUrl = 'https://github.com/$githubUsername';
-                                launch(githubUrl);
+                                final githubUrl =
+                                    'https://github.com/$githubUsername';
+                                _launchUrl(githubUrl);
                               }
                             },
                           ),
@@ -203,10 +302,12 @@ class ProfileView extends GetView<ProfileViewModel> {
                           Center(
                             child: CircleAvatar(
                               radius: 50,
-                              backgroundImage: controller.userDetails.value['photourl'] != null
-                                  ? CachedNetworkImageProvider(controller.userDetails.value['photourl']!)
+                              backgroundImage: _userDetails['photourl'] != null
+                                  ? CachedNetworkImageProvider(
+                                      _userDetails['photourl']!,
+                                    )
                                   : null,
-                              child: controller.userDetails.value['photourl'] == null
+                              child: _userDetails['photourl'] == null
                                   ? const Icon(Icons.person, size: 50)
                                   : null,
                             ),
@@ -216,21 +317,30 @@ class ProfileView extends GetView<ProfileViewModel> {
                             leading: const Icon(Icons.edit),
                             title: const Text('Update Profile'),
                             onTap: () {
-                              Get.to(() => UpdateProfileView);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UpdateProfileView(
+                                    viewModel: UpdateProfileViewModel(),
+                                  ),
+                                ),
+                              );
                             },
                           ),
                           const SizedBox(height: 16),
                           ListTile(
                             leading: const Icon(Icons.delete),
                             title: const Text('Delete Account'),
-                            onTap: controller.deleteAccount,
+                            onTap: _deleteAccount,
                           ),
+                          
                           const SizedBox(height: 16),
                           ListTile(
                             leading: const Icon(Icons.logout),
                             title: const Text('Logout'),
-                            onTap: controller.logout,
+                            onTap: _logout,
                           ),
+                          
                         ],
                       ),
                     ),
@@ -242,7 +352,7 @@ class ProfileView extends GetView<ProfileViewModel> {
         ),
       ),
       bottomNavigationBar: NavBarView(
-        
+        viewModel: _navBarViewModel,
       ),
     );
   }

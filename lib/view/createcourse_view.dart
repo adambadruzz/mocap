@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../viewmodel/createcourse_viewmodel.dart';
 
 class CreateCourseView extends StatelessWidget {
-  final CreateCourseViewModel viewModel = Get.put(CreateCourseViewModel());
-
   @override
   Widget build(BuildContext context) {
+    final viewModel = CreateCourseViewModel(context: context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Create Course'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: CourseForm(),
+        child: CourseForm(viewModel: viewModel),
       ),
     );
   }
 }
 
-class CourseForm extends StatelessWidget {
-  final CreateCourseViewModel viewModel = Get.find();
+class CourseForm extends StatefulWidget {
+  final CreateCourseViewModel viewModel;
 
+  CourseForm({required this.viewModel});
+
+  @override
+  _CourseFormState createState() => _CourseFormState();
+}
+
+class _CourseFormState extends State<CourseForm> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _youtubeLinkController = TextEditingController();
@@ -43,7 +49,7 @@ class CourseForm extends StatelessWidget {
               return null;
             },
             onChanged: (value) {
-              viewModel.setTitle(value);
+              widget.viewModel.setTitle(value);
             },
           ),
           SizedBox(height: 16.0),
@@ -53,7 +59,7 @@ class CourseForm extends StatelessWidget {
             maxLines: null,
             keyboardType: TextInputType.multiline,
             onChanged: (value) {
-              viewModel.setDescription(value);
+              widget.viewModel.setDescription(value);
             },
           ),
           SizedBox(height: 16.0),
@@ -62,8 +68,10 @@ class CourseForm extends StatelessWidget {
             decoration: InputDecoration(labelText: 'Level'),
             onChanged: (String? newValue) {
               if (newValue != null) {
-                _selectedLevel = newValue;
-                viewModel.setSelectedLevel(newValue);
+                setState(() {
+                  _selectedLevel = newValue;
+                  widget.viewModel.setSelectedLevel(newValue);
+                });
               }
             },
             items: <String>['Beginner', 'Intermediate', 'Advanced']
@@ -80,8 +88,10 @@ class CourseForm extends StatelessWidget {
             decoration: InputDecoration(labelText: 'Programming Language'),
             onChanged: (String? newValue) {
               if (newValue != null) {
-                _selectedProgrammingLanguage = newValue;
-                viewModel.setSelectedProgrammingLanguage(newValue);
+                setState(() {
+                  _selectedProgrammingLanguage = newValue;
+                  widget.viewModel.setSelectedProgrammingLanguage(newValue);
+                });
               }
             },
             items: <String>['Flutter', 'Kotlin', 'Java', 'JavaScript']
@@ -103,7 +113,7 @@ class CourseForm extends StatelessWidget {
               return null;
             },
             onChanged: (value) {
-              viewModel.setYoutubeLink(value);
+              widget.viewModel.setYoutubeLink(value);
             },
           ),
           SizedBox(height: 16.0),
@@ -112,7 +122,7 @@ class CourseForm extends StatelessWidget {
               if (_titleController.text.isNotEmpty &&
                   _descriptionController.text.isNotEmpty &&
                   _youtubeLinkController.text.isNotEmpty) {
-                viewModel.createCourse(
+                widget.viewModel.createCourse(
                   _selectedLevel,
                   _selectedProgrammingLanguage,
                 );
