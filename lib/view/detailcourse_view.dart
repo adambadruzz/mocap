@@ -10,7 +10,7 @@ class DetailCourseView extends StatelessWidget {
   final CourseModel course;
   final String courseType;
 
-  DetailCourseView({Key? key, required this.course, required this.courseType}) : super(key: key);
+  const DetailCourseView({Key? key, required this.course, required this.courseType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

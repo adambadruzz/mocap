@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 const black = Color(0xFF171D1C);
@@ -26,13 +23,13 @@ const lightRedFigma = Color(0xFFFCEDED);
 // Font
 const headline1 = TextStyle(
   fontSize: 28,
-  fontWeight: FontWeight.w500,
-  color: black,
+  fontWeight: FontWeight.w600,
+  color: darkGreenFigma,
 );
 
 const headline2 = TextStyle(
   fontSize: 18,
-  fontWeight: FontWeight.w400,
+  fontWeight: FontWeight.w500,
   color: black,
 );
 
@@ -43,8 +40,8 @@ const headline2Light = TextStyle(
 );
 
 const headline3 = TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.w500,
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
   color: black,
 );
 
@@ -61,7 +58,7 @@ const paragraph = TextStyle(
 );
 
 const paragraphRegular = TextStyle(
-  fontSize: 12,
+  fontSize: 14,
   fontWeight: FontWeight.w400,
   color: black,
 );
