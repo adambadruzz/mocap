@@ -8,10 +8,10 @@ class CreateCourseView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Course'),
+        title: const Text('Create Course'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: CourseForm(viewModel: viewModel),
       ),
     );
@@ -41,7 +41,7 @@ class _CourseFormState extends State<CourseForm> {
         children: [
           TextFormField(
             controller: _titleController,
-            decoration: InputDecoration(labelText: 'Title'),
+            decoration: const InputDecoration(labelText: 'Title'),
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter a title';
@@ -52,20 +52,20 @@ class _CourseFormState extends State<CourseForm> {
               widget.viewModel.setTitle(value);
             },
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           TextFormField(
             controller: _descriptionController,
-            decoration: InputDecoration(labelText: 'Description'),
+            decoration: const InputDecoration(labelText: 'Description'),
             maxLines: null,
             keyboardType: TextInputType.multiline,
             onChanged: (value) {
               widget.viewModel.setDescription(value);
             },
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<String>(
             value: _selectedLevel,
-            decoration: InputDecoration(labelText: 'Level'),
+            decoration: const InputDecoration(labelText: 'Level'),
             onChanged: (String? newValue) {
               if (newValue != null) {
                 setState(() {
@@ -82,10 +82,10 @@ class _CourseFormState extends State<CourseForm> {
               );
             }).toList(),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           DropdownButtonFormField<String>(
             value: _selectedProgrammingLanguage,
-            decoration: InputDecoration(labelText: 'Programming Language'),
+            decoration: const InputDecoration(labelText: 'Programming Language'),
             onChanged: (String? newValue) {
               if (newValue != null) {
                 setState(() {
@@ -102,10 +102,10 @@ class _CourseFormState extends State<CourseForm> {
               );
             }).toList(),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           TextFormField(
             controller: _youtubeLinkController,
-            decoration: InputDecoration(labelText: 'YouTube Video ID'),
+            decoration: const InputDecoration(labelText: 'YouTube Video ID'),
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter a YouTube Video ID';
@@ -116,7 +116,7 @@ class _CourseFormState extends State<CourseForm> {
               widget.viewModel.setYoutubeLink(value);
             },
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () {
               if (_titleController.text.isNotEmpty &&
@@ -128,7 +128,7 @@ class _CourseFormState extends State<CourseForm> {
                 );
               }
             },
-            child: Text('Create Course'),
+            child: const Text('Create Course'),
           ),
         ],
       ),

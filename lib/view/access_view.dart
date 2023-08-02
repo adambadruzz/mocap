@@ -12,7 +12,7 @@ class AccessView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Access'),
+        title: const Text('Access'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: viewModel.getDeniedUsers(),
@@ -22,13 +22,13 @@ class AccessView extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
 
           final users = snapshot.data?.docs ?? [];
 
           if (users.isEmpty) {
-            return Center(
+            return const Center(
               child: Text('No users with denied access.'),
             );
           }
@@ -47,7 +47,7 @@ class AccessView extends StatelessWidget {
                   onPressed: () {
                     viewModel.approveAccess(users[index].id);
                   },
-                  child: Text('Approve'),
+                  child: const Text('Approve'),
                 ),
               );
             },

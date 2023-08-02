@@ -22,7 +22,7 @@ class CourseMenuView extends StatelessWidget {
               if (snapshot.hasData && snapshot.data!) {
                 // Tampilkan ikon tambah course hanya jika pengguna memiliki specialRole 'admin'
                 return IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: () {
                     viewModel.navigateToAddCourse(context);
                   },

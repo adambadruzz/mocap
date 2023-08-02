@@ -35,17 +35,17 @@ class DetailCourseView extends StatelessWidget {
               }
               if (snapshot.hasData && snapshot.data!) {
                 return IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Delete Course'),
-                          content: Text('Are you sure you want to delete this course?'),
+                          title: const Text('Delete Course'),
+                          content: const Text('Are you sure you want to delete this course?'),
                           actions: [
                             TextButton(
-                              child: Text('Cancel'),
+                              child: const Text('Cancel'),
                               onPressed: () {
                                 //create me a navigator push replacement to coursemenu
                                 Navigator.pushReplacement(
@@ -56,7 +56,7 @@ class DetailCourseView extends StatelessWidget {
                               },
                             ),
                             TextButton(
-                              child: Text('Delete'),
+                              child: const Text('Delete'),
                               onPressed: () async {
                                 await viewModel.deleteCourse(courseType);
                                 Navigator.of(context).pop();

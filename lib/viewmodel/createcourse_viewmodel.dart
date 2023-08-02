@@ -56,11 +56,11 @@ class CreateCourseViewModel {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Success'),
-            content: Text('Course created successfully'),
+            title: const Text('Success'),
+            content: const Text('Course created successfully'),
             actions: [
               TextButton(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -81,11 +81,11 @@ class CreateCourseViewModel {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to create course'),
+            title: const Text('Error'),
+            content: const Text('Failed to create course'),
             actions: [
               TextButton(
-                child: Text('OK'),
+                child: const Text('OK'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
