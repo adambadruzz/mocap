@@ -29,6 +29,7 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
   firebase_messaging: ^14.6.5
   google_fonts: ^5.1.0
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
