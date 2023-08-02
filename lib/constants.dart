@@ -112,6 +112,6 @@ final headerShadow = BoxShadow(
 );
 
 // Padding
-const paddingS = 8;
-const paddingM = 16;
-const paddingL = 24;
+const paddingS = 8.0;
+const paddingM = 16.0;
+const paddingL = 24.0;
