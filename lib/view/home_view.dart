@@ -305,9 +305,6 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            bottomNavigationBar: NavBarView(
-              viewModel: _navBarViewModel,
-            ),
           );
         }
       },

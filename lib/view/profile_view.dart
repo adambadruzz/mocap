@@ -207,9 +207,6 @@ class _ProfileViewState extends State<ProfileView> {
           ),
         ),
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
     );
   }
 
