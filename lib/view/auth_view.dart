@@ -5,9 +5,7 @@ import 'package:mocap/view/login_view.dart';
 import 'package:mocap/view/navbar_view.dart';
 import 'package:mocap/view/register_view.dart';
 import '../services/auth_service.dart';
-import '../viewmodel/home_viemodel.dart';
 import '../viewmodel/register_viewmodel.dart';
-import 'home_view.dart';
 import '../viewmodel/login_viewmodel.dart';
 import 'waiting_view.dart'; // Import waiting_view.dart
 
@@ -38,11 +36,18 @@ class AuthPage extends StatelessWidget {
                     // User access is null, navigate to register view
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => RegisterView(viewModel: RegisterViewModel(authService: AuthService()))),
+                        MaterialPageRoute(
+                            builder: (context) => RegisterView(
+                                viewModel: RegisterViewModel(
+                                    authService: AuthService()))),
                       );
                     });
                     return Container();
-                  } else if (access == 'Denied' || access == 'Granted' || access == 'Pending' || access == 'OK' || access == 'Approved') {
+                  } else if (access == 'Denied' ||
+                      access == 'Granted' ||
+                      access == 'Pending' ||
+                      access == 'OK' ||
+                      access == 'Approved') {
                     // Show waiting view if access is denied, granted, pending, or OK
                     return const WaitingView();
                   } else {
@@ -63,7 +68,8 @@ class AuthPage extends StatelessWidget {
             );
           } else {
             // User is not logged in, navigate to login view
-            return LoginView(viewModel: LoginViewModel(authService: AuthService()));
+            return LoginView(
+                viewModel: LoginViewModel(authService: AuthService()));
           }
         },
       ),
