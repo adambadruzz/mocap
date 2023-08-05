@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mocap/view/navbar_view.dart';
 import 'package:mocap/view/registergoogle_view.dart';
 import 'package:mocap/viewmodel/registergoogle_viewmodel.dart';
 
@@ -84,7 +85,7 @@ class LoginViewModel {
       if (isRegistered) {
         Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => HomeView(viewModel: HomeViewModel(context: context)),
+                          builder: (context) => const NavBarView(),
                         ),
                       );
       } else {

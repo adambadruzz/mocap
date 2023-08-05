@@ -16,7 +16,9 @@ class NavigationBarViewModel {
       case 0:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeView(viewModel: HomeViewModel(context: context))),
+          MaterialPageRoute(
+              builder: (context) =>
+                  HomeView(viewModel: HomeViewModel(context: context))),
         );
         break;
       case 1:

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mocap/view/login_view.dart';
+import 'package:mocap/view/navbar_view.dart';
 import 'package:mocap/view/register_view.dart';
 import '../services/auth_service.dart';
 import '../viewmodel/home_viemodel.dart';
@@ -49,7 +50,7 @@ class AuthPage extends StatelessWidget {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
-                          builder: (context) => HomeView(viewModel: HomeViewModel(context: context)),
+                          builder: (context) => const NavBarView(),
                         ),
                       );
                     });

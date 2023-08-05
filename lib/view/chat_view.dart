@@ -238,9 +238,6 @@ class _ChatViewState extends State<ChatView> {
           ),
         ],
       ),
-      bottomNavigationBar: NavBarView(
-        viewModel: _navBarViewModel,
-      ),
     );
   }
 }
