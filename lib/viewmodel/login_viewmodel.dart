@@ -6,8 +6,6 @@ import 'package:mocap/viewmodel/registergoogle_viewmodel.dart';
 
 import '../services/auth_service.dart';
 import '../view/auth_view.dart';
-import '../view/home_view.dart';
-import 'home_viemodel.dart';
 
 class LoginViewModel {
   final AuthService authService;
@@ -84,8 +82,10 @@ class LoginViewModel {
 
       if (isRegistered) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => NavBarView()),
-        );
+                        MaterialPageRoute(
+                          builder: (context) => const NavBarView(),
+                        ),
+                      );
       } else {
         Navigator.pushReplacement(
           context,

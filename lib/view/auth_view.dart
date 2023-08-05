@@ -5,9 +5,7 @@ import 'package:mocap/view/login_view.dart';
 import 'package:mocap/view/navbar_view.dart';
 import 'package:mocap/view/register_view.dart';
 import '../services/auth_service.dart';
-import '../viewmodel/home_viemodel.dart';
 import '../viewmodel/register_viewmodel.dart';
-import 'home_view.dart';
 import '../viewmodel/login_viewmodel.dart';
 import 'waiting_view.dart'; // Import waiting_view.dart
 
@@ -55,8 +53,10 @@ class AuthPage extends StatelessWidget {
                   } else {
                     // User has valid access, navigate to home view
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => NavBarView()),
+                     Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const NavBarView(),
+                        ),
                       );
                     });
                     return Container();
