@@ -41,7 +41,9 @@ class _HomeViewState extends State<HomeView> {
       future: widget.viewModel.shouldShowCoursesMenu(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -52,12 +54,10 @@ class _HomeViewState extends State<HomeView> {
               backgroundColor: Colors.transparent,
               elevation: 0,
               centerTitle: true,
-              title: const Text('Home',
-                  style: TextStyle(
-                    color: black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  )),
+              title: const Text(
+                'Home',
+                style: headline2,
+              ),
               leading: null,
               actions: const [
                 Padding(

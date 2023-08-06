@@ -14,6 +14,7 @@ import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../viewmodel/updateprofile_viewmodel.dart';
+import 'about_view.dart';
 import 'login_view.dart';
 import 'navbar_view.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -87,13 +88,16 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
+     appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              centerTitle: true,
+              title: const Text(
+                'Home',
+                style: headline2,
+              ),
+              leading: null,
+            ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(paddingL),
@@ -192,6 +196,16 @@ class _ProfileViewState extends State<ProfileView> {
                     builder: (context) => UpdateProfileView(
                       viewModel: UpdateProfileViewModel(),
                     ),
+                  ),
+                );
+              }),
+              const SizedBox(height: 12),
+              // make button about
+              button(Icons.info, "About", false, () {
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutView(),
                   ),
                 );
               }),

@@ -21,7 +21,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
-         textTheme: GoogleFonts.rubikTextTheme(),
+        textTheme: GoogleFonts.rubikTextTheme(),
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(
+            color: Colors
+                .black, //agar tombol back hitam
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: const AuthPage(),
