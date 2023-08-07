@@ -88,16 +88,16 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              title: const Text(
-                'Home',
-                style: headline2,
-              ),
-              leading: null,
-            ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text('Profile',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            )),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(paddingL),
@@ -115,15 +115,16 @@ class _ProfileViewState extends State<ProfileView> {
                     ? const Icon(Icons.person, size: 50)
                     : null,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: paddingM),
               Text(
                 _userDetails['name'] ?? '',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
+                
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: paddingM),
               Text(
                 _userDetails['email'] ?? '',
                 style: const TextStyle(
@@ -202,7 +203,7 @@ class _ProfileViewState extends State<ProfileView> {
               const SizedBox(height: 12),
               // make button about
               button(Icons.info, "About", false, () {
-                 Navigator.push(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => AboutView(),

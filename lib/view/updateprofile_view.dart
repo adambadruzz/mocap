@@ -5,6 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:mocap/constants.dart';
+import 'package:mocap/global_widgets/textfield_dec.dart';
 import 'package:mocap/view/profile_view.dart';
 
 import '../viewmodel/updateprofile_viewmodel.dart';
@@ -49,8 +51,7 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
       _instagramController.text = userDetails['instagram'] ?? '';
       _githubController.text = userDetails['github'] ?? '';
       _linkedinController.text = userDetails['linkedin'] ?? '';
-      _selectedDate =
-          userDetails['dob'] as Timestamp?;
+      _selectedDate = userDetails['dob'] as Timestamp?;
     });
   }
 
@@ -114,7 +115,8 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
   }
 
   Future<void> _selectImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _selectedImage = File(pickedFile.path);
@@ -126,97 +128,99 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Profile'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text('Update Profile',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            )),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(paddingL),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: paddingM),
                   Center(
                     child: GestureDetector(
-                    onTap: () {
-                      _selectImage();
-                    },
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey,
-                        image: _selectedImage != null
-                            ? DecorationImage(
-                                image: FileImage(_selectedImage!),
-                                fit: BoxFit.cover,
+                      onTap: () {
+                        _selectImage();
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey,
+                          image: _selectedImage != null
+                              ? DecorationImage(
+                                  image: FileImage(_selectedImage!),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
+                        ),
+                        child: _selectedImage == null
+                            ? const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
                               )
                             : null,
                       ),
-                      child: _selectedImage == null
-                          ? const Icon(
-                              Icons.camera_alt,
-                              color: Colors.white,
-                            )
-                          : null,
                     ),
                   ),
-                  ),
-                  
-                  const SizedBox(height: 20),
+                  const SizedBox(height: paddingM),
                   TextFormField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                      controller: _nameController,
+                      decoration: customTextFieldDecoration(
+                        'Name',
+                      )),
+                  const SizedBox(height: paddingM),
                   TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                      controller: _emailController,
+                      decoration: customTextFieldDecoration(
+                        'Email',
+                      )),
+                  const SizedBox(height: paddingM),
                   TextFormField(
-                    controller: _phoneController,
-                    decoration: const InputDecoration(
-                      labelText: 'Phone',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                      controller: _phoneController,
+                      decoration: customTextFieldDecoration(
+                        'Phone',
+                      )),
+                  const SizedBox(height: paddingM),
                   const Text(
                     'Khusus untuk social media cukup masukkan username saja, tanpa link. Contoh: @username',
+                    maxLines: 3,
                   ),
+                  const SizedBox(height: paddingM),
                   TextFormField(
-                    controller: _instagramController,
-                    decoration: const InputDecoration(
-                      labelText: 'Instagram',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                      controller: _instagramController,
+                      decoration: customTextFieldDecoration(
+                        'Instagram',
+                      )),
+                  const SizedBox(height: paddingM),
                   TextFormField(
-                    controller: _githubController,
-                    decoration: const InputDecoration(
-                      labelText: 'Github',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                      controller: _githubController,
+                      decoration: customTextFieldDecoration(
+                        'Github',
+                      )),
+                  const SizedBox(height: paddingM),
                   TextFormField(
-                    controller: _linkedinController,
-                    decoration: const InputDecoration(
-                      labelText: 'LinkedIn',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
+                      controller: _linkedinController,
+                      decoration: customTextFieldDecoration(
+                        'Linkedin',
+                      )),
+                  const SizedBox(height: paddingM),
                   InkWell(
                     onTap: () {
                       _selectDate(context);
                     },
                     child: InputDecorator(
-                      decoration: const InputDecoration(
-                        labelText: 'Date of Birth',
+                      decoration: customTextFieldDecoration(
+                        'Date of Birth',
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -228,15 +232,34 @@ class _UpdateProfileViewState extends State<UpdateProfileView> {
                               fontSize: 16,
                             ),
                           ),
-                          const Icon(Icons.calendar_today),
+                          const Icon(
+                            Icons.calendar_today,
+                            color: blueFigma,
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _updateProfile,
-                    child: const Text('Update'),
+                  const SizedBox(height: paddingM),
+                  GestureDetector(
+                    onTap: () {
+                      _updateProfile();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(paddingM),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xFF406EA5),
+                      ),
+                      child: const Center(
+                        child: Text('Update',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    ),
                   ),
                 ],
               ),
