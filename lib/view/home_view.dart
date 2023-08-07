@@ -50,25 +50,10 @@ class _HomeViewState extends State<HomeView> {
           final shouldShowCoursesMenu = snapshot.data ?? false;
 
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              title: const Text(
-                'Home',
-                style: headline2,
-              ),
-              leading: null,
-              actions: const [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Icon(Icons.notifications_none_rounded, color: black),
-                )
-              ],
-            ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 6, 20, 40),
+                padding: const EdgeInsets.fromLTRB(
+                    paddingL, paddingL + paddingS, paddingL, paddingL),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
