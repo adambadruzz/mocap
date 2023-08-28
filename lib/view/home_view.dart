@@ -5,7 +5,6 @@ import 'package:mocap/viewmodel/profile_viewmodel.dart';
 import '../constants.dart';
 import '../viewmodel/home_viemodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
-import 'navbar_view.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewModel viewModel;
@@ -16,8 +15,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final NavigationBarViewModel _navBarViewModel = NavigationBarViewModel();
-
   final ProfileViewModel _profileViewModel = ProfileViewModel();
 
   Map<String, dynamic> _userDetails = {};
@@ -41,7 +38,8 @@ class _HomeViewState extends State<HomeView> {
       future: widget.viewModel.shouldShowCoursesMenu(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const SizedBox(
+              height: 50, width: 50, child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -124,7 +122,9 @@ class _HomeViewState extends State<HomeView> {
                           widget.viewModel.navigateToStructure();
                         }),
                         cardFeature("assets/icon/icon_course.png", "Courses",
-                            "Learning Path", () {}),
+                            "Learning Path", () {
+                          widget.viewModel.navigateToCourses();
+                        }),
                         cardFeature("assets/icon/icon_post.png", "Post",
                             "For Updates", () {}),
                         cardFeature("assets/icon/icon_member.png", "Members",

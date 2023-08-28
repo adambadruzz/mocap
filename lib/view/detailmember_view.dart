@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
+import 'package:mocap/constants.dart';
+import 'package:mocap/global_widgets/app_bar.dart';
 import '../models/member_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,9 +14,7 @@ class DetailMemberView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Member Detail'),
-      ),
+      appBar: appBar("Detail Member"),
       body: DefaultTabController(
         length: 2,
         child: Column(
@@ -23,10 +23,10 @@ class DetailMemberView extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
               ),
-              child: TabBar(
-                labelColor: Colors.black, // Mengubah warna teks menjadi hitam
-                indicatorColor: Colors.green.shade700,
-                tabs: const [
+              child: const TabBar(
+                labelColor: black, // Mengubah warna teks menjadi hitam
+                indicatorColor: blueFigma,
+                tabs: [
                   Tab(text: 'Information'),
                   Tab(text: 'Social Media'),
                 ],
@@ -45,7 +45,8 @@ class DetailMemberView extends StatelessWidget {
                             child: CircleAvatar(
                               radius: 50,
                               backgroundImage: member.photourl.isNotEmpty
-                                  ? CachedNetworkImageProvider(member.photourl) as ImageProvider<Object>?
+                                  ? CachedNetworkImageProvider(member.photourl)
+                                      as ImageProvider<Object>?
                                   : null,
                               child: member.photourl.isEmpty
                                   ? const Icon(Icons.person, size: 50)
@@ -68,7 +69,8 @@ class DetailMemberView extends StatelessWidget {
                           Card(
                             child: ListTile(
                               title: const Text('Date of Birth'),
-                              subtitle: Text(_formatDateOfBirth(member.dob) ?? 'N/A'),
+                              subtitle:
+                                  Text(_formatDateOfBirth(member.dob) ?? 'N/A'),
                             ),
                           ),
                           Card(
@@ -113,7 +115,8 @@ class DetailMemberView extends StatelessWidget {
                             child: CircleAvatar(
                               radius: 50,
                               backgroundImage: member.photourl.isNotEmpty
-                                  ? CachedNetworkImageProvider(member.photourl) as ImageProvider<Object>?
+                                  ? CachedNetworkImageProvider(member.photourl)
+                                      as ImageProvider<Object>?
                                   : null,
                               child: member.photourl.isEmpty
                                   ? const Icon(Icons.person, size: 50)
@@ -132,8 +135,7 @@ class DetailMemberView extends StatelessWidget {
                             ),
                             onTap: () {
                               final phoneNumber = member.phone;
-                              final whatsappUrl =
-                                  'https://wa.me/$phoneNumber';
+                              final whatsappUrl = 'https://wa.me/$phoneNumber';
                               _launchUrl(whatsappUrl);
                             },
                           ),
@@ -198,7 +200,6 @@ class DetailMemberView extends StatelessWidget {
           ],
         ),
       ),
-      
     );
   }
 

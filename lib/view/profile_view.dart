@@ -15,7 +15,6 @@ import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../viewmodel/updateprofile_viewmodel.dart';
 import 'login_view.dart';
-import 'navbar_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileView extends StatefulWidget {

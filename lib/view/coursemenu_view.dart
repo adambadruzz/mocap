@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mocap/constants.dart';
 import '../viewmodel/coursemenu_viewmodel.dart';
 
 class CourseMenuView extends StatelessWidget {
@@ -10,8 +11,11 @@ class CourseMenuView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Course Menu'),
-        leading: null,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: const Text("Course Menu", style: headline2),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: black),
         actions: [
           FutureBuilder<bool>(
             future: viewModel.isAdmin(),
@@ -42,9 +46,9 @@ class CourseMenuView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    border: Border.all(color: blueFigma, width: 1)),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -71,9 +75,9 @@ class CourseMenuView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    border: Border.all(color: blueFigma, width: 1)),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -105,9 +109,9 @@ class CourseMenuView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    border: Border.all(color: blueFigma, width: 1)),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -134,9 +138,9 @@ class CourseMenuView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    border: Border.all(color: blueFigma, width: 1)),
                 child: Column(
                   children: [
                     GestureDetector(

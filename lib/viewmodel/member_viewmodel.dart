@@ -7,15 +7,16 @@ class MemberViewModel {
 
   //untuk pengurus selanjutnya ganti String role, int tahun menjadi String role, int tahun2
   Future<List<MemberModel>> getMembersByRole(String role, int tahun) async {
+    tahun = tahun + 1;
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .where('role', isEqualTo: role)
-        .where('tahunkepengurusan', arrayContainsAny: [tahun])
-        .get();
+        .where('tahunkepengurusan', arrayContainsAny: [tahun]).get();
 
     final members = snapshot.docs.map((doc) {
       final data = doc.data();
-      final tahunkepengurusan = (data['tahunkepengurusan'] as List<dynamic>).cast<int>();
+      final tahunkepengurusan =
+          (data['tahunkepengurusan'] as List<dynamic>).cast<int>();
 
       // Convert Timestamp to DateTime
       final dobTimestamp = data['dob'] as Timestamp;
