@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mocap/constants.dart';
+import 'package:mocap/global_widgets/app_bar.dart';
 import '../models/course_model.dart';
 import '../viewmodel/course_viewmodel.dart';
 import 'detailcourse_view.dart';
@@ -41,9 +43,7 @@ class _CourseViewState extends State<CourseView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.courseType),
-      ),
+      appBar: appBar(widget.courseType),
       body: ListView(
         children: [
           if (_beginnerCourses.isNotEmpty)
@@ -58,19 +58,26 @@ class _CourseViewState extends State<CourseView> {
             itemBuilder: (context, index) {
               final course = _beginnerCourses[index];
               return ListTile(
-                title: Text(course.title),
+                title: Card(
+                    elevation: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(paddingM),
+                      child: Text(course.title),
+                    )),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailCourseView(course: course, courseType: widget.courseType,),
+                      builder: (context) => DetailCourseView(
+                        course: course,
+                        courseType: widget.courseType,
+                      ),
                     ),
                   );
                 },
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_intermediateCourses.isNotEmpty)
             const ListTile(
               title: Text('Intermediate'),
@@ -88,14 +95,14 @@ class _CourseViewState extends State<CourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailCourseView(course: course, courseType: widget.courseType),
+                      builder: (context) => DetailCourseView(
+                          course: course, courseType: widget.courseType),
                     ),
                   );
                 },
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_advancedCourses.isNotEmpty)
             const ListTile(
               title: Text('Advanced'),
@@ -113,17 +120,16 @@ class _CourseViewState extends State<CourseView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailCourseView(course: course, courseType: widget.courseType),
+                      builder: (context) => DetailCourseView(
+                          course: course, courseType: widget.courseType),
                     ),
                   );
                 },
               );
             },
           ),
-          const Divider(thickness: 3),
         ],
       ),
-     
     );
   }
 }
