@@ -14,6 +14,7 @@ import '../viewmodel/login_viewmodel.dart';
 import '../viewmodel/navbar_viewmodel.dart';
 import '../viewmodel/profile_viewmodel.dart';
 import '../viewmodel/updateprofile_viewmodel.dart';
+import 'about_view.dart';
 import 'login_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -87,11 +88,14 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        elevation: 0,
         backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text('Profile',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            )),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -110,15 +114,16 @@ class _ProfileViewState extends State<ProfileView> {
                     ? const Icon(Icons.person, size: 50)
                     : null,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: paddingM),
               Text(
                 _userDetails['name'] ?? '',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
+                
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: paddingM),
               Text(
                 _userDetails['email'] ?? '',
                 style: const TextStyle(
@@ -191,6 +196,16 @@ class _ProfileViewState extends State<ProfileView> {
                     builder: (context) => UpdateProfileView(
                       viewModel: UpdateProfileViewModel(),
                     ),
+                  ),
+                );
+              }),
+              const SizedBox(height: 12),
+              // make button about
+              button(Icons.info, "About", false, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutView(),
                   ),
                 );
               }),

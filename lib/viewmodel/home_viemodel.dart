@@ -58,7 +58,7 @@ class HomeViewModel {
     );
   }
 
-  void navigateToMembers() {
+  void    navigateToMembers() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const MemberView()),

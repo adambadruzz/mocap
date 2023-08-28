@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../constants.dart';
 import '../models/post_model.dart';
 import 'createpost_view.dart';
 import 'detailevent_view.dart';
@@ -26,14 +27,19 @@ class _EventViewState extends State<EventView> {
   void _checkPengurusRole() async {
     final user = _auth.currentUser;
     if (user != null) {
-      final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
-      if (docSnapshot.exists) {
+      final docSnapshot =
+          await _firestore.collection('users').doc(user.uid).get();
+      if (mounted && docSnapshot.exists) {
+        // Check if the widget is still mounted
         final userData = docSnapshot.data() as Map<String, dynamic>;
         final roles = userData['roles'];
         if (roles.contains('Pengurus')) {
-          setState(() {
-            _isPengurus = true;
-          });
+          if (mounted) {
+            // Check again before calling setState
+            setState(() {
+              _isPengurus = true;
+            });
+          }
         }
       }
     }
@@ -42,25 +48,37 @@ class _EventViewState extends State<EventView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Event'),
+       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Post',
+          style: headline2,
+        ),
+        leading: null,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore.collection('posts').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final posts = snapshot.data!.docs.map((doc) => PostModel.fromSnapshot(doc)).toList();
+            final posts = snapshot.data!.docs
+                .map((doc) => PostModel.fromSnapshot(doc))
+                .toList();
             return ListView.builder(
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 final post = posts[index];
                 return ListTile(
                   title: Text(post.title),
-                  leading: post.images.isNotEmpty ? Image.network(post.images[0]) : null,
+                  leading: post.images.isNotEmpty
+                      ? Image.network(post.images[0])
+                      : null,
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DetailEventView(post: post)),
+                      MaterialPageRoute(
+                          builder: (context) => DetailEventView(post: post)),
                     );
                   },
                 );
@@ -85,7 +103,6 @@ class _EventViewState extends State<EventView> {
               child: const Icon(Icons.add),
             )
           : null,
-      
     );
   }
 

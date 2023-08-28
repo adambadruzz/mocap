@@ -38,35 +38,19 @@ class _HomeViewState extends State<HomeView> {
       future: widget.viewModel.shouldShowCoursesMenu(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const SizedBox(
-              height: 50, width: 50, child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
           final shouldShowCoursesMenu = snapshot.data ?? false;
 
           return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: true,
-              title: const Text('Home',
-                  style: TextStyle(
-                    color: black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                  )),
-              leading: null,
-              actions: const [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Icon(Icons.notifications_none_rounded, color: black),
-                )
-              ],
-            ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 6, 20, 40),
+                padding: const EdgeInsets.fromLTRB(
+                    paddingL, paddingL + paddingS, paddingL, paddingL),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
