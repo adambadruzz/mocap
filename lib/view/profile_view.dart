@@ -100,7 +100,7 @@ class _ProfileViewState extends State<ProfileView> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(paddingL),
+          padding: const EdgeInsets.all(paddingL),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -122,7 +122,6 @@ class _ProfileViewState extends State<ProfileView> {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
-                
               ),
               const SizedBox(height: paddingM),
               Text(
@@ -158,11 +157,11 @@ class _ProfileViewState extends State<ProfileView> {
                 dashPattern: const [12, 8],
                 child: Container(
                     width: double.infinity,
-                    padding: EdgeInsets.all(paddingL),
+                    padding: const EdgeInsets.all(paddingL),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        customIconButton(Icons.email_outlined, () {
+                        customIconButton("assets/images/instagram.png", () {
                           final instagramUsername = _userDetails['instagram'];
                           if (instagramUsername != null) {
                             final instagramUrl =
@@ -170,7 +169,7 @@ class _ProfileViewState extends State<ProfileView> {
                             _launchUrl(instagramUrl);
                           }
                         }),
-                        customIconButton(Icons.email_outlined, () {
+                        customIconButton("assets/images/github.png", () {
                           final githubUsername = _userDetails['github'];
                           if (githubUsername != null) {
                             final githubUrl =
@@ -178,7 +177,7 @@ class _ProfileViewState extends State<ProfileView> {
                             _launchUrl(githubUrl);
                           }
                         }),
-                        customIconButton(Icons.email_outlined, () {
+                        customIconButton("assets/images/linkedin.png", () {
                           final linkedinUsername = _userDetails['linkedin'];
                           if (linkedinUsername != null) {
                             final linkedinUrl =
@@ -206,7 +205,7 @@ class _ProfileViewState extends State<ProfileView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AboutView(),
+                    builder: (context) => const AboutView(),
                   ),
                 );
               }),

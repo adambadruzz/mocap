@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mocap/constants.dart';
 
-Widget customIconButton(IconData icon, VoidCallback onTap) {
+Widget customIconButton(String image, VoidCallback onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -9,9 +9,10 @@ Widget customIconButton(IconData icon, VoidCallback onTap) {
         borderRadius: BorderRadius.circular(double.infinity),
         color: lightGreyFigma,
       ),
-      child: Icon(
-        icon,
-        color: blueFigma,
+      child: Image.asset(
+        image,
+        height: 20,
+        width: 20,
       ),
     ),
   );
