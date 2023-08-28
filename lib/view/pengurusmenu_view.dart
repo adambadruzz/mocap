@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mocap/global_widgets/button.dart';
 import 'package:mocap/view/pengurus_view.dart';
 
 import '../viewmodel/pengurusmenu_viewmodel.dart';
@@ -10,30 +11,41 @@ class PengurusMenuView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> tahunKepengurusan = viewModel.generateTahunKepengurusan();
+    final List<String> tahunKepengurusan =
+        viewModel.generateTahunKepengurusan();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pengurus Komunitas'),
       ),
-      body: ListView.builder(
+      body: ListView.separated(
+        padding: EdgeInsets.all(24),
         itemCount: tahunKepengurusan.length,
+        separatorBuilder: (context, index) => const SizedBox(height: 16),
         itemBuilder: (context, index) {
           final tahun = tahunKepengurusan[index];
-          return ListTile(
-            title: Text(tahun),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PengurusView(tahunSelesai: viewModel.getTahunSelesai(tahun)),
-                ),
-              );
-            },
-          );
+          return button(Icons.group, tahun, false, () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PengurusView(
+                    tahunSelesai: viewModel.getTahunSelesai(tahun)),
+              ),
+            );
+          });
+          // return ListTile(
+          //   title: Text(tahun),
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => PengurusView(tahunSelesai: viewModel.getTahunSelesai(tahun)),
+          //       ),
+          //     );
+          //   },
+          // );
         },
       ),
-      
     );
   }
 }

@@ -180,7 +180,7 @@ class _ProfileViewState extends State<ProfileView> {
                           final whatsappUsername = _userDetails['whatsapp'];
                           if (whatsappUsername != null) {
                             final whatsappUrl =
-                                'https://wa.me/62$whatsappUsername';
+                                'https://wa.me/$whatsappUsername';
                             _launchUrl(whatsappUrl);
                           }
                         }),
