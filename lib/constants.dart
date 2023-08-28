@@ -8,7 +8,8 @@ const lightBlack = Color(0xFF666969);
 const extraDarkGreen = Color(0xFF245E56);
 const redDanger = Color(0xFFC75A4C);
 const extraLightGrey = Color(0xFFF6F6F6);
-const lightGreen = Color(0xFFFEDFCF5);
+const lightGreen = Color(0xFFEDFCF5);
+const lightGrey = Color(0xFFF6F6F6);
 
 // NEW FROM FIGMA
 // Color

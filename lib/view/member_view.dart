@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:mocap/constants.dart';
+import 'package:mocap/global_widgets/app_bar.dart';
 import '../models/member_model.dart';
 import '../viewmodel/member_viewmodel.dart';
 import 'detailmember_view.dart';
@@ -36,17 +38,22 @@ class _MemberViewState extends State<MemberView> {
     //final int tahun2 = tahun+1;
     //untuk pengurus selanjutnya
     final leaders = await _memberViewModel.getMembersByRole('Leader', tahun);
-    final coleaders = await _memberViewModel.getMembersByRole('Co-Leader', tahun);
-    final secretary = await _memberViewModel.getMembersByRole('Secretary', tahun);
-    final treasurer = await _memberViewModel.getMembersByRole('Treasurer', tahun);
-    final leadersEnD = await _memberViewModel.getMembersByRole('Leader Engineer & Developer', tahun);
-    final leadersUnD = await _memberViewModel.getMembersByRole('Leader User Interface & Design', tahun);
+    final coleaders =
+        await _memberViewModel.getMembersByRole('Co-Leader', tahun);
+    final secretary =
+        await _memberViewModel.getMembersByRole('Secretary', tahun);
+    final treasurer =
+        await _memberViewModel.getMembersByRole('Treasurer', tahun);
+    final leadersEnD = await _memberViewModel.getMembersByRole(
+        'Leader Engineer & Developer', tahun);
+    final leadersUnD = await _memberViewModel.getMembersByRole(
+        'Leader User Interface & Design', tahun);
     final endDivisionMembers =
         await _memberViewModel.getMembersByRole('Engineer & Developer', tahun);
-    final undDivisionMembers =
-        await _memberViewModel.getMembersByRole('User Interface & Design', tahun);
-    final memberMembers = await _memberViewModel.getMembersByRole('Member', tahun);
-
+    final undDivisionMembers = await _memberViewModel.getMembersByRole(
+        'User Interface & Design', tahun);
+    final memberMembers =
+        await _memberViewModel.getMembersByRole('Member', tahun);
 
     setState(() {
       _leaders = leaders;
@@ -63,11 +70,9 @@ class _MemberViewState extends State<MemberView> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Member List'),
-      ),
+      backgroundColor: white,
+      appBar: appBar("Member List"),
       body: ListView(
         children: [
           if (_leaders.isNotEmpty)
@@ -85,7 +90,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: leader.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(leader.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(leader.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: leader.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -104,7 +110,6 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_coleaders.isNotEmpty)
             const ListTile(
               title: Text('Co-Leader'),
@@ -120,7 +125,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: coleader.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(coleader.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(coleader.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: coleader.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -139,7 +145,6 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_secretary.isNotEmpty)
             const ListTile(
               title: Text('Secretary'),
@@ -155,7 +160,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: secretary.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(secretary.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(secretary.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: secretary.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -174,7 +180,6 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_treasurer.isNotEmpty)
             const ListTile(
               title: Text('Treasurer'),
@@ -190,7 +195,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: treasurer.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(treasurer.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(treasurer.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: treasurer.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -209,7 +215,6 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_leadersEnd.isNotEmpty)
             const ListTile(
               title: Text('Leader Engineer & Developer'),
@@ -225,7 +230,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: leaderEnd.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(leaderEnd.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(leaderEnd.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: leaderEnd.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -244,7 +250,6 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_leadersUnD.isNotEmpty)
             const ListTile(
               title: Text('Leader User Interface & Design'),
@@ -260,7 +265,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: leaderUnD.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(leaderUnD.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(leaderUnD.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: leaderUnD.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -279,7 +285,6 @@ class _MemberViewState extends State<MemberView> {
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_endDivisionMembers.isNotEmpty)
             const ListTile(
               title: Text('Engineer & Developer Division'),
@@ -295,7 +300,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: enddivision.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(enddivision.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(enddivision.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: enddivision.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -307,14 +313,14 @@ class _MemberViewState extends State<MemberView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailMemberView(member: enddivision),
+                      builder: (context) =>
+                          DetailMemberView(member: enddivision),
                     ),
                   );
                 },
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_undDivisionMembers.isNotEmpty)
             const ListTile(
               title: Text('User Interface & Design Division'),
@@ -330,7 +336,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: unddivision.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(unddivision.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(unddivision.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: unddivision.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -342,14 +349,14 @@ class _MemberViewState extends State<MemberView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailMemberView(member: unddivision),
+                      builder: (context) =>
+                          DetailMemberView(member: unddivision),
                     ),
                   );
                 },
               );
             },
           ),
-          const Divider(thickness: 3),
           if (_memberMembers.isNotEmpty)
             const ListTile(
               title: Text('Member'),
@@ -365,7 +372,8 @@ class _MemberViewState extends State<MemberView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: member.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(member.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(member.photourl)
+                          as ImageProvider<Object>?
                       : null,
                   child: member.photourl.isEmpty
                       ? const Icon(Icons.person, size: 40)
@@ -383,11 +391,9 @@ class _MemberViewState extends State<MemberView> {
                 },
               );
             },
-          ),
-          const Divider(thickness: 3),
+          )
         ],
       ),
-      
     );
   }
 }
