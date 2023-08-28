@@ -176,6 +176,14 @@ class _ProfileViewState extends State<ProfileView> {
                             _launchUrl(githubUrl);
                           }
                         }),
+                        customIconButton("assets/images/whatsapp.png", () {
+                          final whatsappUsername = _userDetails['whatsapp'];
+                          if (whatsappUsername != null) {
+                            final whatsappUrl =
+                                'https://wa.me/62$whatsappUsername';
+                            _launchUrl(whatsappUrl);
+                          }
+                        }),
                         customIconButton("assets/images/linkedin.png", () {
                           final linkedinUsername = _userDetails['linkedin'];
                           if (linkedinUsername != null) {
