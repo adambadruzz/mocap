@@ -30,7 +30,7 @@ const headline1 = TextStyle(
 
 const headline2 = TextStyle(
   fontSize: 18,
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.w600,
   color: black,
 );
 

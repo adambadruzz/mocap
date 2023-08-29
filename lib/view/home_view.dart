@@ -4,7 +4,6 @@ import 'package:mocap/viewmodel/profile_viewmodel.dart';
 
 import '../constants.dart';
 import '../viewmodel/home_viemodel.dart';
-import '../viewmodel/navbar_viewmodel.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewModel viewModel;
@@ -50,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(
-                    paddingL, paddingL + paddingS, paddingL, paddingL),
+                    paddingL, 2 * paddingL, paddingL, paddingL),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
