@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:mocap/constants.dart';
 import 'package:mocap/models/member_model.dart';
 import 'package:mocap/view/detailpengurus_view.dart';
 import 'package:mocap/viewmodel/pengurus_viewmodel.dart';
@@ -28,20 +29,16 @@ class _PengurusViewState extends State<PengurusView> {
 
   Future<void> _fetchPengurus() async {
     final pengurus = await _pengurusViewModel.getMembersByRole(
-      'Pengurus',
-      widget.tahunSelesai
-    );
+        'Pengurus', widget.tahunSelesai);
 
     setState(() {
       _pengurus = pengurus;
     });
   }
 
-   Future<void> _fetchMembers() async {
+  Future<void> _fetchMembers() async {
     final memberMembers = await _pengurusViewModel.getMembersByRole(
-      'Member',
-      widget.tahunSelesai
-    );
+        'Member', widget.tahunSelesai);
 
     setState(() {
       _memberMembers = memberMembers;
@@ -52,7 +49,11 @@ class _PengurusViewState extends State<PengurusView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pengurus List'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text('Pengurus List', style: headline2),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: black),
       ),
       body: ListView(
         children: [
@@ -72,9 +73,12 @@ class _PengurusViewState extends State<PengurusView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: pengurus.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(pengurus.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(pengurus.photourl)
+                          as ImageProvider<Object>?
                       : null,
-                  child: pengurus.photourl.isEmpty ? const Icon(Icons.person, size: 40) : null,
+                  child: pengurus.photourl.isEmpty
+                      ? const Icon(Icons.person, size: 40)
+                      : null,
                 ),
                 title: Text(pengurus.name),
                 subtitle: Text(pengurus.email),
@@ -82,7 +86,8 @@ class _PengurusViewState extends State<PengurusView> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DetailPengurusView(member: pengurus),
+                      builder: (context) =>
+                          DetailPengurusView(member: pengurus),
                     ),
                   );
                 },
@@ -105,9 +110,12 @@ class _PengurusViewState extends State<PengurusView> {
                 leading: CircleAvatar(
                   radius: 20,
                   backgroundImage: member.photourl.isNotEmpty
-                      ? CachedNetworkImageProvider(member.photourl) as ImageProvider<Object>?
+                      ? CachedNetworkImageProvider(member.photourl)
+                          as ImageProvider<Object>?
                       : null,
-                  child: member.photourl.isEmpty ? const Icon(Icons.person, size: 40) : null,
+                  child: member.photourl.isEmpty
+                      ? const Icon(Icons.person, size: 40)
+                      : null,
                 ),
                 title: Text(member.name),
                 subtitle: Text(member.email),
@@ -123,10 +131,8 @@ class _PengurusViewState extends State<PengurusView> {
             },
           ),
           const Divider(thickness: 3),
-          
         ],
       ),
-      
     );
   }
 }

@@ -4,7 +4,6 @@ import 'package:mocap/global_widgets/app_bar.dart';
 import 'package:mocap/global_widgets/item_course.dart';
 import '../models/course_model.dart';
 import '../viewmodel/course_viewmodel.dart';
-import 'detailcourse_view.dart';
 
 class CourseView extends StatefulWidget {
   final String courseType;
@@ -75,92 +74,6 @@ class _CourseViewState extends State<CourseView> {
                 )
               ],
             ))
-        // body: ListView(
-        //   children: [
-        //     if (_beginnerCourses.isNotEmpty)
-        //       const ListTile(
-        //         title: Text('Beginner'),
-        //         dense: true,
-        //       ),
-        //     ListView.builder(
-        //       shrinkWrap: true,
-        //       physics: const ClampingScrollPhysics(),
-        //       itemCount: _beginnerCourses.length,
-        //       itemBuilder: (context, index) {
-        //         final course = _beginnerCourses[index];
-        //         return ListTile(
-        //           title: Card(
-        //               elevation: 1,
-        //               child: Padding(
-        //                 padding: const EdgeInsets.all(paddingM),
-        //                 child: Text(course.title),
-        //               )),
-        //           onTap: () {
-        //             Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => DetailCourseView(
-        //                   course: course,
-        //                   courseType: widget.courseType,
-        //                 ),
-        //               ),
-        //             );
-        //           },
-        //         );
-        //       },
-        //     ),
-        //     if (_intermediateCourses.isNotEmpty)
-        //       const ListTile(
-        //         title: Text('Intermediate'),
-        //         dense: true,
-        //       ),
-        //     ListView.builder(
-        //       shrinkWrap: true,
-        //       physics: const ClampingScrollPhysics(),
-        //       itemCount: _intermediateCourses.length,
-        //       itemBuilder: (context, index) {
-        //         final course = _intermediateCourses[index];
-        //         return ListTile(
-        //           title: Text(course.title),
-        //           onTap: () {
-        //             Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => DetailCourseView(
-        //                     course: course, courseType: widget.courseType),
-        //               ),
-        //             );
-        //           },
-        //         );
-        //       },
-        //     ),
-        //     if (_advancedCourses.isNotEmpty)
-        //       const ListTile(
-        //         title: Text('Advanced'),
-        //         dense: true,
-        //       ),
-        //     ListView.builder(
-        //       shrinkWrap: true,
-        //       physics: const ClampingScrollPhysics(),
-        //       itemCount: _advancedCourses.length,
-        //       itemBuilder: (context, index) {
-        //         final course = _advancedCourses[index];
-        //         return ListTile(
-        //           title: Text(course.title),
-        //           onTap: () {
-        //             Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => DetailCourseView(
-        //                     course: course, courseType: widget.courseType),
-        //               ),
-        //             );
-        //           },
-        //         );
-        //       },
-        //     ),
-        //   ],
-        // ),
         );
   }
 }

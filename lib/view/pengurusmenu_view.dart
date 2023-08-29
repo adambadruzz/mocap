@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mocap/constants.dart';
 import 'package:mocap/global_widgets/button.dart';
 import 'package:mocap/view/pengurus_view.dart';
 
@@ -16,10 +17,14 @@ class PengurusMenuView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pengurus Komunitas'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text("Pengurus Komunitas", style: headline2),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: black),
       ),
       body: ListView.separated(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         itemCount: tahunKepengurusan.length,
         separatorBuilder: (context, index) => const SizedBox(height: 16),
         itemBuilder: (context, index) {

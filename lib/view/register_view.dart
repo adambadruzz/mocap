@@ -3,11 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mocap/constants.dart';
 import 'package:mocap/global_widgets/textfield_dec.dart';
-import 'package:mocap/view/login_view.dart';
 import 'package:mocap/viewmodel/register_viewmodel.dart';
-
-import '../services/auth_service.dart';
-import '../viewmodel/login_viewmodel.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
