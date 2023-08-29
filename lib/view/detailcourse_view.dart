@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mocap/constants.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../models/course_model.dart';
@@ -10,7 +11,9 @@ class DetailCourseView extends StatelessWidget {
   final CourseModel course;
   final String courseType;
 
-  const DetailCourseView({Key? key, required this.course, required this.courseType}) : super(key: key);
+  const DetailCourseView(
+      {Key? key, required this.course, required this.courseType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,11 @@ class DetailCourseView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text("Detail Course", style: headline2),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: black),
         actions: [
           FutureBuilder<bool>(
             future: viewModel.isAdmin(),
@@ -42,7 +50,8 @@ class DetailCourseView extends StatelessWidget {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text('Delete Course'),
-                          content: const Text('Are you sure you want to delete this course?'),
+                          content: const Text(
+                              'Are you sure you want to delete this course?'),
                           actions: [
                             TextButton(
                               child: const Text('Cancel'),
@@ -50,9 +59,11 @@ class DetailCourseView extends StatelessWidget {
                                 //create me a navigator push replacement to coursemenu
                                 Navigator.pushReplacement(
                                   context,
-                                  MaterialPageRoute(builder: (context) => CourseMenuView(viewModel: CourseMenuViewModel(context: context))),
+                                  MaterialPageRoute(
+                                      builder: (context) => CourseMenuView(
+                                          viewModel: CourseMenuViewModel(
+                                              context: context))),
                                 );
-                                
                               },
                             ),
                             TextButton(
@@ -84,49 +95,29 @@ class DetailCourseView extends StatelessWidget {
               YoutubePlayer(
                 controller: controller,
                 showVideoProgressIndicator: true,
-                progressIndicatorColor: Colors.amber,
+                progressIndicatorColor: blueFigma,
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Title:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              Text(
-                course.title,
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Tingkatan:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
+              Text(course.title, style: headline2),
+              const SizedBox(height: paddingM),
+              const Text('Tingkatan:', style: headline3),
+              const SizedBox(height: paddingS / 2),
               Text(
                 course.tingkatan,
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
+                style: headline3Light,
               ),
               const SizedBox(height: 16),
               if (course.description != null)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Description:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
+                    const Text('Description:', style: headline3),
+                    const SizedBox(height: paddingS / 2),
+                    Text(
+                      course.description,
+                      style: headline3Light,
+                      textAlign: TextAlign.justify,
                     ),
-                    Text(course.description),
                   ],
                 ),
             ],
